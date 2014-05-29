@@ -1,6 +1,6 @@
 using System;
 
-namespace ConsoleApplication1
+namespace BaloonsPopGame
 {
     static class StringExtensions
     {
@@ -9,9 +9,9 @@ namespace ConsoleApplication1
         //    return string.Format("");
         //}
 
-        public static bool signIfSkilled(this string[,] Chart, int points)
+        public static bool isSkilled(this string[,] Chart, int points)
         {
-            bool Skilled = false;
+            bool skilled = false;
             int worstMoves = 0;
             int worstMovesChartPosition = 0;
             for (int i = 0; i < 5; i++)
@@ -22,11 +22,11 @@ namespace ConsoleApplication1
                     string tempUserName = Console.ReadLine();
                     Chart[i, 0] = points.ToString();
                     Chart[i, 1] = tempUserName;
-                    Skilled = true;
+                    skilled = true;
                     break;
                 }
             }
-            if (Skilled == false) 
+            if (skilled == false) 
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -37,15 +37,15 @@ namespace ConsoleApplication1
                     }
                 }
             }
-            if (points < worstMoves && Skilled == false) 
+            if (points < worstMoves && skilled == false) 
             {
                 Console.WriteLine("Type in your name.");
                 string tempUserName = Console.ReadLine();
                 Chart[worstMovesChartPosition, 0] = points.ToString();
                 Chart[worstMovesChartPosition, 1] = tempUserName;
-                Skilled = true;
+                skilled = true;
             }
-            return Skilled;
+            return skilled;
         }
     }
 }

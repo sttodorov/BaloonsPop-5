@@ -1,21 +1,22 @@
 using System;
 
-namespace Balloons_Pops_game
+namespace BaloonsPopGame
 {
-    public class klasacia : IComparable<klasacia>
+    public class RankList : IComparable<RankList>
     {
         public int Value;
         public string Name;
 
-        public klasacia(int value, string name)
+        public RankList(int value, string name)
         {
             Value = value;
             Name = name;
         }
 
-        public int CompareTo(klasacia other)
+        public int CompareTo(RankList other)
         {
             return Value.CompareTo(other.Value);
         }
+
     }
 }

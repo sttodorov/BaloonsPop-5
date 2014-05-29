@@ -71,8 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="baloni.cs" />
-    <Compile Include="klasacia.cs" />
+    <Compile Include="BaloonsPop.cs" />
+    <Compile Include="RankList.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
