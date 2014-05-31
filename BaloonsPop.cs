@@ -5,7 +5,7 @@ namespace BaloonsPopGame
 {
     public class BaloonsPop
     {
-        static byte[,] GenetateField(byte rows, byte columns)
+        public byte[,] GenetateField(byte rows, byte columns)
         {
             byte[,] generatedField = new byte[rows, columns];
             Random randomGeneretor = new Random();
@@ -21,7 +21,7 @@ namespace BaloonsPopGame
             return generatedField;
         }
 
-        static void CheckForBaloonsLeft(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
+        public void CheckForBaloonsLeft(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
         {
             int searchingInRow = chosenRow;
             int searchinInCol = chosenColumn - 1;
@@ -44,7 +44,7 @@ namespace BaloonsPopGame
 
         }
 
-        static void CheckForBaloonsRight(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
+        public void CheckForBaloonsRight(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
         {
             int searchingInRow = chosenRow;
             int searchinInCol = chosenColumn + 1;
@@ -66,7 +66,7 @@ namespace BaloonsPopGame
             }
 
         }
-        static void CheckForBaloonsUp(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
+        public void CheckForBaloonsUp(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
         {
             int searchingInRow = chosenRow - 1;
             int searchinInCol = chosenColumn;
@@ -89,7 +89,7 @@ namespace BaloonsPopGame
 
         }
 
-        static void CheckForBaloonsDown(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
+        public void CheckForBaloonsDown(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
         {
             int searchingInRow = chosenRow + 1;
             int searchinInCol = chosenColumn;
@@ -111,46 +111,47 @@ namespace BaloonsPopGame
             }
 
         }
-        static bool PopBaloon(byte[,] matrixToModify, int rowAtm, int columnAtm)
+        public bool PopBaloon(byte[,] gameField, int choosenRow, int chosenCol)
         {
-            if (matrixToModify[rowAtm, columnAtm] == 0)
+            if (gameField[choosenRow, chosenCol] == 0)
             {
                 return true;
             }
-            byte searchedTarget = matrixToModify[rowAtm, columnAtm];
-            matrixToModify[rowAtm, columnAtm] = 0;
+            byte searchedTarget = gameField[choosenRow, chosenCol];
+            gameField[choosenRow, chosenCol] = 0;
 
-            CheckForBaloonsLeft(matrixToModify, rowAtm, columnAtm, searchedTarget);
-            CheckForBaloonsRight(matrixToModify, rowAtm, columnAtm, searchedTarget);
-            CheckForBaloonsUp(matrixToModify, rowAtm, columnAtm, searchedTarget);
-            CheckForBaloonsDown(matrixToModify, rowAtm, columnAtm, searchedTarget);
+            CheckForBaloonsLeft(gameField, choosenRow, chosenCol, searchedTarget);
+            CheckForBaloonsRight(gameField, choosenRow, chosenCol, searchedTarget);
+            CheckForBaloonsUp(gameField, choosenRow, chosenCol, searchedTarget);
+            CheckForBaloonsDown(gameField, choosenRow, chosenCol, searchedTarget);
             return false;
         }
 
-        static bool isGameOver(byte[,] matrix)
+        public bool IsGameOver(byte[,] gameField)
         {
             bool isWinner = true;
-            Stack<byte> stek = new Stack<byte>();
-            int columnLenght = matrix.GetLength(0);
-            for (int j = 0; j < matrix.GetLength(1); j++)
+            Stack<byte> remainingBaloons = new Stack<byte>();
+            int rowsCount = gameField.GetLength(0);
+            int columnsCount = gameField.GetLength(1);
+            for (int j = 0; j < columnsCount; j++)
             {
-                for (int i = 0; i < columnLenght; i++)
+                for (int i = 0; i < rowsCount; i++)
                 {
-                    if (matrix[i, j] != 0)
+                    if (gameField[i, j] != 0)
                     {
                         isWinner = false;
-                        stek.Push(matrix[i, j]);
+                       remainingBaloons.Push(gameField[i, j]);
                     }
                 }
-                for (int k = columnLenght - 1; (k >= 0); k--)
+                for (int k = rowsCount - 1; k >= 0; k--)
                 {
                     try
                     {
-                        matrix[k, j] = stek.Pop();
+                        gameField[k, j] = remainingBaloons.Pop();
                     }
                     catch (Exception)
                     {
-                        matrix[k, j] = 0;
+                        gameField[k, j] = 0;
                     }
                 }
             }
@@ -158,30 +159,30 @@ namespace BaloonsPopGame
         }
 
         //TODO: Use HashSet/Dictionary - no need of class RankList
-        static List<RankList> SortChart(string[,] tableToSort)
+        public List<RankList> SortPlayersRanking(string[,] playersRankingToSort)
         {
 
-            List<RankList> klasirane = new List<RankList>();
+            List<RankList> ranking = new List<RankList>();
 
             for (int i = 0; i < 5; ++i)
             {
-                if (tableToSort[i, 0] == null)
+                if (playersRankingToSort[i, 0] == null)
                 {
                     break;
                 }
 
-                klasirane.Add(new RankList(int.Parse(tableToSort[i, 0]), tableToSort[i, 1]));
+                ranking.Add(new RankList(int.Parse(playersRankingToSort[i, 0]), playersRankingToSort[i, 1]));
 
             }
-            klasirane.Sort();
-            return klasirane;
+            ranking.Sort();
+            return ranking;
             
 
 
         }
-        static void PrintChart(string[,] tableToSort)
+        public void PrintRankList(string[,] playersRankingToSort)
         {
-            List<RankList> sortedChart = SortChart(tableToSort);
+            List<RankList> sortedChart = SortPlayersRanking(playersRankingToSort);
             Console.WriteLine("---------TOP FIVE CHART-----------");
             for (int i = 0; i < sortedChart.Count; ++i)
             {
@@ -191,7 +192,7 @@ namespace BaloonsPopGame
             Console.WriteLine("----------------------------------");
         }
 
-        static void DrawGameField(byte[,] gameField)
+        public void DrawGameField(byte[,] gameField)
         {
             Console.Write("    ");
             //Print Column numbers
@@ -232,102 +233,8 @@ namespace BaloonsPopGame
             {
                 Console.Write("-");
             }
+
             Console.WriteLine();
-        }
-
-        static void Main(string[] args)
-        {
-            string[,] topFive = new string[5, 2];
-            byte[,] gameField = GenetateField(5, 10);
-            Console.WriteLine("NEW GAME!\n");            
-            DrawGameField(gameField);
-
-            string userCommand = String.Empty;
-            int movesCount = 0;
-            int commandRow = 0;
-            int commandCol = 0;
-            char separator = ' ';
-            bool isCommandRowCorrect;
-            bool isCommandColCorrect;
-            bool isSeparatorCorrect;
-
-            while (userCommand != "EXIT")
-            {
-                Console.WriteLine("Enter a row and column: ");
-                userCommand = Console.ReadLine();
-                userCommand = userCommand.ToUpper().Trim();
-
-                switch (userCommand)
-                {
-                    case "RESTART":
-                        Console.WriteLine("\nNEW GAME!\n");
-                        gameField = GenetateField(5, 10);
-                        DrawGameField(gameField);
-                        movesCount = 0;
-                        break;
-
-                    case "TOP":
-                        PrintChart(topFive);
-                        break;
-                    
-                    case "EXIT":
-                        break;
-
-                    default:
-                        commandRow = userCommand[0];
-                        separator = userCommand[1];
-                        commandCol = userCommand[2];
-                        isCommandRowCorrect = commandRow >= '0' && commandRow <= '9';
-                        isCommandColCorrect = commandCol >= '0' && commandCol <= '9';
-                        isSeparatorCorrect = separator == ' ' || separator == '.' || separator == ',';
-
-                        if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect && isSeparatorCorrect)
-                        {
-                            commandRow = int.Parse(userCommand[0].ToString());
-                            separator = userCommand[1];
-                            commandCol = int.Parse(userCommand[2].ToString());
-                            if (commandRow > 4)
-                            {
-                                Console.WriteLine("Wrong input ! Try Again ! ");
-                                continue;
-                            }
-
-                            if (PopBaloon(gameField, commandRow, commandCol))
-                            {
-                                Console.WriteLine("cannot pop missing ballon!");
-                                continue;
-                            }
-                            movesCount++;
-                            if (isGameOver(gameField))
-                            {
-                                Console.WriteLine("Gratz ! You completed it in {0} moves.", movesCount);
-                                if (topFive.isSkilled(movesCount))
-                                {
-                                    PrintChart(topFive);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
-                                }
-                                gameField = GenetateField(5, 10);
-                                movesCount = 0;
-                            }
-
-                            Console.WriteLine("\nNEW GAME!\n");                            
-                            DrawGameField(gameField);
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Wrong input ! Try Again ! ");
-                            break;
-                        }
-
-
-                }
-            }
-            Console.WriteLine("Good Bye! ");
-
         }
     }
 }
