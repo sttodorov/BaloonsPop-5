@@ -74,7 +74,7 @@ catch (IndexOutOfRangeException)
 
 
 TODO: 
- -Create Class GameConstants. Place all magic numbers there.
+ -Place all magic numbers in GameConstants static class.
  -Separate BaloonsPop class
  -Inplement Desgin Patterns
  -SOLID principles

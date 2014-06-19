@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaloonsPop.cs" />
+    <Compile Include="GameConstants.cs" />
     <Compile Include="RankList.cs" />
     <Compile Include="StartGame.cs" />
     <Compile Include="StringExtensions.cs" />

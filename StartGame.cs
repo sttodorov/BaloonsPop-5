@@ -11,7 +11,7 @@ namespace BaloonsPopGame
         {
             BaloonsPop game = new BaloonsPop();
             string[,] bestPlayers = new string[5, 2];
-            byte[,] gameField = game.GenetateField(5, 10);
+            byte[,] gameField = game.GenerateField(GameConstants.fieldRows, GameConstants.fieldCols);
             Console.WriteLine("NEW GAME!\n");
             game.DrawGameField(gameField);
 
@@ -34,7 +34,7 @@ namespace BaloonsPopGame
                 {
                     case "RESTART":
                         Console.WriteLine("\nNEW GAME!\n");
-                        gameField = game.GenetateField(5, 10);
+                        gameField = game.GenerateField(GameConstants.fieldRows, GameConstants.fieldRows);
                         game.DrawGameField(gameField);
                         movesCount = 0;
                         break;
@@ -82,7 +82,7 @@ namespace BaloonsPopGame
                                 {
                                     Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
                                 }
-                                gameField = game.GenetateField(5, 10);
+                                gameField = game.GenerateField(5, 10);
                                 movesCount = 0;
                             }
 

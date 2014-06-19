@@ -5,7 +5,7 @@ namespace BaloonsPopGame
 {
     public class BaloonsPop
     {
-        public byte[,] GenetateField(byte rows, byte columns)
+        public byte[,] GenerateField(byte rows, byte columns)
         {
             byte[,] generatedField = new byte[rows, columns];
             Random randomGeneretor = new Random();
