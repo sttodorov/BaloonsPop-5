@@ -9,9 +9,9 @@ namespace BaloonsPopGame
     {
         static void Main(string[] args)
         {
-            BaloonsPop game = new BaloonsPop();
+            /*BaloonsPop game = new BaloonsPop();
             string[,] bestPlayers = new string[5, 2];
-            byte[,] gameField = game.GenerateField(GameConstants.fieldRows, GameConstants.fieldCols);
+            byte[,] gameField = game.GenetateField(5, 10);
             Console.WriteLine("NEW GAME!\n");
             game.DrawGameField(gameField);
 
@@ -34,7 +34,7 @@ namespace BaloonsPopGame
                 {
                     case "RESTART":
                         Console.WriteLine("\nNEW GAME!\n");
-                        gameField = game.GenerateField(GameConstants.fieldRows, GameConstants.fieldRows);
+                        gameField = game.GenetateField(5, 10);
                         game.DrawGameField(gameField);
                         movesCount = 0;
                         break;
@@ -65,7 +65,12 @@ namespace BaloonsPopGame
                                 continue;
                             }
 
-                            if (game.PopBaloon(gameField, commandRow, commandCol))
+                            if (game.IsThereBaloon(gameField, commandRow, commandCol))
+                            {
+                                //int searchedBaloon = gameField[commandRow,commandCol];
+                                game.PopBaloons(gameField, commandRow, commandCol);
+                            }
+                            else
                             {
                                 Console.WriteLine("Cannot pop missing ballon!");
                                 continue;
@@ -82,8 +87,12 @@ namespace BaloonsPopGame
                                 {
                                     Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
                                 }
-                                gameField = game.GenerateField(5, 10);
+                                gameField = game.GenetateField(5, 10);
                                 movesCount = 0;
+                            }
+                            else
+                            {
+                                game.RemovePopedBaloons(gameField);
                             }
 
                             Console.WriteLine();
@@ -95,12 +104,12 @@ namespace BaloonsPopGame
                             Console.WriteLine("Wrong input! Try Again!");
                             break;
                         }
-
-
                 }
             }
             Console.WriteLine("Good Bye! ");
-
+            */
+            BaloonsPop newGame = new BaloonsPop();
         }
     }
+
 }
