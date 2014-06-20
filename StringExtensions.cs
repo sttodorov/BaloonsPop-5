@@ -1,7 +1,7 @@
-using System;
-
 namespace BaloonsPopGame
 {
+    using System;
+
     static class StringExtensions
     {
         //public override string ToString()

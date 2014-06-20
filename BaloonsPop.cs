@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BaloonsPopGame
+﻿namespace BaloonsPopGame
 {
+    using System;
+    using System.Collections.Generic;
+
     public class BaloonsPop
     {
         public byte[,] GenerateField(byte rows, byte columns)

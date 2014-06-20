@@ -1,7 +1,7 @@
-using System;
-
 namespace BaloonsPopGame
 {
+    using System;
+
     public class RankList : IComparable<RankList>
     {
         public int Value;
