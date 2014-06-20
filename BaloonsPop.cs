@@ -1,21 +1,19 @@
-﻿using System;
+﻿/*
+ * using System;
 using System.Collections.Generic;
 
 namespace BaloonsPopGame
 {
     public class BaloonsPop
     {
-        //private GameField gameField1;
-        private Engine engine;
-
+        private GameField gameField1;
+        
 
         public BaloonsPop()
         {
-            //this.gameField1 = new GameField(5, 10);
-            this.engine = new Engine();
-            this.engine.Start();
+            this.gameField1 = new GameField(5, 10);
         }
-        /*
+        
         public byte[,] GenetateField(byte rows, byte columns)
         {
             byte[,] generatedField = new byte[rows, columns];
@@ -247,7 +245,8 @@ namespace BaloonsPopGame
             }
 
             Console.WriteLine();
-        }*/
+        }
     }
 
 }
+*/

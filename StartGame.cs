@@ -108,7 +108,10 @@ namespace BaloonsPopGame
             }
             Console.WriteLine("Good Bye! ");
             */
-            BaloonsPop newGame = new BaloonsPop();
+            Engine startGame = new Engine();
+            Console.WriteLine("NEW GAME!\n");
+            startGame.GameField.Draw();
+            startGame.Start();
         }
     }
 

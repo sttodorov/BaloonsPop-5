@@ -37,6 +37,21 @@ namespace BaloonsPopGame
             }
         }
 
+        public int NumberOfRows
+        {
+            get
+            {
+                return this.GameFieldProp.GetLength(0);
+            }
+        }
+        public int NumberOfColumns
+        {
+            get
+            {
+                return this.GameFieldProp.GetLength(1);
+            }
+        }
+
         public byte GetFieldCell(int row, int col)
         {
             return this.GameFieldProp[row, col];

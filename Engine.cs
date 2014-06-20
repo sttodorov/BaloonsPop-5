@@ -7,22 +7,14 @@ namespace BaloonsPopGame
 {
     class Engine
     {
-        //private string userCommand;
         private List<RankListReccord> topPlayers;
-        private GameField gameField1;
-        //private int movesCount;
+        private GameField gameField;
 
-        /*public string UserCommand
+        public Engine()
         {
-            get
-            {
-                return this.userCommand;
-            }
-            set
-            {
-                this.userCommand=value;
-            }
-        }*/
+            this.GameField = new GameField(5, 10);
+            this.TopPlayers = new List<RankListReccord>();
+        }
 
         public List<RankListReccord> TopPlayers
         {
@@ -36,22 +28,16 @@ namespace BaloonsPopGame
             }
         }
 
-        public GameField GameField1
+        public GameField GameField
         {
             get
             {
-                return this.gameField1;
+                return this.gameField;
             }
             set
             {
-                this.gameField1 = value;
+                this.gameField = value;
             }
-        }
-
-        public Engine()
-        {
-            GameField1 = new GameField(5, 10);
-            this.TopPlayers = new List<RankListReccord>();
         }
 
         public void Start()
@@ -68,7 +54,7 @@ namespace BaloonsPopGame
                     case "RESTART":
                         Console.WriteLine("\nNEW GAME!\n");
 
-                        this.GameField1.Draw();
+                        this.GameField.Draw();
                         //movesCount = 0;
                         break;
 
@@ -82,6 +68,7 @@ namespace BaloonsPopGame
                         break;
 
                     case "EXIT":
+                        Console.WriteLine("Good Bye! ");
                         break;
 
                     default:
@@ -91,9 +78,6 @@ namespace BaloonsPopGame
 
                 }
             }
-            Console.WriteLine("Good Bye! ");
-
-
         }
 
         public void RenderUserCommand(string userCommand)
@@ -117,58 +101,58 @@ namespace BaloonsPopGame
                 commandRow = int.Parse(userCommand[0].ToString());
                 separator = userCommand[1];
                 commandCol = int.Parse(userCommand[2].ToString());
+                
                 if (commandRow > 4)
                 {
                     Console.WriteLine("Wrong input! Try Again! ");
-                    //continue;
                     return;
                 }
-                byte selectedBaloon = this.GameField1.GetFieldCell(commandRow, commandCol);
+
+                byte selectedBaloon = this.GameField.GetFieldCell(commandRow, commandCol);
                 if (selectedBaloon != 0)
                 {
                     //Pop Baloon
-                    this.GameField1.SetFieldCell(commandRow, commandCol, 0);
+                    this.GameField.SetFieldCell(commandRow, commandCol, 0);
 
-                    this.PopBaloonsLeft(commandRow, commandRow, selectedBaloon);
-                    this.PopBaloonsRight(commandRow, commandRow, selectedBaloon);
-                    this.PopBaloonsUp(commandRow, commandRow, selectedBaloon);
-                    this.PopBaloonsDown(commandRow, commandRow, selectedBaloon);
+                    this.PopBaloonsLeft(commandRow, commandCol, selectedBaloon);
+                    this.PopBaloonsRight(commandRow, commandCol, selectedBaloon);
+                    this.PopBaloonsUp(commandRow, commandCol, selectedBaloon);
+                    this.PopBaloonsDown(commandRow, commandCol, selectedBaloon);
+
                     movesCount++;
                 }
                 else
                 {
                     Console.WriteLine("Cannot pop missing ballon!");
-                    //continue;
                     return;
                 }
-                if (this.GameField1.IsFieldEmpty())
+
+                if (this.GameField.IsFieldEmpty())
                 {
                     Console.WriteLine("Congratulations! You completed the game in {0} moves.", movesCount);
                     //if (bestPlayers.isSkilled(movesCount))
-                    // {
-                    this.GameField1.Draw();
+                    //{
+                    this.GameField.Draw();
                     /*}
                     else
                     {
                         Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
                     }*/
-                    this.GameField1 = new GameField(5, 10);
+                    this.GameField = new GameField(5, 10);
                     movesCount = 0;
                 }
                 else
                 {
-                    this.GameField1.RemovePopedBaloons();
+                    this.GameField.RemovePopedBaloons();
                 }
 
                 Console.WriteLine();
-                this.GameField1.Draw();
-                //break;
+                this.GameField.Draw();
                 return;
             }
             else
             {
                 Console.WriteLine("Wrong input! Try Again!");
-                //break;
                 return;
             }
 
@@ -177,68 +161,59 @@ namespace BaloonsPopGame
         {
             int searchingInRow = chosenRow;
             int searchinInCol = chosenColumn - 1;
-            char direcrtion = 'l';
-            this.PopEngine(searchingInRow, searchinInCol, searchedItem, direcrtion);
-
+            if (searchinInCol < 0)
+            {
+                return;
+            }
+            if (this.GameField.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
+            {
+                this.GameField.SetFieldCell(searchingInRow, searchinInCol, 0);
+                PopBaloonsLeft(searchingInRow, searchinInCol, searchedItem);
+            }
         }
 
         public void PopBaloonsRight(int chosenRow, int chosenColumn, byte searchedItem)
         {
             int searchingInRow = chosenRow;
             int searchinInCol = chosenColumn + 1;
-            char direcrtion = 'r';
-            this.PopEngine(searchingInRow, searchinInCol, searchedItem, direcrtion);
+            if (searchinInCol >= this.GameField.NumberOfColumns)
+            {
+                return;
+            }
+            if (this.GameField.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
+            {
+                this.GameField.SetFieldCell(searchingInRow, searchinInCol, 0);
+                PopBaloonsRight(searchingInRow, searchinInCol, searchedItem);
+            }
 
         }
         public void PopBaloonsUp(int chosenRow, int chosenColumn, byte searchedItem)
         {
             int searchingInRow = chosenRow - 1;
             int searchinInCol = chosenColumn;
-            char direcrtion = 'u';
-            this.PopEngine(searchingInRow, searchinInCol, searchedItem, direcrtion);
-
+            if (searchingInRow < 0)
+            {
+                return;
+            }
+            if(this.GameField.GetFieldCell(searchingInRow,searchinInCol)==searchedItem)
+            {
+                this.GameField.SetFieldCell(searchingInRow, searchinInCol, 0);
+                PopBaloonsUp(searchingInRow, searchinInCol, searchedItem);
+            }
         }
 
         public void PopBaloonsDown(int chosenRow, int chosenColumn, byte searchedItem)
         {
             int searchingInRow = chosenRow + 1;
             int searchinInCol = chosenColumn;
-            char direcrtion = 'd';
-            this.PopEngine(searchingInRow, searchinInCol, searchedItem, direcrtion);
-
-        }
-
-        public void PopEngine(int searchingInRow, int searchinInCol, byte searchedItem, char direction)
-        {
-            try
+            if (searchingInRow >= this.GameField.NumberOfRows)
             {
-                if (this.GameField1.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
-                {
-                    this.GameField1.SetFieldCell(searchingInRow, searchinInCol, 0);
-                    switch (direction)
-                    {
-                        case 'l':
-                            this.PopBaloonsLeft(searchingInRow, searchinInCol, searchedItem);
-                            break;
-                        case 'r':
-                            this.PopBaloonsRight(searchingInRow, searchinInCol, searchedItem);
-                            break;
-                        case 'u':
-                            this.PopBaloonsUp(searchingInRow, searchinInCol, searchedItem);
-                            break;
-                        case 'd':
-                            this.PopBaloonsDown(searchingInRow, searchinInCol, searchedItem);
-                            break;
-                        default:
-                            throw new ArgumentException("NOT Valid direction");
-                    }
-                }
                 return;
             }
-            catch (IndexOutOfRangeException)
+            if (this.GameField.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
             {
-                Console.WriteLine("Out of range");
-                return;
+                this.GameField.SetFieldCell(searchingInRow, searchinInCol, 0);
+                PopBaloonsDown(searchingInRow, searchinInCol, searchedItem);
             }
         }
     }
