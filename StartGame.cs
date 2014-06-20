@@ -92,8 +92,6 @@
                             Console.WriteLine("Wrong input! Try Again!");
                             break;
                         }
-
-
                 }
             }
             Console.WriteLine("Good Bye! ");
