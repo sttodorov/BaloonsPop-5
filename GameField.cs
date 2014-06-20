@@ -153,11 +153,19 @@ namespace BaloonsPopGame
                 }
                 for (int k = rowsCount - 1; k >= 0; k--)
                 {
-                    try
+                    /*try
                     {
                         this.SetFieldCell(k, j, remainingBaloons.Pop());
                     }
                     catch (Exception)
+                    {
+                        this.SetFieldCell(k, j, 0);
+                    }*/
+                    if (remainingBaloons.Count != 0)
+                    {
+                        this.SetFieldCell(k, j, remainingBaloons.Pop());
+                    }
+                    else
                     {
                         this.SetFieldCell(k, j, 0);
                     }

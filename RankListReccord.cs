@@ -48,7 +48,7 @@ namespace BaloonsPopGame
 
         public void PrintReccord()
         {
-            Console.WriteLine(".   {0} with {1} moves.", this.Name, this.Value);
+            Console.WriteLine(".    {0} with {1} moves.", this.Name, this.Value);
         }
 
         public int CompareTo(RankListReccord other)

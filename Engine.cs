@@ -43,8 +43,11 @@ namespace BaloonsPopGame
         public void Start()
         {
             string userCommand = String.Empty;
+            int movesCount = 0;
             while (userCommand != "EXIT")
             {
+                this.GameField.Draw();
+
                 Console.WriteLine("Enter a row and column: ");
                 userCommand = Console.ReadLine();
                 userCommand = userCommand.ToUpper().Trim();
@@ -53,110 +56,125 @@ namespace BaloonsPopGame
                 {
                     case "RESTART":
                         Console.WriteLine("\nNEW GAME!\n");
-
-                        this.GameField.Draw();
-                        //movesCount = 0;
+                        this.GameField = new GameField(5, 10);
+                        movesCount = 0;
                         break;
 
                     case "TOP":
                         TopPlayers.Sort();
-                        foreach (var player in TopPlayers)
+                        if (TopPlayers.Count == 0)
                         {
-                            //TODO: PRint indexes of players
-                            player.PrintReccord();
+                            Console.WriteLine("Top Five Chart is Empty");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n---------TOP FIVE CHART-----------\n");
+                            for (int i = 0; i < this.TopPlayers.Count; i++)
+                            {
+                                Console.Write(i+1);
+                                this.TopPlayers[i].PrintReccord();
+                            }
+                            Console.WriteLine("\n----------------------------------\n");
                         }
                         break;
 
                     case "EXIT":
+                        Console.WriteLine("Your moves are: {0}" ,movesCount);
                         Console.WriteLine("Good Bye! ");
                         break;
 
                     default:
-                        RenderUserCommand(userCommand);
+                        try
+                        {
+                            RenderUserCommand(userCommand);
+                        }
+                        catch(ArgumentNullException)
+                        {
+
+                            Console.WriteLine("Cannot pop missing baloon!");
+                            Console.WriteLine();
+                            break;
+                        }
+                        catch(ArgumentException)
+                        {
+                            Console.WriteLine("Wrong input! Try Again! ");
+                            Console.WriteLine();
+                            break;
+                        }
+
+                        if (this.GameField.IsFieldEmpty())
+                        {
+                            this.Win(movesCount);
+                            Console.WriteLine("\nNEW GAME!\n");
+                            movesCount = 0;
+                        }
+                        else
+                        {
+                            this.GameField.RemovePopedBaloons();
+                        }
+                        movesCount++;
                         break;
-
-
                 }
             }
         }
 
         public void RenderUserCommand(string userCommand)
         {
-            int movesCount = 0;
             int commandRow = 0;
             int commandCol = 0;
             char separator = ' ';
+
             bool isCommandRowCorrect;
             bool isCommandColCorrect;
             bool isSeparatorCorrect;
-            commandRow = userCommand[0];
+
+            commandRow = int.Parse(userCommand[0].ToString());
             separator = userCommand[1];
-            commandCol = userCommand[2];
-            isCommandRowCorrect = commandRow >= '0' && commandRow <= '9';
-            isCommandColCorrect = commandCol >= '0' && commandCol <= '9';
+            commandCol = int.Parse(userCommand[2].ToString());
+
+            isCommandRowCorrect = commandRow >= 0 && commandRow <= this.GameField.NumberOfRows;
+            isCommandColCorrect = commandCol >= 0 && commandCol <= this.GameField.NumberOfColumns;
             isSeparatorCorrect = separator == ' ' || separator == '.' || separator == ',';
 
             if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect && isSeparatorCorrect)
-            {
-                commandRow = int.Parse(userCommand[0].ToString());
-                separator = userCommand[1];
-                commandCol = int.Parse(userCommand[2].ToString());
-                
-                if (commandRow > 4)
+            {   
+                if (commandRow >= this.GameField.NumberOfRows || commandCol >= this.GameField.NumberOfColumns)
                 {
-                    Console.WriteLine("Wrong input! Try Again! ");
-                    return;
+                    throw new ArgumentException("This is not valid Input!");
                 }
 
-                byte selectedBaloon = this.GameField.GetFieldCell(commandRow, commandCol);
-                if (selectedBaloon != 0)
-                {
-                    //Pop Baloon
-                    this.GameField.SetFieldCell(commandRow, commandCol, 0);
-
-                    this.PopBaloonsLeft(commandRow, commandCol, selectedBaloon);
-                    this.PopBaloonsRight(commandRow, commandCol, selectedBaloon);
-                    this.PopBaloonsUp(commandRow, commandCol, selectedBaloon);
-                    this.PopBaloonsDown(commandRow, commandCol, selectedBaloon);
-
-                    movesCount++;
-                }
-                else
-                {
-                    Console.WriteLine("Cannot pop missing ballon!");
-                    return;
-                }
-
-                if (this.GameField.IsFieldEmpty())
-                {
-                    Console.WriteLine("Congratulations! You completed the game in {0} moves.", movesCount);
-                    //if (bestPlayers.isSkilled(movesCount))
-                    //{
-                    this.GameField.Draw();
-                    /*}
-                    else
-                    {
-                        Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
-                    }*/
-                    this.GameField = new GameField(5, 10);
-                    movesCount = 0;
-                }
-                else
-                {
-                    this.GameField.RemovePopedBaloons();
-                }
-
-                Console.WriteLine();
-                this.GameField.Draw();
-                return;
+                this.PopEngine(commandRow,commandCol);
             }
             else
             {
-                Console.WriteLine("Wrong input! Try Again!");
-                return;
+                throw new ArgumentException("This is not valid Input!");
             }
 
         }
+
+        public void PopEngine(int commandRow,int commandCol)
+        {
+            byte selectedBaloon = this.GameField.GetFieldCell(commandRow, commandCol);
+            if (selectedBaloon != 0)
+            {
+                //Pop Baloon
+                this.GameField.SetFieldCell(commandRow, commandCol, 0);
+
+                this.PopBaloonsLeft(commandRow, commandCol, selectedBaloon);
+                this.PopBaloonsRight(commandRow, commandCol, selectedBaloon);
+                this.PopBaloonsUp(commandRow, commandCol, selectedBaloon);
+                this.PopBaloonsDown(commandRow, commandCol, selectedBaloon);
+
+            }
+            else
+            {
+                //Console.WriteLine("Cannot pop missing ballon!");
+                //return;
+                throw new ArgumentNullException("Cannot pop missing baloon!");
+            }
+        }
+
         public void PopBaloonsLeft(int chosenRow, int chosenColumn, byte searchedItem)
         {
             int searchingInRow = chosenRow;
@@ -216,8 +234,26 @@ namespace BaloonsPopGame
                 PopBaloonsDown(searchingInRow, searchinInCol, searchedItem);
             }
         }
+
+        public void Win(int movesCount)
+        {
+            Console.WriteLine("Congratulations! You completed the game in {0} moves.", movesCount);
+            int playersCount = this.TopPlayers.Count;
+            this.TopPlayers.Sort();
+            string playerName = String.Empty;
+            if (playersCount < 5 || (playersCount >= 5 && movesCount < this.TopPlayers[4].Value))
+            {
+                Console.WriteLine("You are skillful!");
+                Console.Write("Enter your name: ");
+                playerName = Console.ReadLine();
+                RankListReccord playerRecord = new RankListReccord(movesCount, playerName);
+                this.TopPlayers.Add(playerRecord);
+            }
+            else
+            {
+                Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
+            }
+            this.GameField = new GameField(5, 10);
+        }
     }
 }
-
-
-

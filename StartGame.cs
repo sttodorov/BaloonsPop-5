@@ -110,7 +110,6 @@ namespace BaloonsPopGame
             */
             Engine startGame = new Engine();
             Console.WriteLine("NEW GAME!\n");
-            startGame.GameField.Draw();
             startGame.Start();
         }
     }
