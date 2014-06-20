@@ -75,6 +75,7 @@ catch (IndexOutOfRangeException)
 
 TODO: 
  -Place all magic numbers in GameConstants static class.
+ -catch Exception: when user enters String.Empty command and presses Enter
  -Separate BaloonsPop class
  -Inplement Desgin Patterns
  -SOLID principles
