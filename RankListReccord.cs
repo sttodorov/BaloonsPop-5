@@ -7,15 +7,25 @@ namespace BaloonsPopGame
         private int value;
         private string name;
 
+        public RankListReccord(int value, string name)
+        {
+            this.Value = value;
+            this.Name = name;
+        }
+
         public int Value
         {
             get
             {
                 return this.value;
             }
-            set
+            private set
             {
-                //TODO: VAlidate
+                if (value < 1 || value > (GameConstants.fieldCols*GameConstants.fieldRows)) //We may need to know the size of the matrix
+                {
+                    throw new ArgumentOutOfRangeException("Score value must be between 1 and the total number of squares.");
+                }
+                
                 this.value = value;
             }
         }
@@ -25,17 +35,16 @@ namespace BaloonsPopGame
             {
                 return this.name;
             }
-            set
+            private set
             {
-                //TODO: VAlidate
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("User must enter a name that is at least one printable non-whitespace character.");
+                }
                 this.name = value;
             }
         }
-        public RankListReccord(int value, string name)
-        {
-            Value = value;
-            Name = name;
-        }
+        
 
         public void PrintReccord()
         {

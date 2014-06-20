@@ -75,7 +75,6 @@
     <Compile Include="Engine.cs" />
     <Compile Include="GameConstants.cs" />
     <Compile Include="GameField.cs" />
-    <Compile Include="RankList.cs" />
     <Compile Include="RankListReccord.cs" />
     <Compile Include="StartGame.cs" />
     <Compile Include="StringExtensions.cs" />
