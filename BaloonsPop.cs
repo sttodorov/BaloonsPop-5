@@ -1,11 +1,22 @@
-﻿namespace BaloonsPopGame
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace BaloonsPopGame
+{
     public class BaloonsPop
     {
-        public byte[,] GenerateField(byte rows, byte columns)
+        //private GameField gameField1;
+        private Engine engine;
+
+
+        public BaloonsPop()
+        {
+            //this.gameField1 = new GameField(5, 10);
+            this.engine = new Engine();
+            this.engine.Start();
+        }
+        /*
+        public byte[,] GenetateField(byte rows, byte columns)
         {
             byte[,] generatedField = new byte[rows, columns];
             Random randomGeneretor = new Random();
@@ -21,116 +32,100 @@
             return generatedField;
         }
 
-        public void CheckForBaloonsLeft(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
+        public void PopBaloonsLeft(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
         {
             int searchingInRow = chosenRow;
             int searchinInCol = chosenColumn - 1;
-            try
-            {
-                if (gameField[searchingInRow, searchinInCol] == searchedItem)
-                {
-                    gameField[searchingInRow, searchinInCol] = 0;
-                    CheckForBaloonsLeft(gameField, searchingInRow, searchinInCol, searchedItem);
-                }
-                else
-                {
-                    return;
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-                return;
-            }
+            char direcrtion = 'l';
+            PopEngine(gameField, searchingInRow, searchinInCol, searchedItem, direcrtion);
 
         }
 
-        public void CheckForBaloonsRight(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
+        public void PopBaloonsRight(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
         {
             int searchingInRow = chosenRow;
             int searchinInCol = chosenColumn + 1;
-            try
-            {
-                if (gameField[searchingInRow, searchinInCol] == searchedItem)
-                {
-                    gameField[searchingInRow, searchinInCol] = 0;
-                    CheckForBaloonsRight(gameField, searchingInRow, searchinInCol, searchedItem);
-                }
-                else
-                {
-                    return;
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-                return;
-            }
+            char direcrtion = 'r';
+            PopEngine(gameField, searchingInRow, searchinInCol, searchedItem, direcrtion);
 
         }
-        public void CheckForBaloonsUp(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
+        public void PopBaloonsUp(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
         {
             int searchingInRow = chosenRow - 1;
             int searchinInCol = chosenColumn;
-            try
-            {
-                if (gameField[searchingInRow, searchinInCol] == searchedItem)
-                {
-                    gameField[searchingInRow, searchinInCol] = 0;
-                    CheckForBaloonsUp(gameField, searchingInRow, searchinInCol, searchedItem);
-                }
-                else
-                {
-                    return;
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-                return;
-            }
+            char direcrtion = 'u';
+            PopEngine(gameField, searchingInRow, searchinInCol, searchedItem,direcrtion);
 
         }
 
-        public void CheckForBaloonsDown(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
+        public void PopBaloonsDown(byte[,] gameField, int chosenRow, int chosenColumn, int searchedItem)
         {
             int searchingInRow = chosenRow + 1;
             int searchinInCol = chosenColumn;
+            char direcrtion = 'd';
+            PopEngine(gameField, searchingInRow, searchinInCol, searchedItem, direcrtion);
+
+        }
+
+        public void PopEngine(byte[,] gameField, int searchingInRow, int searchinInCol, int searchedItem, char direction)
+        {
             try
             {
                 if (gameField[searchingInRow, searchinInCol] == searchedItem)
                 {
                     gameField[searchingInRow, searchinInCol] = 0;
-                    CheckForBaloonsDown(gameField, searchingInRow, searchinInCol, searchedItem);
+                    switch (direction)
+                    {
+                        case 'l':
+                            PopBaloonsLeft(gameField, searchingInRow, searchinInCol, searchedItem);
+                            break;
+                        case 'r':
+                            PopBaloonsRight(gameField, searchingInRow, searchinInCol, searchedItem);
+                            break;
+                        case 'u':
+                            PopBaloonsUp(gameField, searchingInRow, searchinInCol, searchedItem);
+                            break;
+                        case 'd':
+                            PopBaloonsDown(gameField, searchingInRow, searchinInCol, searchedItem);
+                            break;
+                        default:
+                            throw new ArgumentException("NOT Valid direction");
+                    }
                 }
-                else
-                {
-                    return;
-                }
+                return;
             }
             catch (IndexOutOfRangeException)
             {
                 return;
             }
-
         }
-        public bool PopBaloon(byte[,] gameField, int choosenRow, int chosenCol)
+        public bool IsThereBaloon(byte[,] gameField, int choosenRow, int chosenCol)
         {
             if (gameField[choosenRow, chosenCol] == 0)
             {
-                return true;
+                return false;
             }
-            byte searchedTarget = gameField[choosenRow, chosenCol];
-            gameField[choosenRow, chosenCol] = 0;
-
-            CheckForBaloonsLeft(gameField, choosenRow, chosenCol, searchedTarget);
-            CheckForBaloonsRight(gameField, choosenRow, chosenCol, searchedTarget);
-            CheckForBaloonsUp(gameField, choosenRow, chosenCol, searchedTarget);
-            CheckForBaloonsDown(gameField, choosenRow, chosenCol, searchedTarget);
-            return false;
+            return true;
         }
+
+        public void PopBaloon(byte[,] gameField, int choosenRow, int chosenCol)
+        {
+            byte searchedItem = gameField[choosenRow, chosenCol];
+            if (gameField[choosenRow, chosenCol] == searchedItem)
+            {
+                gameField[choosenRow, chosenCol] = 0;
+                PopBaloonsDown(gameField,choosenRow,chosenCol,searchedItem);
+                PopBaloonsLeft(gameField, choosenRow, chosenCol, searchedItem);
+                PopBaloonsRight(gameField, choosenRow, chosenCol, searchedItem);
+                PopBaloonsUp(gameField, choosenRow, chosenCol, searchedItem);
+            }
+        }
+
+
 
         public bool IsGameOver(byte[,] gameField)
         {
             bool isWinner = true;
-            Stack<byte> remainingBaloons = new Stack<byte>();
             int rowsCount = gameField.GetLength(0);
             int columnsCount = gameField.GetLength(1);
             for (int j = 0; j < columnsCount; j++)
@@ -140,7 +135,24 @@
                     if (gameField[i, j] != 0)
                     {
                         isWinner = false;
-                       remainingBaloons.Push(gameField[i, j]);
+                    }
+                }
+            }
+            return isWinner;
+        }
+
+        public void RemovePopedBaloons(byte[,] gameField)
+        {
+            Stack<byte> remainingBaloons = new Stack<byte>();
+            int rowsCount = gameField.GetLength(0);
+            int columnsCount = gameField.GetLength(1);
+            for (int j = 0; j < columnsCount; j++)
+            {
+                for (int i = 0; i < rowsCount; i++)
+                {
+                    if (gameField[i, j] != 0)
+                    {
+                        remainingBaloons.Push(gameField[i, j]);
                     }
                 }
                 for (int k = rowsCount - 1; k >= 0; k--)
@@ -155,14 +167,14 @@
                     }
                 }
             }
-            return isWinner;
+
         }
 
-        //TODO: Use HashSet/Dictionary - no need of class RankList
-        public List<RankList> SortPlayersRanking(string[,] playersRankingToSort)
+        //TODO: Use HashSet/Dictionary - no need of class RankListReccord
+        public List<RankListReccord> SortPlayersRanking(string[,] playersRankingToSort)
         {
 
-            List<RankList> ranking = new List<RankList>();
+            List<RankListReccord> ranking = new List<RankListReccord>();
 
             for (int i = 0; i < 5; ++i)
             {
@@ -171,22 +183,22 @@
                     break;
                 }
 
-                ranking.Add(new RankList(int.Parse(playersRankingToSort[i, 0]), playersRankingToSort[i, 1]));
+                ranking.Add(new RankListReccord(int.Parse(playersRankingToSort[i, 0]), playersRankingToSort[i, 1]));
 
             }
             ranking.Sort();
             return ranking;
-            
+
 
 
         }
         public void PrintRankList(string[,] playersRankingToSort)
         {
-            List<RankList> sortedChart = SortPlayersRanking(playersRankingToSort);
+            List<RankListReccord> sortedChart = SortPlayersRanking(playersRankingToSort);
             Console.WriteLine("---------TOP FIVE CHART-----------");
             for (int i = 0; i < sortedChart.Count; ++i)
             {
-                RankList slot = sortedChart[i];
+                RankListReccord slot = sortedChart[i];
                 Console.WriteLine("{2}.   {0} with {1} moves.", slot.Name, slot.Value, i + 1);
             }
             Console.WriteLine("----------------------------------");
@@ -235,6 +247,7 @@
             }
 
             Console.WriteLine();
-        }
+        }*/
     }
+
 }
