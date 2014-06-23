@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BaloonsPopGame
+﻿namespace BaloonsPopGame
 {
-    class StartGame
+    using System;
+    using System.Linq;
+
+    public class StartGame
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             /*BaloonsPop game = new BaloonsPop();
             string[,] bestPlayers = new string[5, 2];
@@ -108,10 +106,10 @@ namespace BaloonsPopGame
             }
             Console.WriteLine("Good Bye! ");
             */
+
             Engine startGame = new Engine();
             Console.WriteLine("NEW GAME!\n");
             startGame.Start();
         }
     }
-
 }

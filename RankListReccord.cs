@@ -1,7 +1,7 @@
-using System;
-
 namespace BaloonsPopGame
 {
+    using System;
+
     public class RankListReccord : IComparable<RankListReccord>
     {
         private int value;
@@ -19,32 +19,36 @@ namespace BaloonsPopGame
             {
                 return this.value;
             }
+
+            ////We may need to know the size of the matrix
             private set
             {
-                if (value < 1 || value > (GameConstants.fieldCols*GameConstants.fieldRows)) //We may need to know the size of the matrix
+                if (value < 1 || value > (GameConstants.FieldCols * GameConstants.FieldRows))
                 {
                     throw new ArgumentOutOfRangeException("Score value must be between 1 and the total number of squares.");
                 }
-                
+
                 this.value = value;
             }
         }
+
         public string Name
         {
             get
             {
                 return this.name;
             }
+
             private set
             {
                 if (String.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("User must enter a name that is at least one printable non-whitespace character.");
                 }
+
                 this.name = value;
             }
         }
-        
 
         public void PrintReccord()
         {
@@ -55,6 +59,5 @@ namespace BaloonsPopGame
         {
             return this.Value.CompareTo(other.Value);
         }
-
     }
 }
