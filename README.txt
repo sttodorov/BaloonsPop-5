@@ -74,11 +74,26 @@ catch (IndexOutOfRangeException)
 
 
 TODO: 
- -Place all magic numbers in GameConstants static class.
- -catch Exception: when user enters String.Empty command and presses Enter
+ -Write Documentation (*write as you go, see https://www.youtube.com/watch?v=kh5lzpOEWRU)
+	- update and git-push the TODO list before starting your turn
+
  -Separate BaloonsPop class
- -Inplement Desgin Patterns
+ - Reduce Engine to under 150 loc
+ - Separate GameLogic and Rendering
+	- use separate class for Console work which only exchanges Input (commands) and Output(fieldState, error messages, top score list)
+ - create separate RankStorage class and a text file which holds the top scores
+	- all requests for load/save scores go through it
+	- ex: printing top scores 
+			command print top in Rendering Class
+			pass to Engine
+			Engine request top score list from RankStorage (should Rendering be able to ask RankStorage directly?)
+			Engine pass top5 to Rendering Class
+			Rendering prints scores in Console
+ - use folders to organize groups of classes
+	- put old files in 'Deprecated' folder
+
+ -Implement Desgin Patterns
  -SOLID principles
  -Create Unit Tests
- -Write Documentation
+ 
 
