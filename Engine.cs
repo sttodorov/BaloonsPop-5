@@ -1,10 +1,11 @@
-﻿namespace BaloonsPopGame
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-    public class Engine
+namespace BaloonsPopGame
+{
+    class Engine
     {
         private List<RankListReccord> topPlayers;
         private GameField gameField;
@@ -21,7 +22,6 @@
             {
                 return this.topPlayers;
             }
-
             set
             {
                 this.topPlayers = value;
@@ -34,7 +34,6 @@
             {
                 return this.gameField;
             }
-
             set
             {
                 this.gameField = value;
@@ -62,8 +61,8 @@
                         break;
 
                     case "TOP":
-                        this.TopPlayers.Sort();
-                        if (this.TopPlayers.Count == 0)
+                        TopPlayers.Sort();
+                        if (TopPlayers.Count == 0)
                         {
                             Console.WriteLine("Top Five Chart is Empty");
                             Console.WriteLine();
@@ -73,30 +72,31 @@
                             Console.WriteLine("\n---------TOP FIVE CHART-----------\n");
                             for (int i = 0; i < this.TopPlayers.Count; i++)
                             {
-                                Console.Write(i + 1);
+                                Console.Write(i+1);
                                 this.TopPlayers[i].PrintReccord();
                             }
-
                             Console.WriteLine("\n----------------------------------\n");
                         }
-
                         break;
+
                     case "EXIT":
-                        Console.WriteLine("Your moves are: {0}", movesCount);
+                        Console.WriteLine("Your moves are: {0}" ,movesCount);
                         Console.WriteLine("Good Bye! ");
                         break;
+
                     default:
                         try
                         {
-                            this.RenderUserCommand(userCommand);
+                            RenderUserCommand(userCommand);
                         }
-                        catch (ArgumentNullException)
+                        catch(InvalidOperationException)
                         {
+
                             Console.WriteLine("Cannot pop missing baloon!");
                             Console.WriteLine();
                             break;
                         }
-                        catch (ArgumentException)
+                        catch(ArgumentException)
                         {
                             Console.WriteLine("Wrong input! Try Again! ");
                             Console.WriteLine();
@@ -113,7 +113,6 @@
                         {
                             this.GameField.RemovePopedBaloons();
                         }
-
                         movesCount++;
                         break;
                 }
@@ -122,6 +121,11 @@
 
         public void RenderUserCommand(string userCommand)
         {
+            if (String.IsNullOrWhiteSpace(userCommand))
+            {
+                throw new ArgumentNullException("Invalid command. Command cannot be empty.");
+            }
+            
             int commandRow = 0;
             int commandCol = 0;
             char separator = ' ';
@@ -139,36 +143,40 @@
             isSeparatorCorrect = separator == ' ' || separator == '.' || separator == ',';
 
             if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect && isSeparatorCorrect)
-            {
+            {   
                 if (commandRow >= this.GameField.NumberOfRows || commandCol >= this.GameField.NumberOfColumns)
                 {
                     throw new ArgumentException("This is not valid Input!");
                 }
 
-                this.PopEngine(commandRow, commandCol);
+                this.PopEngine(commandRow,commandCol);
             }
             else
             {
                 throw new ArgumentException("This is not valid Input!");
             }
+
         }
 
-        public void PopEngine(int commandRow, int commandCol)
+        public void PopEngine(int commandRow,int commandCol)
         {
             byte selectedBaloon = this.GameField.GetFieldCell(commandRow, commandCol);
             if (selectedBaloon != 0)
             {
-                ////Pop Baloon
+                //Pop Baloon
                 this.GameField.SetFieldCell(commandRow, commandCol, 0);
 
                 this.PopBaloonsLeft(commandRow, commandCol, selectedBaloon);
                 this.PopBaloonsRight(commandRow, commandCol, selectedBaloon);
                 this.PopBaloonsUp(commandRow, commandCol, selectedBaloon);
                 this.PopBaloonsDown(commandRow, commandCol, selectedBaloon);
+
             }
             else
             {
-                throw new ArgumentNullException("Cannot pop missing baloon!");
+                //Console.WriteLine("Cannot pop missing ballon!");
+                //return;
+                throw new InvalidOperationException("Cannot pop missing baloon!");
             }
         }
 
@@ -180,11 +188,10 @@
             {
                 return;
             }
-
             if (this.GameField.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
             {
                 this.GameField.SetFieldCell(searchingInRow, searchinInCol, 0);
-                this.PopBaloonsLeft(searchingInRow, searchinInCol, searchedItem);
+                PopBaloonsLeft(searchingInRow, searchinInCol, searchedItem);
             }
         }
 
@@ -196,14 +203,13 @@
             {
                 return;
             }
-
             if (this.GameField.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
             {
                 this.GameField.SetFieldCell(searchingInRow, searchinInCol, 0);
-                this.PopBaloonsRight(searchingInRow, searchinInCol, searchedItem);
+                PopBaloonsRight(searchingInRow, searchinInCol, searchedItem);
             }
-        }
 
+        }
         public void PopBaloonsUp(int chosenRow, int chosenColumn, byte searchedItem)
         {
             int searchingInRow = chosenRow - 1;
@@ -212,11 +218,10 @@
             {
                 return;
             }
-
-            if (this.GameField.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
+            if(this.GameField.GetFieldCell(searchingInRow,searchinInCol)==searchedItem)
             {
                 this.GameField.SetFieldCell(searchingInRow, searchinInCol, 0);
-                this.PopBaloonsUp(searchingInRow, searchinInCol, searchedItem);
+                PopBaloonsUp(searchingInRow, searchinInCol, searchedItem);
             }
         }
 
@@ -228,11 +233,10 @@
             {
                 return;
             }
-
             if (this.GameField.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
             {
                 this.GameField.SetFieldCell(searchingInRow, searchinInCol, 0);
-                this.PopBaloonsDown(searchingInRow, searchinInCol, searchedItem);
+                PopBaloonsDown(searchingInRow, searchinInCol, searchedItem);
             }
         }
 
@@ -254,7 +258,6 @@
             {
                 Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
             }
-
             this.GameField = new GameField(5, 10);
         }
     }
