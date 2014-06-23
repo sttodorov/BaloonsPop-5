@@ -89,7 +89,7 @@ namespace BaloonsPopGame
                         {
                             RenderUserCommand(userCommand);
                         }
-                        catch(ArgumentNullException)
+                        catch(InvalidOperationException)
                         {
 
                             Console.WriteLine("Cannot pop missing baloon!");
@@ -121,6 +121,11 @@ namespace BaloonsPopGame
 
         public void RenderUserCommand(string userCommand)
         {
+            if (String.IsNullOrWhiteSpace(userCommand))
+            {
+                throw new ArgumentNullException("Invalid command. Command cannot be empty.");
+            }
+            
             int commandRow = 0;
             int commandCol = 0;
             char separator = ' ';
@@ -171,7 +176,7 @@ namespace BaloonsPopGame
             {
                 //Console.WriteLine("Cannot pop missing ballon!");
                 //return;
-                throw new ArgumentNullException("Cannot pop missing baloon!");
+                throw new InvalidOperationException("Cannot pop missing baloon!");
             }
         }
 
