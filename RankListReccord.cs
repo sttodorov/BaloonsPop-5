@@ -4,6 +4,7 @@ namespace BaloonsPopGame
 
     public class RankListReccord : IComparable<RankListReccord>
     {
+        //private readonly DateTime
         private int value;
         private string name;
 
@@ -20,7 +21,6 @@ namespace BaloonsPopGame
                 return this.value;
             }
 
-            ////We may need to know the size of the matrix
             private set
             {
                 if (value < 1 || value > (GameConstants.FieldCols * GameConstants.FieldRows))

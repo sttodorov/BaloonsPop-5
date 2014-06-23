@@ -6,25 +6,22 @@ using System.Linq;
 
     public class Engine
     {
-        private List<RankListReccord> topPlayers; //change to private RankListStorage rankList;
+        private IFrontEnd frontEnd;
+        private IStorage rankList;
         private GameField gameField;
 
-        public Engine()
+        public Engine(IFrontEnd frontEnd, IStorage reccordStorage)
         {
+            this.rankList = reccordStorage;
+            this.frontEnd = frontEnd;
             this.GameField = new GameField(5, 10);
-            this.TopPlayers = new List<RankListReccord>(); // initialize rankList with @"..\..\ranklist.txt"
         }
 
         public List<RankListReccord> TopPlayers
         {
             get
             {
-                return this.topPlayers;
-            }
-
-            set
-            {
-                this.topPlayers = value;
+                return this.rankList.TopFive;
             }
         }
 
@@ -120,43 +117,7 @@ using System.Linq;
             }
         }
 
-        public void RenderUserCommand(string userCommand)
-        {
-            if (String.IsNullOrWhiteSpace(userCommand))
-            {
-                throw new ArgumentNullException("Invalid command. Command cannot be empty.");
-            }
-            
-            int commandRow = 0;
-            int commandCol = 0;
-            char separator = ' ';
-
-            bool isCommandRowCorrect;
-            bool isCommandColCorrect;
-            bool isSeparatorCorrect;
-
-            commandRow = int.Parse(userCommand[0].ToString());
-            separator = userCommand[1];
-            commandCol = int.Parse(userCommand[2].ToString());
-
-            isCommandRowCorrect = commandRow >= 0 && commandRow <= this.GameField.NumberOfRows;
-            isCommandColCorrect = commandCol >= 0 && commandCol <= this.GameField.NumberOfColumns;
-            isSeparatorCorrect = separator == ' ' || separator == '.' || separator == ',';
-
-            if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect && isSeparatorCorrect)
-            {   
-                if (commandRow >= this.GameField.NumberOfRows || commandCol >= this.GameField.NumberOfColumns)
-                {
-                    throw new ArgumentException("This is not valid Input!");
-                }
-
-                this.PopEngine(commandRow, commandCol);
-            }
-            else
-            {
-                throw new ArgumentException("This is not valid Input!");
-            }
-        }
+        
 
         public void PopEngine(int commandRow, int commandCol)
         {

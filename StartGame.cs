@@ -7,12 +7,15 @@
     {
         public static void Main(string[] args)
         {
-            Engine startGame = new Engine();
+            //IFrontEnd frontEnd = new ConsoleRenderer()
+            var storageFilePath = @"..\..\ranklist.txt";
+            var rankListStorage = new RankListStorage(storageFilePath);
+            var engine = new Engine();
 
             //for test only, delete when RenderingClass is created
             Console.WriteLine("NEW GAME!\n");
 
-            startGame.Start();
+            engine.Start();
         }
     }
 }

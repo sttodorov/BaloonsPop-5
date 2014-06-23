@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BaloonsPopGame
 {
-    public class RankListStorage
+    public class RankListStorage : IStorage
     {
         private List<RankListReccord> currentRankList;
 
@@ -22,29 +22,35 @@ namespace BaloonsPopGame
             get
             {
                 var topFive = new List<RankListReccord>(5);
-                
+
+                throw new NotImplementedException("TopFive getter");
                 //clone (not by ref) first 5 elements from currentRankList
                 
                 return topFive;
             }
         }
 
-        public void AddReccord(RankListReccord reccord)
+        public void AddReccord(RankListReccord reccord, bool backUpCurrentList)
         {
+            throw new NotImplementedException();
             //validate Reccord has credible score value
 
             //insert at sorted position
+
+            //if(backUpCurrentList) SaveReccordsToFile()
         }
 
         private void LoadReccordsFromFile() 
         {
+            throw new NotImplementedException();
             //streamreader
             
-            //while(...) {AddReccord}
+            //while(...) {AddReccord(reccord, false)}
         }
 
         private void SaveReccordsToFile() 
         {
+            throw new NotImplementedException();
             //streamwriter
             //foreach currentRankList {reccord.ToString()}
             //overwrite (not append)

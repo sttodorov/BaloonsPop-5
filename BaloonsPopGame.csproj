@@ -71,6 +71,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleUI.cs" />
+    <Compile Include="IFrontEnd.cs" />
+    <Compile Include="IStorage.cs" />
     <Compile Include="RankListStorage.cs" />
     <Compile Include="_deprecated\BaloonsPop.cs" />
     <Compile Include="Engine.cs" />

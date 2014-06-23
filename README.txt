@@ -79,20 +79,20 @@ moved BaloonsPop, StringExtensions and old StartGame code to _deprecated
 TODO: 
  -Write Documentation (*write as you go, see https://www.youtube.com/watch?v=kh5lzpOEWRU)
 	- update and git-push the TODO list before starting your turn
-
+ 
+ - Add DateTime field to RankList Reccord to make reccords more unique
  - Reduce Engine to under 150 loc
  - Separate GameLogic and Rendering
 	- use separate class for Console work which only exchanges Input (commands) and Output(fieldState, error messages, top score list)
- - create separate RankStorage class and a text file which holds the top scores
+ - Create separate RankStorage class and a text file which holds the top scores
 	- all requests for load/save scores go through it
 	- ex: printing top scores 
 			command print top in Rendering Class
 			pass to Engine
 			Engine request top score list from RankStorage (should Rendering be able to ask RankStorage directly?)
-			Engine pass top5 to Rendering Class
-			Rendering prints scores in Console
- - use folders to organize groups of classes
-	- put old files in 'Deprecated' folder
+			Engine pass top5 as a List<RankListReccord> to Rendering Class
+			Rendering prints scores in Console by either ToString-ing each reccord or some other format by ToString-ing name, value, etc.
+ - Use folders to organize groups of classes
 
  -Implement Desgin Patterns
  -SOLID principles
