@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BaloonsPopGame
 {
-    class GameField
+    public class GameField
     {
         private byte[,] gameField;
 
@@ -22,7 +22,6 @@ namespace BaloonsPopGame
                 }
             }
             this.GameFieldProp = buildedField;
-            //this.Draw();
         }
 
         public byte[,] GameFieldProp
@@ -56,6 +55,7 @@ namespace BaloonsPopGame
         {
             return this.GameFieldProp[row, col];
         }
+
         public void SetFieldCell(int row, int col, byte number)
         {
             byte[,] editedField = new byte[this.GameFieldProp.GetLength(0), this.GameFieldProp.GetLength(1)];
@@ -137,6 +137,7 @@ namespace BaloonsPopGame
 
             Console.WriteLine();
         }
+
         public void RemovePopedBaloons()
         {
             Stack<byte> remainingBaloons = new Stack<byte>();

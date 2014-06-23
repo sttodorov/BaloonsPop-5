@@ -50,7 +50,7 @@ namespace BaloonsPopGame
             }
         }
 
-        public void PrintReccord()
+        public void PrintReccord() //replace with override ToString()
         {
             Console.WriteLine(".    {0} with {1} moves.", this.Name, this.Value);
         }

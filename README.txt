@@ -71,13 +71,15 @@ catch (IndexOutOfRangeException)
                 return;
             }
 
+---------------------------
+made GameField class public
+moved BaloonsPop, StringExtensions and old StartGame code to _deprecated
 
 
 TODO: 
  -Write Documentation (*write as you go, see https://www.youtube.com/watch?v=kh5lzpOEWRU)
 	- update and git-push the TODO list before starting your turn
 
- -Separate BaloonsPop class
  - Reduce Engine to under 150 loc
  - Separate GameLogic and Rendering
 	- use separate class for Console work which only exchanges Input (commands) and Output(fieldState, error messages, top score list)

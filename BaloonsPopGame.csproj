@@ -71,13 +71,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaloonsPop.cs" />
+    <Compile Include="RankListStorage.cs" />
+    <Compile Include="_deprecated\BaloonsPop.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GameConstants.cs" />
     <Compile Include="GameField.cs" />
     <Compile Include="RankListReccord.cs" />
     <Compile Include="StartGame.cs" />
-    <Compile Include="StringExtensions.cs" />
+    <Compile Include="_deprecated\StringExtensions.cs" />
+    <Compile Include="_deprecated\OldStartGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -109,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.txt" />
+    <Content Include="ranklist.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

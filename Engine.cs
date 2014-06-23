@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 
     public class Engine
-{
-        private List<RankListReccord> topPlayers;
+    {
+        private List<RankListReccord> topPlayers; //change to private RankListStorage rankList;
         private GameField gameField;
 
         public Engine()
         {
             this.GameField = new GameField(5, 10);
-            this.TopPlayers = new List<RankListReccord>();
+            this.TopPlayers = new List<RankListReccord>(); // initialize rankList with @"..\..\ranklist.txt"
         }
 
         public List<RankListReccord> TopPlayers
@@ -163,7 +163,7 @@ using System.Linq;
             byte selectedBaloon = this.GameField.GetFieldCell(commandRow, commandCol);
             if (selectedBaloon != 0)
             {
-                ////Pop Baloon
+                //Pop Baloon
                 this.GameField.SetFieldCell(commandRow, commandCol, 0);
 
                 this.PopBaloonsLeft(commandRow, commandCol, selectedBaloon);
