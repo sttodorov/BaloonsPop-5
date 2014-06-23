@@ -79,19 +79,24 @@ moved BaloonsPop, StringExtensions and old StartGame code to _deprecated
 TODO: 
  -Write Documentation (*write as you go, see https://www.youtube.com/watch?v=kh5lzpOEWRU)
 	- update and git-push the TODO list before starting your turn
+	- you can document changes as you go in the commit message
  
- - Add DateTime field to RankList Reccord to make reccords more unique
- - Reduce Engine to under 150 loc
+ - Create Command and Prompts enum for communication b/w Engine and IFrontEnd
+	- Replace userCommand string with a Command enum
+	- Replace Console.WriteLine messages with Prompts enum (which get rendered as Console.WriteLine messages in ConsoleUI)
+ - (optional)Add DateTime field to RankList Reccord to make reccords more unique
+ - Reduce Engine to under 150 loc (currently at 227 loc)
  - Separate GameLogic and Rendering
 	- use separate class for Console work which only exchanges Input (commands) and Output(fieldState, error messages, top score list)
  - Create separate RankStorage class and a text file which holds the top scores
 	- all requests for load/save scores go through it
 	- ex: printing top scores 
-			command print top in Rendering Class
-			pass to Engine
-			Engine request top score list from RankStorage (should Rendering be able to ask RankStorage directly?)
-			Engine pass top5 as a List<RankListReccord> to Rendering Class
+			command print TopFive in Rendering Class
+			pass Commands.PrintTopFive to Engine
+			Engine request top scorer list from IStorage
+			Engine pass TopFive as a List<RankListReccord> to IFrontEnd
 			Rendering prints scores in Console by either ToString-ing each reccord or some other format by ToString-ing name, value, etc.
+			(in this implementation IFrontEnd has to know what a RankListReccord is, alternative implementations might use formatted strings)
  - Use folders to organize groups of classes
 
  -Implement Desgin Patterns
