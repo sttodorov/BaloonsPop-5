@@ -17,11 +17,9 @@
 
 TODO: 
 
- 
- - [optional] Add DateTime field to RankList Reccord to make reccords more unique
- - Implement PopEngine.cs methods
  - Implement ReccordStorage methods
- - Implement passing of field clone using GameField.Clone(destinationReference) method
+ - Implement Indexer[] in GameField instead of Get/SetFieldCell (http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx)
+ - Implement GameField.Clone(destinationReference) method
 	- frontEnd calls GameField.Clone(dRef), where dRef is the byte[,] field/property 
 	in the frontEnd instance that should be overwritten by GameField, this way a new
 	object is not created everytime Clone() is called, but frontEnd CANNOT change the 
@@ -29,9 +27,10 @@ TODO:
  
  
  - Use folders to organize groups of classes
- - Implement Indexer in GameField instead of SetFieldCell
  - Implement methods that throw NotImplementedEception
- 
+ - [optional] Merge PopEngine directional methods into one method with help of PoppingDirection enum
+ - [optional] Add DateTime field to RankList Reccord to make reccords more unique
+
 
  -Implement Desgin Patterns
  -SOLID principles

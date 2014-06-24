@@ -78,6 +78,7 @@
     <Compile Include="IFrontEnd.cs" />
     <Compile Include="IStorage.cs" />
     <Compile Include="PopEngine.cs" />
+    <Compile Include="PoppingDirection.cs" />
     <Compile Include="RankListStorage.cs" />
     <Compile Include="_deprecated\BaloonsPop.cs" />
     <Compile Include="Engine.cs" />
