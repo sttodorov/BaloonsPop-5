@@ -1,76 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BaloonsPopGame
+﻿namespace BaloonsPopGame
 {
+    using System;
+    using System.Text;
+
     public static class FieldToString
     {
         public static string Draw(byte[,] fieldClone)
         {
-            var builder = new StringBuilder();
-
-            //throw new NotImplementedException("Replace Console #operations with StringBuilder operations");
-
-            #region operations
-            builder.Append("    ");
-            //Print Column numbers
-            for (byte column = 0; column < fieldClone.GetLength(1); column++)
+            if (fieldClone == null)
             {
-                ////Console.Write("{0} ", column);
+                throw new ArgumentNullException("Field cannot be null!");
+            }
+
+            var builder = new StringBuilder();
+            int fieldColumns = fieldClone.GetLength(1);
+
+            builder.Append("    ");
+            // Print Column numbers
+            for (byte column = 0; column < fieldColumns; column++)
+            {
                 builder.Append(string.Format("{0} ", column));
             }
 
-            ////Console.Write("\n   ");
-            builder.Append("\n   ");
+            builder.AppendLine();
+            builder.Append("   ");
 
-            //Print dashes between baloons and indexes
-            ////for (byte column = 0; column < fieldClone.GetLength(1) * 2 + 1; column++)
-            ////{
-            ////    Console.Write("-");
-            ////}
-            builder.Append(new string('-', fieldClone.GetLength(1) * 2 + 1));
-
-            ////Console.WriteLine();
+            // Print dashes between baloons and indexes
+            builder.Append(new string('-', fieldColumns * 2 + 1));
             builder.AppendLine();
 
-            for (byte i = 0; i < fieldClone.GetLength(0); i++)
+            for (byte row = 0; row < fieldClone.GetLength(0); row++)
             {
-                //Print number of Row
-                ////Console.Write(i + " | ");
-                builder.Append(i + " | ");
-                for (byte j = 0; j < fieldClone.GetLength(1); j++)
+                // Print number of Row
+                builder.Append(row + " | ");
+                for (byte col = 0; col < fieldColumns; col++)
                 {
-                    if (fieldClone[i, j] == 0)
+                    if (fieldClone[row, col] == 0)
                     {
-                        ////Console.Write("  ");
                         builder.Append("  ");
                         continue;
                     }
 
-                    ////Console.Write(fieldClone[i, j] + " ");
-                    builder.Append(fieldClone[i, j] + " ");
+                    builder.Append(fieldClone[row, col] + " ");
                 }
-                ////Console.Write("| ");
-                ////Console.WriteLine();
-                builder.Append("| ");
+
+                builder.Append("|");
                 builder.AppendLine();
             }
 
-            ////Console.Write("   ");
             builder.Append("   ");
-            ////for (byte column = 0; column < fieldClone.GetLength(1) * 2 + 1; column++)
-            ////{
-            ////    Console.Write("-");
-            ////}
-            builder.Append(new string('-', fieldClone.GetLength(1) * 2 + 1));
-
-
-            ////Console.WriteLine();
+            builder.Append(new string('-', fieldColumns * 2 + 1));
             builder.AppendLine();
-
-            #endregion
 
             var fieldString = builder.ToString();
             return fieldString;
