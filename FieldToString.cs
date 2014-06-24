@@ -11,50 +11,65 @@ namespace BaloonsPopGame
         {
             var builder = new StringBuilder();
 
-            throw new NotImplementedException("Replace Console #operations with StringBuilder operations");
+            //throw new NotImplementedException("Replace Console #operations with StringBuilder operations");
 
             #region operations
-            Console.Write("    ");
+            builder.Append("    ");
             //Print Column numbers
-            for (byte column = 0; column < fieldClone.GetLongLength(1); column++)
+            for (byte column = 0; column < fieldClone.GetLength(1); column++)
             {
-                Console.Write("{0} ", column);
+                ////Console.Write("{0} ", column);
+                builder.Append(string.Format("{0} ", column));
             }
 
-            Console.Write("\n   ");
+            ////Console.Write("\n   ");
+            builder.Append("\n   ");
+
             //Print dashes between baloons and indexes
-            for (byte column = 0; column < fieldClone.GetLongLength(1) * 2 + 1; column++)
-            {
-                Console.Write("-");
-            }
+            ////for (byte column = 0; column < fieldClone.GetLength(1) * 2 + 1; column++)
+            ////{
+            ////    Console.Write("-");
+            ////}
+            builder.Append(new string('-', fieldClone.GetLength(1) * 2 + 1));
 
-            Console.WriteLine();
+            ////Console.WriteLine();
+            builder.AppendLine();
 
-            for (byte i = 0; i < fieldClone.GetLongLength(0); i++)
+            for (byte i = 0; i < fieldClone.GetLength(0); i++)
             {
                 //Print number of Row
-                Console.Write(i + " | ");
-                for (byte j = 0; j < fieldClone.GetLongLength(1); j++)
+                ////Console.Write(i + " | ");
+                builder.Append(i + " | ");
+                for (byte j = 0; j < fieldClone.GetLength(1); j++)
                 {
                     if (fieldClone[i, j] == 0)
                     {
-                        Console.Write("  ");
+                        ////Console.Write("  ");
+                        builder.Append("  ");
                         continue;
                     }
 
-                    Console.Write(fieldClone[i, j] + " ");
+                    ////Console.Write(fieldClone[i, j] + " ");
+                    builder.Append(fieldClone[i, j] + " ");
                 }
-                Console.Write("| ");
-                Console.WriteLine();
+                ////Console.Write("| ");
+                ////Console.WriteLine();
+                builder.Append("| ");
+                builder.AppendLine();
             }
 
-            Console.Write("   ");
-            for (byte column = 0; column < fieldClone.GetLongLength(1) * 2 + 1; column++)
-            {
-                Console.Write("-");
-            }
+            ////Console.Write("   ");
+            builder.Append("   ");
+            ////for (byte column = 0; column < fieldClone.GetLength(1) * 2 + 1; column++)
+            ////{
+            ////    Console.Write("-");
+            ////}
+            builder.Append(new string('-', fieldClone.GetLength(1) * 2 + 1));
 
-            Console.WriteLine();
+
+            ////Console.WriteLine();
+            builder.AppendLine();
+
             #endregion
 
             var fieldString = builder.ToString();
