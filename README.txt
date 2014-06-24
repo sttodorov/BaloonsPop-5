@@ -2,7 +2,9 @@
  -Write Documentation (*write as you go, see https://www.youtube.com/watch?v=kh5lzpOEWRU)
 	- update and git-push the TODO list before starting your turn (this is only while we're coding one person at a time)
 	- Document changes as you go in the COMMIT MESSAGE
-		- first line is like title or main-change, then blank line, then list of changes (add, move, reformat, etc.)
+		- first line is like Title or main-change [50 characters MAX!], 
+			then _blank_ line, 
+			then list of changes (add, move, reformat, etc.) if necessary, as in the example below
 				ex:
 				-------------------------COMMIT------------------------------------------	
 				Refactor Engine to use Command objects
@@ -17,9 +19,7 @@ TODO:
 
  
  - [optional] Add DateTime field to RankList Reccord to make reccords more unique
- - Reduce Engine to under 150 loc (currently at 185 loc)
-	- Extract Popping logic into new static class PopEngine - see comments in Engine.PopEngine(object data) method
- - Implement FieldToString.Draw()
+ - Implement PopEngine.cs methods
  - Implement ReccordStorage methods
  - Implement passing of field clone using GameField.Clone(destinationReference) method
 	- frontEnd calls GameField.Clone(dRef), where dRef is the byte[,] field/property 
