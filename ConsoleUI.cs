@@ -7,9 +7,60 @@ namespace BaloonsPopGame
 {
     public class ConsoleUI : IFrontEnd
     {
-        public string UserCommandAsScript()
+        public Command UserCommand()
         {
             throw new NotImplementedException();
+
+            string userCommand = String.Empty;
+            
+            Console.WriteLine("Enter a row and column: ");
+            userCommand = Console.ReadLine();
+            userCommand = userCommand.ToUpper().Trim();
+
+            switch (userCommand)
+            {
+                case "RESTART":
+                    Console.WriteLine("\nNEW GAME!\n");
+                    return new Command(CommandType.Restart);
+                case "TOP":
+                    return new Command(CommandType.TopFive);
+                case "EXIT":
+                    //Console.WriteLine("Your moves are: {0}", movesCount); //how do we request this from the Engine
+                    Console.WriteLine("Good Bye! ");
+                    return new Command(CommandType.Exit);
+                default:
+                    try
+                    {
+                        this.RenderUserCommand(userCommand);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        Console.WriteLine("Cannot pop missing baloon!");
+                        Console.WriteLine();
+                        break;
+                    }
+                    catch (ArgumentException)
+                    {
+                        Console.WriteLine("Wrong input! Try Again! ");
+                        Console.WriteLine();
+                        break;
+                    }
+
+                    if (this.GameField.IsFieldEmpty())
+                    {
+                        this.Win(movesCount);
+                        Console.WriteLine("\nNEW GAME!\n");
+                        movesCount = 0;
+                    }
+                    else
+                    {
+                        this.GameField.RemovePopedBaloons();
+                    }
+
+                    movesCount++;
+                    break;
+            }
+            
         }
 
         public void RenderGameFieldState()
@@ -22,7 +73,28 @@ namespace BaloonsPopGame
             throw new NotImplementedException();
         }
 
-        public void RenderUserCoordCommand(string userCommand)
+        public void PrintTopFive(List<RankListReccord> topFive)
+        {
+            if (topFive.Count == 0)
+            {
+                Console.WriteLine("Top Five Chart is Empty");
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("\n---------TOP FIVE CHART-----------\n");
+                for (int i = 0; i < topFive.Count; i++)
+                {
+                    Console.Write(i + 1);
+                    topFive[i].PrintReccord();
+                }
+
+                Console.WriteLine("\n----------------------------------\n");
+            }
+
+        }
+
+        public Command RenderUserCommand(string userCommand)
         {
             if (String.IsNullOrWhiteSpace(userCommand))
             {
@@ -52,7 +124,9 @@ namespace BaloonsPopGame
                     throw new ArgumentException("This is not valid Input!");
                 }
 
-                this.PopEngine(commandRow, commandCol); //change this to send (commandRow, commandCol) via UserCommandAsScript()
+                int[] coordinates = {commandRow, commandCol};
+
+                return new Command(CommandType.PopBalloonAt, coordinates);
             }
             else
             {
@@ -60,44 +134,44 @@ namespace BaloonsPopGame
             }
         }
 
-        public void Draw()
+        public void Draw(byte[,] fieldClone)
         {
             Console.Write("    ");
             //Print Column numbers
-            for (byte column = 0; column < this.GameFieldProp.GetLongLength(1); column++)
+            for (byte column = 0; column < fieldClone.GetLongLength(1); column++)
             {
                 Console.Write("{0} ", column);
             }
 
             Console.Write("\n   ");
             //Print dashes between baloons and indexes
-            for (byte column = 0; column < this.GameFieldProp.GetLongLength(1) * 2 + 1; column++)
+            for (byte column = 0; column < fieldClone.GetLongLength(1) * 2 + 1; column++)
             {
                 Console.Write("-");
             }
 
             Console.WriteLine();
 
-            for (byte i = 0; i < this.GameFieldProp.GetLongLength(0); i++)
+            for (byte i = 0; i < fieldClone.GetLongLength(0); i++)
             {
                 //Print number of Row
                 Console.Write(i + " | ");
-                for (byte j = 0; j < this.GameFieldProp.GetLongLength(1); j++)
+                for (byte j = 0; j < fieldClone.GetLongLength(1); j++)
                 {
-                    if (this.GameFieldProp[i, j] == 0)
+                    if (fieldClone[i, j] == 0)
                     {
                         Console.Write("  ");
                         continue;
                     }
 
-                    Console.Write(this.GameFieldProp[i, j] + " ");
+                    Console.Write(fieldClone[i, j] + " ");
                 }
                 Console.Write("| ");
                 Console.WriteLine();
             }
 
             Console.Write("   ");
-            for (byte column = 0; column < this.GameFieldProp.GetLongLength(1) * 2 + 1; column++)
+            for (byte column = 0; column < fieldClone.GetLongLength(1) * 2 + 1; column++)
             {
                 Console.Write("-");
             }

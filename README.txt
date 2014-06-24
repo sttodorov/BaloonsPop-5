@@ -81,10 +81,9 @@ TODO:
 	- update and git-push the TODO list before starting your turn
 	- you can document changes as you go in the commit message
  
- - Create Command and Prompts enum for communication b/w Engine and IFrontEnd
-	- Replace userCommand string with a Command enum
-	- Replace Console.WriteLine messages with Prompts enum (which get rendered as Console.WriteLine messages in ConsoleUI)
- - (optional)Add DateTime field to RankList Reccord to make reccords more unique
+ - Create CommandType enum for communication from IFrontEnd to Engine (i.e. IFrontEnd methods return Command object which has CommandType enum field)
+	- Replace userCommand string with a Command object
+ - [optional] Add DateTime field to RankList Reccord to make reccords more unique
  - Reduce Engine to under 150 loc (currently at 227 loc)
  - Separate GameLogic and Rendering
 	- use separate class for Console work which only exchanges Input (commands) and Output(fieldState, error messages, top score list)
@@ -98,6 +97,7 @@ TODO:
 			Rendering prints scores in Console by either ToString-ing each reccord or some other format by ToString-ing name, value, etc.
 			(in this implementation IFrontEnd has to know what a RankListReccord is, alternative implementations might use formatted strings)
  - Use folders to organize groups of classes
+ - Implement Indexer in GameField instead of SetFieldCell
 
  -Implement Desgin Patterns
  -SOLID principles

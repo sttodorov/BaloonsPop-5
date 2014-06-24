@@ -71,6 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="CommandType.cs" />
     <Compile Include="ConsoleUI.cs" />
     <Compile Include="IFrontEnd.cs" />
     <Compile Include="IStorage.cs" />

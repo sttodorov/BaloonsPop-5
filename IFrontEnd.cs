@@ -5,13 +5,13 @@ using System.Text;
 
 namespace BaloonsPopGame
 {
-    interface IFrontEnd
+    public interface IFrontEnd
     {
-        public string UserCommandAsScript();
+        Command UserCommand();
 
-        public void RenderGameFieldState();
+        void RenderGameFieldState();
 
-        public void PublishPrompt();
+        void PublishPrompt(); //Not entirely sure we need this
 
 
     }

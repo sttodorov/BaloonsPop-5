@@ -21,7 +21,7 @@ using System.Linq;
         {
             get
             {
-                return this.rankList.TopFive;
+                return this.rankList.TopFive();
             }
         }
 
@@ -40,7 +40,7 @@ using System.Linq;
 
         public void Start()
         {
-            string userCommand = String.Empty;
+            Command userCommand = frontEnd.UserCommand();
             int movesCount = 0;
             while (userCommand != "EXIT")
             {

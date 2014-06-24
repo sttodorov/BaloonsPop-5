@@ -17,17 +17,15 @@ namespace BaloonsPopGame
 
         public string FilePath { get; private set; }
 
-        public List<RankListReccord> TopFive
+        public List<RankListReccord> TopFive()
         {
-            get
-            {
-                var topFive = new List<RankListReccord>(5);
+            var topFive = new List<RankListReccord>(5);
 
-                throw new NotImplementedException("TopFive getter");
-                //clone (not by ref) first 5 elements from currentRankList
+            throw new NotImplementedException("TopFive getter");
+            //clone (not by ref) first 5 elements from currentRankList
                 
-                return topFive;
-            }
+            return topFive;
+            
         }
 
         public void AddReccord(RankListReccord reccord, bool backUpCurrentList)

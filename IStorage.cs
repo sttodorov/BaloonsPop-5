@@ -5,10 +5,10 @@ using System.Text;
 
 namespace BaloonsPopGame
 {
-    interface IStorage
+    public interface IStorage
     {
-        public List<RankListReccord> TopFive;
+        List<RankListReccord> TopFive();
         
-        public void AddReccord(RankListReccord reccord, bool backUpCurrentList);
+        void AddReccord(RankListReccord reccord, bool backUpCurrentList);
     }
 }
