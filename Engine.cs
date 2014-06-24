@@ -17,7 +17,7 @@ using System.Linq;
             this.GameField = new GameField(5, 10);
         }
 
-        public List<RankListReccord> TopPlayers
+        public List<RankListReccord> TopFive
         {
             get
             {
@@ -25,7 +25,10 @@ using System.Linq;
             }
         }
 
-        public GameField GameField
+        public GameField GameField // * here we have a private field being passed by reference via Property with public get/set
+                                   // * we should to talk about how much to encapsulate the gameField field
+                                   //since eventually we're going to be passing it to the PopEngine static class
+                                   // * also, should validation be done here (in Engine.GameField) or in the GameField class's indexer?
         {
             get
             {
@@ -42,85 +45,60 @@ using System.Linq;
         {
             Command userCommand = frontEnd.UserCommand();
             int movesCount = 0;
-            while (userCommand != "EXIT")
+            while (userCommand.Type != CommandType.Exit)
             {
-                this.GameField.Draw();
+                this.frontEnd.RenderGameFieldState(this.GameField);
 
-                Console.WriteLine("Enter a row and column: ");
-                userCommand = Console.ReadLine();
-                userCommand = userCommand.ToUpper().Trim();
-
-                switch (userCommand)
+                if (this.GameField.IsFieldEmpty())
                 {
-                    case "RESTART":
-                        Console.WriteLine("\nNEW GAME!\n");
+                    var newReccord = frontEnd.Win(movesCount);
+                    this.rankList.AddReccord(newReccord, true);
+                    //this.RestartGame() <-may want to have this as an event to avoid repeating code
+                    movesCount = 0;
+                }
+
+                userCommand = frontEnd.UserCommand();
+
+                switch (userCommand.Type)
+                {
+                    case CommandType.Restart:
                         this.GameField = new GameField(5, 10);
                         movesCount = 0;
                         break;
 
-                    case "TOP":
-                        this.TopPlayers.Sort();
-                        if (this.TopPlayers.Count == 0)
-                        {
-                            Console.WriteLine("Top Five Chart is Empty");
-                            Console.WriteLine();
-                        }
-                        else
-                        {
-                            Console.WriteLine("\n---------TOP FIVE CHART-----------\n");
-                            for (int i = 0; i < this.TopPlayers.Count; i++)
-                            {
-                                Console.Write(i + 1);
-                                this.TopPlayers[i].PrintReccord();
-                            }
-
-                            Console.WriteLine("\n----------------------------------\n");
-                        }
-
+                    case CommandType.TopFive:
+                        var topFive = rankList.TopFive();
+                        frontEnd.PrintTopFive(topFive);
                         break;
-                    case "EXIT":
-                        Console.WriteLine("Your moves are: {0}", movesCount);
-                        Console.WriteLine("Good Bye! ");
+                    
+                    case CommandType.Exit:
+                        //frontEnd.Exit()?? or just close, and instead have Exit events attached to the frontEnd?
                         break;
+
+                    case CommandType.PopBalloonAt:
+                        this.PopEngine(userCommand.Data);
+                        break;
+
                     default:
-                        try
-                        {
-                            this.RenderUserCommand(userCommand);
-                        }
-                        catch(InvalidOperationException)
-                        {
-                            Console.WriteLine("Cannot pop missing baloon!");
-                            Console.WriteLine();
-                            break;
-                        }
-                        catch (ArgumentException)
-                        {
-                            Console.WriteLine("Wrong input! Try Again! ");
-                            Console.WriteLine();
-                            break;
-                        }
-
-                        if (this.GameField.IsFieldEmpty())
-                        {
-                            this.Win(movesCount);
-                            Console.WriteLine("\nNEW GAME!\n");
-                            movesCount = 0;
-                        }
-                        else
-                        {
-                            this.GameField.RemovePopedBaloons();
-                        }
-
-                        movesCount++;
-                        break;
+                        throw new InvalidOperationException("User command is of invalid type.");
                 }
             }
         }
 
         
 
-        public void PopEngine(int commandRow, int commandCol)
+        public void PopEngine(object data)
         {
+            int[] coordinates = data as int[];
+            
+            //Validate data as coordinates
+            //Pass game field and coord to static Class PopEngine
+            //*static class PopEngine will contain all the popping logic and recursive calls
+            //its PopAt(row, col) method will modify the game field
+
+            var commandRow = coordinates[0];
+            var commandCol = coordinates[1];
+            
             byte selectedBaloon = this.GameField.GetFieldCell(commandRow, commandCol);
             if (selectedBaloon != 0)
             {
@@ -202,26 +180,6 @@ using System.Linq;
             }
         }
 
-        public void Win(int movesCount)
-        {
-            Console.WriteLine("Congratulations! You completed the game in {0} moves.", movesCount);
-            int playersCount = this.TopPlayers.Count;
-            this.TopPlayers.Sort();
-            string playerName = String.Empty;
-            if (playersCount < 5 || (playersCount >= 5 && movesCount < this.TopPlayers[4].Value))
-            {
-                Console.WriteLine("You are skillful!");
-                Console.Write("Enter your name: ");
-                playerName = Console.ReadLine();
-                RankListReccord playerRecord = new RankListReccord(movesCount, playerName);
-                this.TopPlayers.Add(playerRecord);
-            }
-            else
-            {
-                Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
-            }
-
-            this.GameField = new GameField(5, 10);
-        }
+        
     }
 }

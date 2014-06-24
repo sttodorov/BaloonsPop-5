@@ -7,6 +7,10 @@ namespace BaloonsPopGame
 {
     public class ConsoleUI : IFrontEnd
     {
+        /// <summary>
+        /// Prompts the user for a text command and parses it.
+        /// </summary>
+        /// <returns>Command object with optional data, depending on the command's Type</returns>
         public Command UserCommand()
         {
             throw new NotImplementedException();
@@ -29,7 +33,8 @@ namespace BaloonsPopGame
                     Console.WriteLine("Good Bye! ");
                     return new Command(CommandType.Exit);
                 default:
-                    try
+                    //move this try-catch control logic to inside RenderUserCommand and implement with if-statements, not exceptions
+                    try 
                     {
                         this.RenderUserCommand(userCommand);
                     }
@@ -45,32 +50,50 @@ namespace BaloonsPopGame
                         Console.WriteLine();
                         break;
                     }
-
-                    if (this.GameField.IsFieldEmpty())
-                    {
-                        this.Win(movesCount);
-                        Console.WriteLine("\nNEW GAME!\n");
-                        movesCount = 0;
-                    }
-                    else
-                    {
-                        this.GameField.RemovePopedBaloons();
-                    }
-
-                    movesCount++;
-                    break;
             }
             
         }
 
-        public void RenderGameFieldState()
+        public void RenderGameFieldState(GameField field)
         {
-            throw new NotImplementedException();
+            var fieldClone = field.Clone();
+            this.Draw(fieldClone);
         }
 
         public void PublishPrompt()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Informs the user that the game is over.
+        /// Prompts the user to enter their name
+        /// </summary>
+        /// <param name="movesCount"></param>
+        /// <returns>A RankListReccord with the user's name and movesCount</returns>
+        public RankListReccord Win(int movesCount) 
+        {
+            //current implementation creates a reccord for each finished game
+            //originally only 5 reccords were kept and a reccord was created only when the new score would be in the top 5
+            
+            Console.WriteLine("Congratulations! You completed the game in {0} moves.", movesCount);
+            string playerName = String.Empty;
+
+            Console.WriteLine("You are skillful!");
+            Console.Write("Enter your name: ");
+            playerName = Console.ReadLine();
+
+            var newReccord = new RankListReccord(movesCount, playerName);
+            return newReccord;
+
+            //in order to check this(below) we need to call PrintTopFive or recieve the topFive as a parameter
+            
+            //if(outOfTopFive) 
+            //{
+            //    Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
+            //}
+
+
         }
 
         public void PrintTopFive(List<RankListReccord> topFive)
