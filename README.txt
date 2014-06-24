@@ -19,6 +19,13 @@ TODO:
  - [optional] Add DateTime field to RankList Reccord to make reccords more unique
  - Reduce Engine to under 150 loc (currently at 185 loc)
 	- Extract Popping logic into new static class PopEngine - see comments in Engine.PopEngine(object data) method
+ - Implement FieldToString.Draw()
+ - Implement ReccordStorage methods
+ - Implement passing of field clone using GameField.Clone(destinationReference) method
+	- frontEnd calls GameField.Clone(dRef), where dRef is the byte[,] field/property 
+	in the frontEnd instance that should be overwritten by GameField, this way a new
+	object is not created everytime Clone() is called, but frontEnd CANNOT change the 
+	GameField w/o going through Engine by using commands
  
  
  - Use folders to organize groups of classes

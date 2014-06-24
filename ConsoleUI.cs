@@ -57,7 +57,8 @@ namespace BaloonsPopGame
         public void RenderGameFieldState(GameField field)
         {
             var fieldClone = field.Clone();
-            this.Draw(fieldClone);
+            var fieldAsString = FieldToString.Draw(fieldClone);
+            Console.WriteLine(fieldAsString);
         }
 
         public void PublishPrompt()
@@ -155,51 +156,6 @@ namespace BaloonsPopGame
             {
                 throw new ArgumentException("This is not valid Input!");
             }
-        }
-
-        public void Draw(byte[,] fieldClone)
-        {
-            Console.Write("    ");
-            //Print Column numbers
-            for (byte column = 0; column < fieldClone.GetLongLength(1); column++)
-            {
-                Console.Write("{0} ", column);
-            }
-
-            Console.Write("\n   ");
-            //Print dashes between baloons and indexes
-            for (byte column = 0; column < fieldClone.GetLongLength(1) * 2 + 1; column++)
-            {
-                Console.Write("-");
-            }
-
-            Console.WriteLine();
-
-            for (byte i = 0; i < fieldClone.GetLongLength(0); i++)
-            {
-                //Print number of Row
-                Console.Write(i + " | ");
-                for (byte j = 0; j < fieldClone.GetLongLength(1); j++)
-                {
-                    if (fieldClone[i, j] == 0)
-                    {
-                        Console.Write("  ");
-                        continue;
-                    }
-
-                    Console.Write(fieldClone[i, j] + " ");
-                }
-                Console.Write("| ");
-                Console.WriteLine();
-            }
-
-            Console.Write("   ");
-            for (byte column = 0; column < fieldClone.GetLongLength(1) * 2 + 1; column++)
-            {
-                Console.Write("-");
-            }
-
-            Console.WriteLine();
         }
     }
 }
