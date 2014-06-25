@@ -45,11 +45,10 @@ namespace BaloonsPopGame
             
         }
 
-        public void RenderGameFieldState(GameField field) //this has to change! we CANNOT pass the whole field 
+        public void RenderGameFieldState(byte[,] fieldClone) //this has to change! we CANNOT pass the whole field 
                                                           //to frontEnd and then clone it for no reason
                                                           //we have to pass the clone, and call GameField.Clone() in Engine
         {
-            var fieldClone = field.Clone();
             var fieldAsString = FieldToString.Draw(fieldClone);
             Console.WriteLine(fieldAsString);
         }

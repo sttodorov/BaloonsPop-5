@@ -9,7 +9,7 @@ namespace BaloonsPopGame
     {
         Command UserCommand();
 
-        void RenderGameFieldState(GameField field);
+        void RenderGameFieldState(byte[,] fieldClone);
 
         void PublishPrompt(); //Not entirely sure we need this
 

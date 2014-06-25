@@ -47,7 +47,8 @@ using System.Linq;
             int movesCount = 0;
             while (userCommand.Type != CommandType.Exit)
             {
-                this.frontEnd.RenderGameFieldState(this.GameField);
+                
+                this.frontEnd.RenderGameFieldState(this.GameField.Clone());
 
                 if (this.GameField.IsFieldEmpty())
                 {
