@@ -12,8 +12,8 @@
             var rankListStorage = new RankListStorage(storageFilePath);
             var engine = new Engine(frontEnd, rankListStorage);
 
-            //for test only, delete when RenderingClass is created
-            Console.WriteLine("NEW GAME!\n");
+            
+            Console.WriteLine("WELCOME TO BALLOONS-POP VERSION 5.0!\n");
 
             engine.Start();
         }

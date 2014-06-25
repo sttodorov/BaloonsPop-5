@@ -43,11 +43,11 @@ using System.Linq;
 
         public void Start()
         {
-            Command userCommand = frontEnd.UserCommand();
+            Command userCommand = new Command(CommandType.Restart);
             int movesCount = 0;
             while (userCommand.Type != CommandType.Exit)
             {
-                
+
                 this.frontEnd.RenderGameFieldState(this.GameField.Clone());
 
                 if (this.GameField.IsFieldEmpty())
