@@ -132,8 +132,8 @@ namespace BaloonsPopGame
 
         public byte[,] Clone()
         {
-            throw new NotImplementedException();
-            //return a new byte matrix with the same values as this.gameField
+            var clone = (byte[,])GameFieldProp.Clone();
+            return clone;
         }
     }
 }
