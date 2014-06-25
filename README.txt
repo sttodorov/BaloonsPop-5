@@ -17,14 +17,8 @@
 
 TODO: 
 
- - ConsoleUI.RenderGameFieldState() --see comments
- - Implement Indexer[] in GameField instead of Get/SetFieldCell (http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx)
- - Implement GameField.Clone(destinationReference) method
-	- frontEnd calls GameField.Clone(dRef), where dRef is the byte[,] field/property 
-	in the frontEnd instance that should be overwritten by GameField, this way a new
-	object is not created everytime Clone() is called, but frontEnd CANNOT change the 
-	GameField w/o going through Engine by using commands
- -Create Unit Tests
+ - Test - Find Bugs - Fix/Document ->Document bugs in the ISSUES section in GitHub
+ - Create Unit Tests
  
  - Use folders to organize groups of classes
  - Implement methods that throw NotImplementedEception
