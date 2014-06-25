@@ -80,6 +80,7 @@ using System.Linq;
                         try
                         {
                             this.PopAt(userCommand.Data);
+                            this.GameField.RemovePopedBaloons();
                         }
                         catch (InvalidOperationException)
                         {
