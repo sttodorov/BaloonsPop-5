@@ -11,7 +11,7 @@ namespace BaloonsPopGame
 
         void RenderGameFieldState(byte[,] fieldClone);
 
-        void PublishPrompt(); //Not entirely sure we need this
+        void PublishPrompt();
 
         void PrintTopFive(List<RankListReccord> topFive);
 
