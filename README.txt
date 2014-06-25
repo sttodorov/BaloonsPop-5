@@ -18,7 +18,6 @@
 TODO: 
 
  - Implement ReccordStorage methods
- - Implement Indexer[] in GameField instead of Get/SetFieldCell (http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx)
  - Implement GameField.Clone(destinationReference) method
 	- frontEnd calls GameField.Clone(dRef), where dRef is the byte[,] field/property 
 	in the frontEnd instance that should be overwritten by GameField, this way a new

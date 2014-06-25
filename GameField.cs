@@ -51,30 +51,18 @@ namespace BaloonsPopGame
             }
         }
 
-        public byte GetFieldCell(int row, int col)
+        public byte this[int row,int col]
         {
-            return this.GameFieldProp[row, col];
+            get
+            {
+                return this.gameField[row, col];
+            }
+            set
+            {
+                this.gameField[row, col] = value;
+            }
         }
 
-        public void SetFieldCell(int row, int col, byte number)
-        {
-            byte[,] editedField = new byte[this.GameFieldProp.GetLength(0), this.GameFieldProp.GetLength(1)];
-            for (int i = 0; i < this.GameFieldProp.GetLength(0); i++)
-            {
-                for (int j = 0; j < this.GameFieldProp.GetLength(1); j++)
-                {
-                    if (row == i && col == j)
-                    {
-                        editedField[i, j] = number;
-                    }
-                    else
-                    {
-                        editedField[i, j] = this.GameFieldProp[i, j];
-                    }
-                }
-            }
-            this.GameFieldProp = editedField;
-        }
         public bool IsFieldEmpty()
         {
             bool isWinner = true;
@@ -111,7 +99,7 @@ namespace BaloonsPopGame
                 {
                     /*try
                     {
-                        this.SetFieldCell(k, j, remainingBaloons.Pop());
+                        this[k, j] = remainingBaloons.Pop();
                     }
                     catch (Exception)
                     {
@@ -119,11 +107,11 @@ namespace BaloonsPopGame
                     }*/
                     if (remainingBaloons.Count != 0)
                     {
-                        this.SetFieldCell(k, j, remainingBaloons.Pop());
+                        this[k, j]= remainingBaloons.Pop();
                     }
                     else
                     {
-                        this.SetFieldCell(k, j, 0);
+                       this[k, j] = 0;
                     }
                 }
             }

@@ -9,11 +9,11 @@ namespace BaloonsPopGame
     {
         public static void PopAt(int commandRow, int commandCol, GameField field)
         {
-            byte selectedBaloon = field.GetFieldCell(commandRow, commandCol);
+            byte selectedBaloon = field[commandRow, commandCol];
             if (selectedBaloon != 0)
             {
                 //Pop Baloon
-                field.SetFieldCell(commandRow, commandCol, 0);
+                field[commandRow, commandCol] = 0;
 
                 PopBaloonsLeft(commandRow, commandCol, selectedBaloon, field);
                 PopBaloonsRight(commandRow, commandCol, selectedBaloon, field);
@@ -35,9 +35,9 @@ namespace BaloonsPopGame
                 return;
             }
 
-            if (field.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
+            if (field[searchingInRow, searchinInCol] == searchedItem)
             {
-                field.SetFieldCell(searchingInRow, searchinInCol, 0);
+                field[searchingInRow, searchinInCol] = 0;
                 PopBaloonsLeft(searchingInRow, searchinInCol, searchedItem, field);
             }
         }
@@ -51,9 +51,9 @@ namespace BaloonsPopGame
                 return;
             }
 
-            if (field.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
+            if (field[searchingInRow, searchinInCol] == searchedItem)
             {
-                field.SetFieldCell(searchingInRow, searchinInCol, 0);
+                field[searchingInRow, searchinInCol] = 0;
                 PopBaloonsRight(searchingInRow, searchinInCol, searchedItem, field);
             }
         }
@@ -67,9 +67,9 @@ namespace BaloonsPopGame
                 return;
             }
 
-            if (field.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
+            if (field[searchingInRow, searchinInCol] == searchedItem)
             {
-                field.SetFieldCell(searchingInRow, searchinInCol, 0);
+                field[searchingInRow, searchinInCol] = 0;
                 PopBaloonsUp(searchingInRow, searchinInCol, searchedItem, field);
             }
         }
@@ -83,9 +83,9 @@ namespace BaloonsPopGame
                 return;
             }
 
-            if (field.GetFieldCell(searchingInRow, searchinInCol) == searchedItem)
+            if (field[searchingInRow, searchinInCol] == searchedItem)
             {
-                field.SetFieldCell(searchingInRow, searchinInCol, 0);
+                field[searchingInRow, searchinInCol] = 0;
                 PopBaloonsDown(searchingInRow, searchinInCol, searchedItem, field);
             }
         }
