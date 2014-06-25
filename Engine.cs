@@ -55,6 +55,7 @@ using System.Linq;
                     var newReccord = frontEnd.Win(movesCount);
                     this.rankList.AddReccord(newReccord, true);
                     //this.RestartGame() <-may want to have this as an event to avoid repeating code
+                    this.GameField = new GameField(5, 10);
                     movesCount = 0;
                 }
 
