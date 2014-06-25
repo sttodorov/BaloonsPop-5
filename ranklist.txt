@@ -1,4 +1,4 @@
 ﻿someplayer with very long name, 15
-otherplayer, 78
-super cheater, -9
+otherplayer, 18
+super cheater, 9
 slowguy, 1000
