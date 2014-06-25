@@ -24,7 +24,7 @@ TODO:
 	in the frontEnd instance that should be overwritten by GameField, this way a new
 	object is not created everytime Clone() is called, but frontEnd CANNOT change the 
 	GameField w/o going through Engine by using commands
- 
+ -Create Unit Tests
  
  - Use folders to organize groups of classes
  - Implement methods that throw NotImplementedEception
@@ -32,8 +32,13 @@ TODO:
  - [optional] Add DateTime field to RankList Reccord to make reccords more unique
 
 
- -Implement Desgin Patterns
+ -Implement Desgin Patterns (at least 2 of each structural, behavior, creational)
+	Behavior:
+		- use Template Method pattern for PopBallons - Direction (Left,Right etc.)
+		- use Iterator pattern for accessing elements in game-field
+		- [done] use Command pattern for passing instructions from frontEnd to Engine 
+		
  -SOLID principles
- -Create Unit Tests
+ 
  
 
