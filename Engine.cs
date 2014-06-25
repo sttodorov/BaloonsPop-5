@@ -76,7 +76,16 @@ using System.Linq;
                         break;
 
                     case CommandType.PopBalloonAt:
-                        this.PopAt(userCommand.Data);
+                        try
+                        {
+                            this.PopAt(userCommand.Data);
+                        }
+                        catch (InvalidOperationException)
+                        {
+
+                            frontEnd.PublishPrompt();
+                        }
+                        
                         break;
 
                     default:
@@ -97,7 +106,16 @@ using System.Linq;
             var commandRow = coordinates[0];
             var commandCol = coordinates[1];
 
-            PopEngine.PopAt(commandRow, commandCol, this.GameField); // !---here we pass the whole gameField to popEngine---!
+            try
+            {
+                PopEngine.PopAt(commandRow, commandCol, this.GameField); // !---here we pass the whole gameField to popEngine---!
+            }
+            catch (InvalidOperationException)
+            {
+
+                throw new InvalidOperationException("Attempted to pop missing balloon.");
+            }
+            
         }
     }
 }

@@ -13,8 +13,6 @@ namespace BaloonsPopGame
         /// <returns>Command object with optional data, depending on the command's Type</returns>
         public Command UserCommand()
         {
-            throw new NotImplementedException();
-
             string userCommand = String.Empty;
             
             Console.WriteLine("Enter a row and column: ");
@@ -33,28 +31,23 @@ namespace BaloonsPopGame
                     Console.WriteLine("Good Bye! ");
                     return new Command(CommandType.Exit);
                 default:
-                    //move this try-catch control logic to inside RenderUserCommand and implement with if-statements, not exceptions
                     try 
                     {
-                        this.RenderUserCommand(userCommand);
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        Console.WriteLine("Cannot pop missing baloon!");
-                        Console.WriteLine();
-                        break;
+                        return this.RenderUserCommand(userCommand);
                     }
                     catch (ArgumentException)
                     {
                         Console.WriteLine("Wrong input! Try Again! ");
                         Console.WriteLine();
-                        break;
+                        return this.UserCommand();
                     }
             }
             
         }
 
-        public void RenderGameFieldState(GameField field)
+        public void RenderGameFieldState(GameField field) //this has to change! we CANNOT pass the whole field 
+                                                          //to frontEnd and then clone it for no reason
+                                                          //we have to pass the clone, and call GameField.Clone() in Engine
         {
             var fieldClone = field.Clone();
             var fieldAsString = FieldToString.Draw(fieldClone);
@@ -63,7 +56,10 @@ namespace BaloonsPopGame
 
         public void PublishPrompt()
         {
-            throw new NotImplementedException();
+            //currently we only have one prompt, if more are needed we will create a PromptType enum
+            //set it as a parameter and have a switch-statement in here
+            Console.WriteLine("Cannot pop missing baloon!");
+            Console.WriteLine();
         }
 
         /// <summary>
