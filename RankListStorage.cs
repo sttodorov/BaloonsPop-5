@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace BaloonsPopGame
 {
@@ -20,35 +20,77 @@ namespace BaloonsPopGame
         public List<RankListReccord> TopFive()
         {
             var topFive = new List<RankListReccord>(5);
-
-            throw new NotImplementedException("TopFive getter");
-            //clone (not by ref) first 5 elements from currentRankList
-                
-            return topFive;
+            if (currentRankList != null)
+            {
+                currentRankList.Sort((x, y) => x.Value.CompareTo(y.Value));
+            }            
             
+            for (int i = 0 , j = 1; i < 5; i++, j++)
+            {
+                if (j> currentRankList.Count)
+                {
+                    break;
+                }
+                topFive.Add(new RankListReccord(currentRankList[i].Value,currentRankList[i].Name));
+            }
+ 
+            return topFive;            
         }
 
         public void AddReccord(RankListReccord reccord, bool backUpCurrentList)
         {
-            throw new NotImplementedException();
-            //validate Reccord has credible score value
+            // TODO validate Reccord has credible score value
+            if (currentRankList != null)
+            {
+               currentRankList.Sort((x, y) => x.Value.CompareTo(y.Value));
 
-            //insert at sorted position
-
-            //if(backUpCurrentList) SaveReccordsToFile()
+               for (int i = 0; i < currentRankList.Count; i++)
+               {
+                   if (currentRankList[i].Value <= reccord.Value && reccord.Value < currentRankList[i + 1].Value)
+                   {
+                       currentRankList.Insert(i + 1, reccord);
+                       break;
+                   }
+               }
+            }
+            else
+            {
+                currentRankList.Add(reccord);
+            }
+           
+            if (backUpCurrentList) 
+            {
+                SaveReccordsToFile();
+            }
         }
 
         private void LoadReccordsFromFile() 
         {
-            throw new NotImplementedException();
-            //streamreader
-            
-            //while(...) {AddReccord(reccord, false)}
+            StreamReader reader = new StreamReader(FilePath);
+            string[] currentLine;
+
+            using (reader)
+            {
+                while ((currentLine = reader.ReadLine().Split(',')) != null)
+                {                    
+                    AddReccord(new RankListReccord(int.Parse(currentLine[1].Trim()), currentLine[0].Trim()), false);
+                }
+                
+            }
         }
 
         private void SaveReccordsToFile() 
         {
-            throw new NotImplementedException();
+            StreamWriter writer = new StreamWriter(FilePath,false);
+
+            using (writer)
+            {
+                for (int i = 0; i < currentRankList.Count; i++)
+                {
+                    writer.WriteLine(currentRankList[i].ToString());
+                }
+            }
+
             //streamwriter
             //foreach currentRankList {reccord.ToString()}
             //overwrite (not append)

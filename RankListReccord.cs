@@ -55,6 +55,12 @@ namespace BaloonsPopGame
             Console.WriteLine(".    {0} with {1} moves.", this.Name, this.Value);
         }
 
+        public override string ToString()
+        {
+            string recordAsString =string.Format("{0}, {1}",this.name,this.value);
+            return recordAsString;
+        }
+
         public int CompareTo(RankListReccord other)
         {
             return this.Value.CompareTo(other.Value);
