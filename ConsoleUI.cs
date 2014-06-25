@@ -76,10 +76,11 @@ namespace BaloonsPopGame
             Console.WriteLine("You are skillful!");
             Console.Write("Enter your name: ");
             playerName = Console.ReadLine();
-
+            Console.WriteLine("\nNEW GAME!\n");
             var newReccord = new RankListReccord(movesCount, playerName);
             return newReccord;
 
+            
             //in order to check this(below) we need to call PrintTopFive or recieve the topFive as a parameter
             
             //if(outOfTopFive) 
