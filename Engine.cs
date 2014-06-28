@@ -14,10 +14,10 @@ using System.Linq;
         {
             this.rankList = reccordStorage;
             this.frontEnd = frontEnd;
-            this.GameField = new GameField(5, 10);
+            this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
         }
 
-        public List<RankListReccord> TopFive
+        public List<RankListRecord> TopFive
         {
             get
             {
@@ -52,10 +52,10 @@ using System.Linq;
 
                 if (this.GameField.IsFieldEmpty())
                 {
-                    var newReccord = frontEnd.Win(movesCount);
+                    var newReccord = this.frontEnd.Win(movesCount);
                     this.rankList.AddReccord(newReccord, true);
                     //this.RestartGame() <-may want to have this as an event to avoid repeating code
-                    this.GameField = new GameField(5, 10);
+                    this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
                     movesCount = 0;
                     this.frontEnd.RenderGameFieldState(this.GameField.Clone());
                 }
@@ -65,7 +65,7 @@ using System.Linq;
                 switch (userCommand.Type)
                 {
                     case CommandType.Restart:
-                        this.GameField = new GameField(5, 10);
+                        this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
                         movesCount = 0;
                         break;
 

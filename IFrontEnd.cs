@@ -13,9 +13,9 @@ namespace BaloonsPopGame
 
         void PublishPrompt();
 
-        void PrintTopFive(List<RankListReccord> topFive);
+        void PrintTopFive(List<RankListRecord> topFive);
 
-        RankListReccord Win(int moves);
+        RankListRecord Win(int moves);
 
     }
 }

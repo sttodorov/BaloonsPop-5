@@ -2,13 +2,13 @@ namespace BaloonsPopGame
 {
     using System;
 
-    public class RankListReccord : IComparable<RankListReccord>
+    public class RankListRecord : IComparable<RankListRecord>
     {
         //private readonly DateTime
         private int value;
         private string name;
 
-        public RankListReccord(int value, string name)
+        public RankListRecord(int value, string name)
         {
             this.Value = value;
             this.Name = name;
@@ -50,18 +50,19 @@ namespace BaloonsPopGame
             }
         }
 
-        public void PrintReccord() //replace with override ToString()
+        public string ToFormattedString() 
         {
-            Console.WriteLine(".    {0} with {1} moves.", this.Name, this.Value);
+            string recordAsString = string.Format(".    {0} with {1} moves.", this.Name, this.Value);
+            return recordAsString;
         }
 
         public override string ToString()
         {
-            string recordAsString =string.Format("{0}, {1}",this.name,this.value);
+            string recordAsString = string.Format("{0}, {1}", this.Name, this.Value);
             return recordAsString;
         }
 
-        public int CompareTo(RankListReccord other)
+        public int CompareTo(RankListRecord other)
         {
             return this.Value.CompareTo(other.Value);
         }

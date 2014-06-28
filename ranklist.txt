@@ -1,7 +1,3 @@
 super cheater, 9
 someplayer with very long name, 15
-otherplayer, 18
-goshoTest, 22
-lambo, 29
-the debugger guy, 30
-debugging restart issue#5, 33
+Todor, 16

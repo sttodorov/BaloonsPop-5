@@ -65,7 +65,7 @@ namespace BaloonsPopGame
         /// </summary>
         /// <param name="movesCount"></param>
         /// <returns>A RankListReccord with the user's name and movesCount</returns>
-        public RankListReccord Win(int movesCount) 
+        public RankListRecord Win(int movesCount) 
         {
             //current implementation creates a reccord for each finished game
             //originally only 5 reccords were kept and a reccord was created only when the new score would be in the top 5
@@ -77,7 +77,7 @@ namespace BaloonsPopGame
             Console.Write("Enter your name: ");
             playerName = Console.ReadLine();
             Console.WriteLine("\nNEW GAME!\n");
-            var newReccord = new RankListReccord(movesCount, playerName);
+            var newReccord = new RankListRecord(movesCount, playerName);
             return newReccord;
 
             
@@ -91,7 +91,7 @@ namespace BaloonsPopGame
 
         }
 
-        public void PrintTopFive(List<RankListReccord> topFive)
+        public void PrintTopFive(List<RankListRecord> topFive)
         {
             if (topFive.Count == 0)
             {
@@ -104,7 +104,7 @@ namespace BaloonsPopGame
                 for (int i = 0; i < topFive.Count; i++)
                 {
                     Console.Write(i + 1);
-                    topFive[i].PrintReccord();
+                    Console.WriteLine(topFive[i].ToFormattedString());
                 }
 
                 Console.WriteLine("\n----------------------------------\n");
@@ -127,6 +127,7 @@ namespace BaloonsPopGame
             bool isCommandColCorrect;
             bool isSeparatorCorrect;
 
+            // split command string into two numbers
             commandRow = int.Parse(userCommand[0].ToString());
             separator = userCommand[1];
             commandCol = int.Parse(userCommand[2].ToString());
@@ -137,10 +138,11 @@ namespace BaloonsPopGame
 
             if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect && isSeparatorCorrect)
             {
-                if (commandRow >= GameConstants.FieldRows || commandCol >= GameConstants.FieldCols)
-                {
-                    throw new ArgumentException("This is not valid Input!");
-                }
+                
+                //if (commandRow >= GameConstants.FieldRows || commandCol >= GameConstants.FieldCols)
+                //{
+                //    throw new ArgumentException("This is not valid Input!");
+                //}
 
                 int[] coordinates = {commandRow, commandCol};
 

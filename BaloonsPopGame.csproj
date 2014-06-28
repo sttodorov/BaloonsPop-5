@@ -84,7 +84,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="GameConstants.cs" />
     <Compile Include="GameField.cs" />
-    <Compile Include="RankListReccord.cs" />
+    <Compile Include="RankListRecord.cs" />
     <Compile Include="StartGame.cs" />
     <Compile Include="_deprecated\StringExtensions.cs" />
     <Compile Include="_deprecated\OldStartGame.cs" />

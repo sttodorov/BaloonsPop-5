@@ -7,8 +7,8 @@ namespace BaloonsPopGame
 {
     public interface IStorage
     {
-        List<RankListReccord> TopFive();
+        List<RankListRecord> TopFive();
         
-        void AddReccord(RankListReccord reccord, bool backUpCurrentList);
+        void AddReccord(RankListRecord reccord, bool backUpCurrentList);
     }
 }

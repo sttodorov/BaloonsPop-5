@@ -7,7 +7,7 @@ namespace BaloonsPopGame
 {
     public class RankListStorage : IStorage
     {
-        private List<RankListReccord> currentRankList = new List<RankListReccord>();
+        private List<RankListRecord> currentRankList = new List<RankListRecord>();
 
         public RankListStorage(string path)
         {
@@ -17,27 +17,27 @@ namespace BaloonsPopGame
 
         public string FilePath { get; private set; }
 
-        public List<RankListReccord> TopFive()
+        public List<RankListRecord> TopFive()
         {
-            var topFive = new List<RankListReccord>(5);
+            var topFive = new List<RankListRecord>(5);
             if (currentRankList != null)
             {
                 currentRankList.Sort((x, y) => x.Value.CompareTo(y.Value));
             }
 
-            for (int i = 0, j = 1; i < 5; i++, j++)
+            for (int topFiveCount = 0; topFiveCount < 5; topFiveCount++)
             {
-                if (j > currentRankList.Count)
+                if (topFiveCount + 1 > currentRankList.Count)
                 {
                     break;
                 }
-                topFive.Add(new RankListReccord(currentRankList[i].Value, currentRankList[i].Name));
+                topFive.Add(new RankListRecord(currentRankList[topFiveCount].Value, currentRankList[topFiveCount].Name));
             }
 
             return topFive;
         }
 
-        public void AddReccord(RankListReccord reccord, bool backUpCurrentList)
+        public void AddReccord(RankListRecord reccord, bool backUpCurrentList)
         {
             if (currentRankList.Count > 1)
             {
@@ -87,7 +87,7 @@ namespace BaloonsPopGame
                     currLineArgs = currentLine.Split(',');
                     if (int.Parse(currLineArgs[1].Trim()) > 1 && int.Parse(currLineArgs[1].Trim()) < (GameConstants.FieldCols * GameConstants.FieldRows))
                     {
-                        AddReccord(new RankListReccord(int.Parse(currLineArgs[1].Trim()), currLineArgs[0].Trim()), false);
+                        AddReccord(new RankListRecord(int.Parse(currLineArgs[1].Trim()), currLineArgs[0].Trim()), false);
                     }
                     currentLine = reader.ReadLine();
                 }
