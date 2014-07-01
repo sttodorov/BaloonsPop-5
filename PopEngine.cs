@@ -30,10 +30,10 @@ namespace BaloonsPopGame
                 //Pop Baloon
                 field[commandRow, commandCol] = 0;
 
-                PopBaloonsLeft(commandRow, commandCol, selectedBaloon, field);
-                PopBaloonsRight(commandRow, commandCol, selectedBaloon, field);
-                PopBaloonsUp(commandRow, commandCol, selectedBaloon, field);
-                PopBaloonsDown(commandRow, commandCol, selectedBaloon, field);
+                PopBaloons(commandRow, commandCol, selectedBaloon, field, PoppingDirection.Left);
+                PopBaloons(commandRow, commandCol, selectedBaloon, field, PoppingDirection.Right);
+                PopBaloons(commandRow, commandCol, selectedBaloon, field, PoppingDirection.Up);
+                PopBaloons(commandRow, commandCol, selectedBaloon, field, PoppingDirection.Down);
             }
             else
             {
@@ -41,67 +41,30 @@ namespace BaloonsPopGame
             }
         }
 
-        public static void PopBaloonsLeft(int chosenRow, int chosenColumn, byte searchedItem, GameField field)
+        public static void PopBaloons(int chosenRow, int chosenColumn, byte searchedItem, GameField field, PoppingDirection direction)
         {
-            int searchingInRow = chosenRow;
-            int searchinInCol = chosenColumn - 1;
-            if (searchinInCol < 0)
+            int rowDirection = 0;
+            int colDirection = 0;
+
+            switch (direction)
             {
-                return;
+                case PoppingDirection.Left: colDirection = -1; break;
+                case PoppingDirection.Right: colDirection = 1; break;
+                case PoppingDirection.Up: rowDirection = -1; break;
+                case PoppingDirection.Down: rowDirection = 1; break;
+                default: throw new ArgumentException("Invalid direction!");
             }
 
-            if (field[searchingInRow, searchinInCol] == searchedItem)
-            {
-                field[searchingInRow, searchinInCol] = 0;
-                PopBaloonsLeft(searchingInRow, searchinInCol, searchedItem, field);
-            }
-        }
+            int currentRow = chosenRow + rowDirection;
+            int currentCol = chosenColumn + colDirection;
 
-        public static void PopBaloonsRight(int chosenRow, int chosenColumn, byte searchedItem, GameField field)
-        {
-            int searchingInRow = chosenRow;
-            int searchinInCol = chosenColumn + 1;
-            if (searchinInCol >= field.NumberOfColumns)
+            while (0 <= currentRow && currentRow < field.NumberOfRows &&
+                0 <= currentCol && currentCol < field.NumberOfColumns &&
+                field[currentRow, currentCol] == searchedItem)
             {
-                return;
-            }
-
-            if (field[searchingInRow, searchinInCol] == searchedItem)
-            {
-                field[searchingInRow, searchinInCol] = 0;
-                PopBaloonsRight(searchingInRow, searchinInCol, searchedItem, field);
-            }
-        }
-
-        public static void PopBaloonsUp(int chosenRow, int chosenColumn, byte searchedItem, GameField field)
-        {
-            int searchingInRow = chosenRow - 1;
-            int searchinInCol = chosenColumn;
-            if (searchingInRow < 0)
-            {
-                return;
-            }
-
-            if (field[searchingInRow, searchinInCol] == searchedItem)
-            {
-                field[searchingInRow, searchinInCol] = 0;
-                PopBaloonsUp(searchingInRow, searchinInCol, searchedItem, field);
-            }
-        }
-
-        public static void PopBaloonsDown(int chosenRow, int chosenColumn, byte searchedItem, GameField field)
-        {
-            int searchingInRow = chosenRow + 1;
-            int searchinInCol = chosenColumn;
-            if (searchingInRow >= field.NumberOfRows)
-            {
-                return;
-            }
-
-            if (field[searchingInRow, searchinInCol] == searchedItem)
-            {
-                field[searchingInRow, searchinInCol] = 0;
-                PopBaloonsDown(searchingInRow, searchinInCol, searchedItem, field);
+                field[currentRow, currentCol] = 0;
+                currentRow += rowDirection;
+                currentCol += colDirection;
             }
         }
     }
