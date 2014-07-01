@@ -15,6 +15,14 @@ namespace BaloonsPopGame
             this.LoadReccordsFromFile();
         }
 
+        public List<RankListRecord> CurrentRankList
+        {
+            get
+            {
+                this.currentRankList.Sort((x, y) => x.Value.CompareTo(y.Value));
+                return this.currentRankList;
+            }
+        }
         public string FilePath { get; private set; }
 
         public List<RankListRecord> TopFive()
@@ -39,32 +47,33 @@ namespace BaloonsPopGame
 
         public void AddReccord(RankListRecord reccord, bool backUpCurrentList)
         {
-            if (currentRankList.Count > 1)
+            if (this.currentRankList.Count > 1)
             {
-                currentRankList.Sort((x, y) => x.Value.CompareTo(y.Value));
+                this.currentRankList.Sort((x, y) => x.Value.CompareTo(y.Value));
 
-                for (int i = 1; i < currentRankList.Count; i++)
+                if (this.currentRankList[0].Value > reccord.Value)
                 {
-                    if (currentRankList[0].Value > reccord.Value)
+                    this.currentRankList.Insert(0, reccord);
+                }
+                else if (this.currentRankList[currentRankList.Count - 1].Value < reccord.Value)
+                {
+                    this.currentRankList.Add(reccord);
+                }
+                else
+                {
+                    for (int i = 1; i < this.currentRankList.Count; i++)
                     {
-                        currentRankList.Insert(0, reccord);
-                        break;
-                    }
-                    else if (currentRankList[i - 1].Value <= reccord.Value && reccord.Value < currentRankList[i].Value)
-                    {
-                        currentRankList.Insert(i, reccord);
-                        break;
-                    }
-                    else if (currentRankList[currentRankList.Count - 1].Value < reccord.Value)
-                    {
-                        currentRankList.Add(reccord);
-                        break;
+                        if (this.currentRankList[i - 1].Value <= reccord.Value && reccord.Value < this.currentRankList[i].Value)
+                        {
+                            this.currentRankList.Insert(i, reccord);
+                            break;
+                        }
                     }
                 }
             }
             else
             {
-                currentRankList.Add(reccord);
+                this.currentRankList.Add(reccord);
             }
 
             if (backUpCurrentList)
