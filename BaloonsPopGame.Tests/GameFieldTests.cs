@@ -47,5 +47,38 @@ namespace BaloonsPopGame.Tests
             bool areEqual = CompareFields();
             Assert.IsFalse(areEqual);
         }
+
+        [TestMethod]
+        public void IsFieldEmptyEmptyFieldTest()
+        {
+            byte[,] matrix = { 
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+            };
+
+            actualField = new GameField(matrix);
+            bool isEmpty = actualField.IsFieldEmpty();
+
+            Assert.IsTrue(isEmpty);
+        }
+
+        [TestMethod]
+        public void IsFieldEmptyNonEmptyFieldTest()
+        {
+            byte[,] matrix = { 
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+            };
+
+            actualField = new GameField(matrix);
+            bool isEmpty = actualField.IsFieldEmpty();
+
+            Assert.IsFalse(isEmpty);
+        }
     }
 }

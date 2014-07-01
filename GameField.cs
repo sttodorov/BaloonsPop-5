@@ -78,16 +78,18 @@ namespace BaloonsPopGame
             bool isWinner = true;
             int rowsCount = this.GameFieldProp.GetLength(0);
             int columnsCount = this.GameFieldProp.GetLength(1);
-            for (int j = 0; j < columnsCount; j++)
+            for (int row = 0; row < rowsCount; row++)
             {
-                for (int i = 0; i < rowsCount; i++)
+                for (int col = 0; col < columnsCount; col++)
                 {
-                    if (this.GameFieldProp[i, j] != 0)
+                    if (this.GameFieldProp[row, col] != 0)
                     {
                         isWinner = false;
+                        break;
                     }
                 }
             }
+
             return isWinner;
         }
 
