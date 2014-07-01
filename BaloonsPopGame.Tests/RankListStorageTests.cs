@@ -9,6 +9,20 @@ namespace BaloonsPopGame.Tests
     [TestClass]
     public class RankListStorageTests
     {
+        private const string FilePath = @"..\..\TestFiles\ranklistForAddRecord.txt";
+        private StreamWriter writer;
+
+        [TestInitialize]
+        public void InitializeFile()
+        {
+            writer = new StreamWriter(FilePath, false);
+
+            using (writer)
+            {
+                writer.Write(string.Empty);
+            }
+        }
+
         [TestMethod]
         public void TopFiveNullTest()
         {
@@ -73,9 +87,8 @@ namespace BaloonsPopGame.Tests
 
         [TestMethod]
         public void AddRecordTest()
-        {
-            string filePath = @"..\..\TestFiles\ranklistForAddRecord.txt";
-            RankListStorage storage = new RankListStorage(filePath);
+        {           
+            RankListStorage storage = new RankListStorage(FilePath);
             List < RankListRecord > expectedCurrList = new List<RankListRecord>();
             expectedCurrList.Add(new RankListRecord(12, "Pesho"));
 
@@ -97,8 +110,7 @@ namespace BaloonsPopGame.Tests
         [TestMethod]
         public void AddRecordTwoSameValuesTest()
         {
-            string filePath = @"..\..\TestFiles\ranklistForAddRecord.txt";
-            RankListStorage storage = new RankListStorage(filePath);
+            RankListStorage storage = new RankListStorage(FilePath);
             List<RankListRecord> expectedCurrList = new List<RankListRecord>();
             expectedCurrList.Add(new RankListRecord(12, "Pesho"));
             expectedCurrList.Add(new RankListRecord(12, "Ivan"));
@@ -124,8 +136,7 @@ namespace BaloonsPopGame.Tests
         [TestMethod]
         public void AddRecordSortTest()
         {
-            string filePath = @"..\..\TestFiles\ranklistForAddRecord.txt";
-            RankListStorage storage = new RankListStorage(filePath);
+            RankListStorage storage = new RankListStorage(FilePath);
             List<RankListRecord> expectedCurrList = new List<RankListRecord>();
             expectedCurrList.Add(new RankListRecord(12, "Pesho"));
             expectedCurrList.Add(new RankListRecord(13, "Ivan"));
@@ -155,8 +166,7 @@ namespace BaloonsPopGame.Tests
         [TestMethod]
         public void AddRecordBackupTest()
         {
-            string filePath = @"..\..\TestFiles\ranklistForAddRecord.txt";
-            RankListStorage storage = new RankListStorage(filePath);           
+            RankListStorage storage = new RankListStorage(FilePath);           
             storage.AddReccord(new RankListRecord(20, "PlayerThree"), false);
             storage.AddReccord(new RankListRecord(12, "Pesho"), false);
             storage.AddReccord(new RankListRecord(19, "otherPlayer"), true);
@@ -166,7 +176,7 @@ namespace BaloonsPopGame.Tests
             expectedOutput.AppendLine("otherPlayer, 19");
             expectedOutput.AppendLine("PlayerThree, 20");            
 
-            StreamReader reader = new StreamReader(filePath);
+            StreamReader reader = new StreamReader(FilePath);
             string currentLine;
 
             using (reader)

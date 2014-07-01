@@ -1,6 +1,3 @@
 Pesho, 12
-Pesho, 12
-Pesho, 12
-otherPlayer, 19
 otherPlayer, 19
 PlayerThree, 20
