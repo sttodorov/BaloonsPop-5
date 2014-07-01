@@ -9,6 +9,21 @@ namespace BaloonsPopGame
     {
         public static void PopAt(int commandRow, int commandCol, GameField field)
         {
+            if (field == null)
+            {
+                throw new ArgumentNullException("Field cannot be null when popping a baloon!");
+            }
+
+            if (commandRow < 0 || commandRow >= field.NumberOfRows)
+            {
+                throw new IndexOutOfRangeException("Command Row is outside field.");
+            }
+
+            if (commandCol < 0 || commandCol >= field.NumberOfColumns)
+            {
+                throw new IndexOutOfRangeException("Command Col is outside field.");
+            }
+
             byte selectedBaloon = field[commandRow, commandCol];
             if (selectedBaloon != 0)
             {
