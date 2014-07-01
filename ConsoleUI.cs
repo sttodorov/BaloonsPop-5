@@ -132,8 +132,8 @@ namespace BaloonsPopGame
             separator = userCommand[1];
             commandCol = int.Parse(userCommand[2].ToString());
 
-            isCommandRowCorrect = commandRow >= 0 && commandRow <= GameConstants.FieldRows;
-            isCommandColCorrect = commandCol >= 0 && commandCol <= GameConstants.FieldCols;
+            isCommandRowCorrect = commandRow >= 0 && commandRow < GameConstants.FieldRows;
+            isCommandColCorrect = commandCol >= 0 && commandCol < GameConstants.FieldCols;
             isSeparatorCorrect = separator == ' ' || separator == '.' || separator == ',';
 
             if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect && isSeparatorCorrect)
