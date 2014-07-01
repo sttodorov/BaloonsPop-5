@@ -93,41 +93,33 @@ namespace BaloonsPopGame
             return isWinner;
         }
 
-        public void RemovePopedBaloons()
+        public void RemovePoppedBaloons()
         {
             Stack<byte> remainingBaloons = new Stack<byte>();
             int rowsCount = this.GameFieldProp.GetLength(0);
             int columnsCount = this.GameFieldProp.GetLength(1);
-            for (int j = 0; j < columnsCount; j++)
+            for (int col = 0; col < columnsCount; col++)
             {
-                for (int i = 0; i < rowsCount; i++)
+                for (int row = 0; row < rowsCount; row++)
                 {
-                    if (this.GameFieldProp[i, j] != 0)
+                    if (this.GameFieldProp[row, col] != 0)
                     {
-                        remainingBaloons.Push(this.GameFieldProp[i, j]);
+                        remainingBaloons.Push(this.GameFieldProp[row, col]);
                     }
                 }
-                for (int k = rowsCount - 1; k >= 0; k--)
+
+                for (int row = rowsCount - 1; row >= 0; row--)
                 {
-                    /*try
-                    {
-                        this[k, j] = remainingBaloons.Pop();
-                    }
-                    catch (Exception)
-                    {
-                        this.SetFieldCell(k, j, 0);
-                    }*/
                     if (remainingBaloons.Count != 0)
                     {
-                        this[k, j] = remainingBaloons.Pop();
+                        this[row, col] = remainingBaloons.Pop();
                     }
                     else
                     {
-                        this[k, j] = 0;
+                        this[row, col] = 0;
                     }
                 }
             }
-
         }
 
         public byte[,] Clone()

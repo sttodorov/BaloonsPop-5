@@ -82,7 +82,7 @@ using System.Linq;
                         try
                         {
                             this.PopAt(userCommand.Data);
-                            this.GameField.RemovePopedBaloons();
+                            this.GameField.RemovePoppedBaloons();
                             movesCount++;
                         }
                         catch (InvalidOperationException)
