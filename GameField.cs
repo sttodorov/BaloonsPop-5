@@ -24,6 +24,16 @@ namespace BaloonsPopGame
             this.GameFieldProp = buildedField;
         }
 
+        /// <summary>
+        /// This constructor will be deleted later!
+        /// For test purposes only!
+        /// </summary>
+        public GameField(byte[,] initialField)
+        {
+            // No validation!
+            this.GameFieldProp = initialField;
+        }
+
         public byte[,] GameFieldProp
         {
             get
@@ -51,7 +61,7 @@ namespace BaloonsPopGame
             }
         }
 
-        public byte this[int row,int col]
+        public byte this[int row, int col]
         {
             get
             {
@@ -107,11 +117,11 @@ namespace BaloonsPopGame
                     }*/
                     if (remainingBaloons.Count != 0)
                     {
-                        this[k, j]= remainingBaloons.Pop();
+                        this[k, j] = remainingBaloons.Pop();
                     }
                     else
                     {
-                       this[k, j] = 0;
+                        this[k, j] = 0;
                     }
                 }
             }
