@@ -58,6 +58,7 @@
     <Compile Include="CommandConstructorTests.cs" />
     <Compile Include="RankListStorageTests.cs" />
     <Compile Include="ConsoleWinTests.cs" />
+    <Compile Include="RankListReccordTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaloonsPopGame.csproj">
