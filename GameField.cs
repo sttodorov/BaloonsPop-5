@@ -127,5 +127,66 @@ namespace BaloonsPopGame
             var clone = (byte[,])GameFieldProp.Clone();
             return clone;
         }
+
+        public void PopAt(int commandRow, int commandCol)
+        {
+            if (this == null)
+            {
+                throw new ArgumentNullException("Field cannot be null when popping a baloon!");
+            }
+
+            if (commandRow < 0 || commandRow >= this.NumberOfRows)
+            {
+                throw new IndexOutOfRangeException("Command Row is outside field.");
+            }
+
+            if (commandCol < 0 || commandCol >= this.NumberOfColumns)
+            {
+                throw new IndexOutOfRangeException("Command Col is outside field.");
+            }
+
+            byte selectedBaloon = this[commandRow, commandCol];
+            if (selectedBaloon != 0)
+            {
+                //Pop Baloon
+                this[commandRow, commandCol] = 0;
+
+                PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Left);
+                PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Right);
+                PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Up);
+                PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Down);
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot pop missing baloon!");
+            }
+        }
+
+        private void PopBaloons(int chosenRow, int chosenColumn, byte searchedItem, PoppingDirection direction)
+        {
+            int rowDirection = 0;
+            int colDirection = 0;
+
+            switch (direction)
+            {
+                case PoppingDirection.Left: colDirection = -1; break;
+                case PoppingDirection.Right: colDirection = 1; break;
+                case PoppingDirection.Up: rowDirection = -1; break;
+                case PoppingDirection.Down: rowDirection = 1; break;
+                default: throw new ArgumentException("Invalid direction!");
+            }
+
+            int currentRow = chosenRow + rowDirection;
+            int currentCol = chosenColumn + colDirection;
+
+            while (0 <= currentRow && currentRow < this.NumberOfRows &&
+                0 <= currentCol && currentCol < this.NumberOfColumns &&
+                this[currentRow, currentCol] == searchedItem)
+            {
+                this[currentRow, currentCol] = 0;
+                currentRow += rowDirection;
+                currentCol += colDirection;
+            }
+        }
     }
 }

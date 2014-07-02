@@ -4,7 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class PopEngineTests
+    public class GameFieldPopAtTests
     {
         private GameField actualField;
         private GameField expectedField;
@@ -45,18 +45,24 @@
             return true;
         }
 
+        /// <summary>
+        /// Not works when moved to GameField. Because you cannot call method PopAt of null.
+        /// Can be deleted later.
+        /// </summary>
+        [Ignore]
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void PopAtNullFieldTest()
         {
-            PopEngine.PopAt(3, 4, null);
+            actualField = new GameField(null);
+            actualField.PopAt(3, 4);
         }
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
         public void PopAtInvalidPositionTest()
         {
-            PopEngine.PopAt(10, 10, actualField);
+            actualField.PopAt(10, 10);
         }
 
         [TestMethod]
@@ -64,13 +70,13 @@
         public void PopAtEmptyCell()
         {
             actualField[4, 6] = 0;
-            PopEngine.PopAt(4, 6, actualField);
+            actualField.PopAt(4, 6);
         }
 
         [TestMethod]
         public void PopAtOneBaloonTest()
         {
-            PopEngine.PopAt(2, 2, actualField);
+            actualField.PopAt(2, 2);
             expectedField[2, 2] = 0;
             bool areEqual = CompareFields();
 
@@ -80,7 +86,7 @@
         [TestMethod]
         public void PopAtWholeRowTest()
         {
-            PopEngine.PopAt(4, 0, actualField);
+            actualField.PopAt(4, 0);
             for (int col = 0; col < actualField.NumberOfColumns; col++)
             {
                 expectedField[4, col] = 0;
@@ -93,7 +99,7 @@
         [TestMethod]
         public void PopAtWholeColTest()
         {
-            PopEngine.PopAt(9, 5, actualField);
+            actualField.PopAt(9, 5);
             for (int row = 0; row < actualField.NumberOfRows; row++)
             {
                 expectedField[row, 5] = 0;
@@ -106,7 +112,7 @@
         [TestMethod]
         public void PopAtWholeRowAndColTest()
         {
-            PopEngine.PopAt(4, 5, actualField);
+            actualField.PopAt(4, 5);
             for (int col = 0; col < actualField.NumberOfColumns; col++)
             {
                 expectedField[4, col] = 0;
@@ -124,7 +130,7 @@
         [TestMethod]
         public void PopAtCornerTest()
         {
-            PopEngine.PopAt(9, 10, actualField);
+            actualField.PopAt(9, 10);
             expectedField[9, 9] = 0;
             expectedField[9, 10] = 0;
             expectedField[8, 10] = 0;

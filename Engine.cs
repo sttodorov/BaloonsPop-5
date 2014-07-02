@@ -113,7 +113,7 @@ using System.Linq;
 
             try
             {
-                PopEngine.PopAt(commandRow, commandCol, this.GameField); // !---here we pass the whole gameField to popEngine---!
+                this.GameField.PopAt(commandRow, commandCol); // !---here we pass the whole gameField to popEngine---!
             }
             catch (InvalidOperationException)
             {

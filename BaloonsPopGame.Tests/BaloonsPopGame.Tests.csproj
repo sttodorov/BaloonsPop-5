@@ -53,7 +53,7 @@
     <Compile Include="ConsoleUserCommandTests.cs" />
     <Compile Include="FieldToStringTests.cs" />
     <Compile Include="GameFieldTests.cs" />
-    <Compile Include="PopEngineTests.cs" />
+    <Compile Include="GameFieldPopAtTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommandConstructorTests.cs" />
     <Compile Include="RankListStorageTests.cs" />
