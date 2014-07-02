@@ -52,7 +52,7 @@ namespace BaloonsPopGame
 
         public string ToFormattedString() 
         {
-            string recordAsString = string.Format(".    {0} with {1} moves.", this.Name, this.Value);
+            string recordAsString = string.Format(".    {0,-30} - {1,3} moves.", this.Name, this.Value);
             return recordAsString;
         }
 
