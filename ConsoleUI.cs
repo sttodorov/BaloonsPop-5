@@ -124,7 +124,8 @@ namespace BaloonsPopGame
             int commandRow;
             int commandCol;
 
-            if (!int.TryParse(rowAndCol[0], out commandRow) ||
+            if (rowAndCol.Length <= 1 ||
+                !int.TryParse(rowAndCol[0], out commandRow) ||
                 !int.TryParse(rowAndCol[1], out commandCol))
             {
                 throw new ArgumentException("Invalid command. Input must be numbers!");
