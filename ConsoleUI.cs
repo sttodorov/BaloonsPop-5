@@ -119,24 +119,21 @@ namespace BaloonsPopGame
                 throw new ArgumentNullException("Invalid command. Command cannot be empty.");
             }
 
-            int commandRow = 0;
-            int commandCol = 0;
-            char separator = ' ';
+            string[] rowAndCol = userCommand.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-            bool isCommandRowCorrect;
-            bool isCommandColCorrect;
-            bool isSeparatorCorrect;
+            int commandRow;
+            int commandCol;
 
-            // split command string into two numbers
-            commandRow = int.Parse(userCommand[0].ToString());
-            separator = userCommand[1];
-            commandCol = int.Parse(userCommand[2].ToString());
+            if (!int.TryParse(rowAndCol[0], out commandRow) ||
+                !int.TryParse(rowAndCol[1], out commandCol))
+            {
+                throw new ArgumentException("Invalid command. Input must be numbers!");
+            }
 
-            isCommandRowCorrect = commandRow >= 0 && commandRow < GameConstants.FieldRows;
-            isCommandColCorrect = commandCol >= 0 && commandCol < GameConstants.FieldCols;
-            isSeparatorCorrect = separator == ' ' || separator == '.' || separator == ',';
+            bool isCommandRowCorrect = commandRow >= 0 && commandRow < GameConstants.FieldRows;
+            bool isCommandColCorrect = commandCol >= 0 && commandCol < GameConstants.FieldCols;
 
-            if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect && isSeparatorCorrect)
+            if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect)
             {
                 
                 //if (commandRow >= GameConstants.FieldRows || commandCol >= GameConstants.FieldCols)
