@@ -10,12 +10,10 @@
             IFrontEnd frontEnd = new ConsoleUI();
             var storageFilePath = @"..\..\ranklist.txt";
             var rankListStorage = new RankListStorage(storageFilePath);
-            var engine = new Engine(frontEnd, rankListStorage);
-
+            Engine.GetInstance(frontEnd, rankListStorage);
+            Engine.GetInstance().Start();
             
             Console.WriteLine("WELCOME TO BALLOONS-POP VERSION 5.1!\n");
-
-            engine.Start();
         }
     }
 }
