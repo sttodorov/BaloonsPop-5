@@ -39,11 +39,11 @@ namespace BaloonsPopGame
                         throw new ArgumentNullException("Balloon coordinates cannot be null");
                     }
                     
-                    this.Data = value;
+                    this.data = value;
                 }
                 else
                 {
-                    this.Data = null;
+                    this.data = null;
                 }
             } 
         }
