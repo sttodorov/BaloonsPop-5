@@ -7,6 +7,8 @@ namespace BaloonsPopGame
 {
     public class Command
     {
+        private object data;
+        
         /// <summary>
         /// Contains details of a command returned by the UI to the Engine.
         /// Types are limited to only those that Engine can process.
@@ -17,11 +19,34 @@ namespace BaloonsPopGame
         {
             this.Type = type;
             this.Data = data;
+            
         }
         
         public CommandType Type {get; private set;}
 
-        public object Data { get; private set; }
+        public object Data 
+        { 
+            get 
+            {
+                return this.data;
+            } 
+            private set 
+            {
+                if (this.Type == CommandType.PopBalloonAt)
+                {
+                    if (value == null)
+                    {
+                        throw new ArgumentNullException("Balloon coordinates cannot be null");
+                    }
+                    
+                    this.Data = value;
+                }
+                else
+                {
+                    this.Data = null;
+                }
+            } 
+        }
 
 
     }
