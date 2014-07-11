@@ -14,7 +14,7 @@ namespace BaloonsPopGame
         public Command UserCommand()
         {
             string userCommand = String.Empty;
-            
+
             Console.WriteLine("Enter a row and column: ");
             userCommand = Console.ReadLine();
             userCommand = userCommand.ToUpper().Trim();
@@ -31,7 +31,7 @@ namespace BaloonsPopGame
                     Console.WriteLine("Good Bye! ");
                     return new Command(CommandType.Exit);
                 default:
-                    try 
+                    try
                     {
                         return this.RenderUserCommand(userCommand);
                     }
@@ -42,10 +42,10 @@ namespace BaloonsPopGame
                         return this.UserCommand();
                     }
             }
-            
+
         }
 
-        public void RenderGameFieldState(byte[,] fieldClone) 
+        public void RenderGameFieldState(byte[,] fieldClone)
         {
             var fieldAsString = FieldToString.Draw(fieldClone);
             Console.WriteLine(fieldAsString);
@@ -65,30 +65,37 @@ namespace BaloonsPopGame
         /// </summary>
         /// <param name="movesCount"></param>
         /// <returns>A RankListReccord with the user's name and movesCount</returns>
-        public RankListRecord Win(int movesCount) 
+        public RankListRecord Win(int movesCount)
         {
             //current implementation creates a reccord for each finished game
             //originally only 5 reccords were kept and a reccord was created only when the new score would be in the top 5
-            
+
             Console.WriteLine("Congratulations! You completed the game in {0} moves.", movesCount);
             string playerName = String.Empty;
 
-            Console.WriteLine("You are skillful!");
-            Console.Write("Enter your name: ");
-            playerName = Console.ReadLine();
-            Console.WriteLine("\nNEW GAME!\n");
+            do
+            {
+                Console.Write("Enter your name(between 3 and 30 characters): ");
+                playerName = Console.ReadLine();
+            } while (playerName.Length < 3 || playerName.Length > 30);
+
+            // TO PUT THIS IN A BETTER POSITION!
+            // Console.WriteLine("\nNEW GAME!\n"); 
+            
             var newReccord = new RankListRecord(movesCount, playerName);
             return newReccord;
+        }
 
-            
-            //in order to check this(below) we need to call PrintTopFive or recieve the topFive as a parameter
-            
-            //if(outOfTopFive) 
-            //{
-            //    Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
-            //}
-
-
+        public void PrintCongratulations(bool isInTopFive)
+        {
+            if (isInTopFive)
+            {
+                Console.WriteLine("You are skillful and made it to Top 5!");
+            }
+            else
+            {
+                Console.WriteLine("I am sorry you are not skillful enough for Top 5 chart!");
+            }
         }
 
         public void PrintTopFive(List<RankListRecord> topFive)
@@ -136,13 +143,7 @@ namespace BaloonsPopGame
 
             if ((userCommand.Length == 3) && isCommandRowCorrect && isCommandColCorrect)
             {
-                
-                //if (commandRow >= GameConstants.FieldRows || commandCol >= GameConstants.FieldCols)
-                //{
-                //    throw new ArgumentException("This is not valid Input!");
-                //}
-
-                int[] coordinates = {commandRow, commandCol};
+                int[] coordinates = { commandRow, commandCol };
 
                 return new Command(CommandType.PopBalloonAt, coordinates);
             }

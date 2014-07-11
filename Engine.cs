@@ -46,7 +46,7 @@ using System.Linq;
         {
             if (engineInstance != null)
             {
-                throw new InvalidOperationException("Singleton already created - use getinstance()");
+                throw new InvalidOperationException("Engine already created - use getinstance()");
             }
 
             engineInstance = new Engine(frontEnd, reccordStorage);
@@ -57,7 +57,7 @@ using System.Linq;
         {
             if (engineInstance == null)
             {
-                throw new InvalidOperationException("Singleton not created - use Engine(IFrontEnd frontEnd, IStorage reccordStorage)");
+                throw new InvalidOperationException("Engine not created - use Engine(IFrontEnd frontEnd, IStorage reccordStorage)");
             }
 
             return engineInstance;
@@ -74,11 +74,13 @@ using System.Linq;
                 if (this.GameField.IsFieldEmpty())
                 {
                     var newReccord = this.frontEnd.Win(movesCount);
+                    var topFive = this.TopFive;
+                    bool isInTopFive = topFive[topFive.Count - 1].Value > newReccord.Value;
                     this.rankList.AddReccord(newReccord, true);
-                    // this.RestartGame() <-may want to have this as an event to avoid repeating code
-                    this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
-                    movesCount = 0;
-                    this.frontEnd.RenderGameFieldState(this.GameField.Clone());
+                    this.frontEnd.PrintCongratulations(isInTopFive);
+                    this.frontEnd.PrintTopFive(this.TopFive);
+                    this.RestartGame(ref movesCount);
+                    continue;
                 }
 
                 userCommand = this.frontEnd.UserCommand();
@@ -86,12 +88,11 @@ using System.Linq;
                 switch (userCommand.Type)
                 {
                     case CommandType.Restart:
-                        this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
-                        movesCount = 0;
+                        this.RestartGame(ref movesCount);
                         break;
 
                     case CommandType.TopFive:
-                        var topFive = this.rankList.TopFive();
+                        var topFive = this.TopFive;
                         this.frontEnd.PrintTopFive(topFive);
                         break;
                     
@@ -117,6 +118,12 @@ using System.Linq;
                         throw new InvalidOperationException("User command is of invalid type.");
                 }
             }
+        }
+
+        private void RestartGame(ref int count)
+        {
+            this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
+            count = 0;
         }
 
         private void PopAt(object data)
