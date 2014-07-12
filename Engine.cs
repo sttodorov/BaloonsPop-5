@@ -103,7 +103,7 @@ using System.Linq;
                     case CommandType.PopBalloonAt:
                         try
                         {
-                            this.PopAt(userCommand.Data);
+                            this.GameField.PopAt(userCommand.Data);
                             this.GameField.RemovePoppedBaloons();
                             movesCount++;
                         }
@@ -125,27 +125,6 @@ using System.Linq;
             this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
             count = 0;
         }
-
-        private void PopAt(object data)
-        {
-            int[] coordinates = data as int[];
-            
-            // Validate data as coordinates
-            // Pass game field and coord to static Class PopEngine
-            // *static class PopEngine will contain all the popping logic and recursive calls
-            // its PopAt(row, col) method will modify the game field
-
-            var commandRow = coordinates[0];
-            var commandCol = coordinates[1];
-
-            try
-            {
-                this.GameField.PopAt(commandRow, commandCol); // !---here we pass the whole gameField to popEngine---!
-            }
-            catch (InvalidOperationException)
-            {
-                throw new InvalidOperationException("Attempted to pop missing balloon.");
-            }
-        }
+        
     }
 }

@@ -55,14 +55,14 @@
         public void PopAtNullFieldTest()
         {
             actualField = new GameField(null);
-            actualField.PopAt(3, 4);
+            actualField.PopAt(new int[2]{3,4});
         }
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
         public void PopAtInvalidPositionTest()
         {
-            actualField.PopAt(10, 10);
+            actualField.PopAt(new int[2]{10, 10});
         }
 
         [TestMethod]
@@ -70,13 +70,13 @@
         public void PopAtEmptyCell()
         {
             actualField[4, 6] = 0;
-            actualField.PopAt(4, 6);
+            actualField.PopAt(new int[2]{4, 6});
         }
 
         [TestMethod]
         public void PopAtOneBaloonTest()
         {
-            actualField.PopAt(2, 2);
+            actualField.PopAt(new int[2]{2, 2});
             expectedField[2, 2] = 0;
             bool areEqual = CompareFields();
 
@@ -86,7 +86,7 @@
         [TestMethod]
         public void PopAtWholeRowTest()
         {
-            actualField.PopAt(4, 0);
+            actualField.PopAt(new int[2]{4, 0});
             for (int col = 0; col < actualField.NumberOfColumns; col++)
             {
                 expectedField[4, col] = 0;
@@ -99,7 +99,7 @@
         [TestMethod]
         public void PopAtWholeColTest()
         {
-            actualField.PopAt(9, 5);
+            actualField.PopAt(new int[2]{9, 5});
             for (int row = 0; row < actualField.NumberOfRows; row++)
             {
                 expectedField[row, 5] = 0;
@@ -112,7 +112,7 @@
         [TestMethod]
         public void PopAtWholeRowAndColTest()
         {
-            actualField.PopAt(4, 5);
+            actualField.PopAt(new int[2]{4,5});
             for (int col = 0; col < actualField.NumberOfColumns; col++)
             {
                 expectedField[4, col] = 0;
@@ -130,7 +130,7 @@
         [TestMethod]
         public void PopAtCornerTest()
         {
-            actualField.PopAt(9, 10);
+            actualField.PopAt(new int[2]{9, 10});
             expectedField[9, 9] = 0;
             expectedField[9, 10] = 0;
             expectedField[8, 10] = 0;

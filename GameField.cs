@@ -128,8 +128,13 @@ namespace BaloonsPopGame
             return clone;
         }
 
-        public void PopAt(int commandRow, int commandCol)
+        public void PopAt(object data)
         {
+            int[] coordinates = data as int[];
+
+            var commandRow = coordinates[0];
+            var commandCol = coordinates[1];
+
             if (this == null)
             {
                 throw new ArgumentNullException("Field cannot be null when popping a baloon!");
