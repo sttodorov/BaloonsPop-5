@@ -10,14 +10,14 @@
 
         private IFrontEnd frontEnd;
         private IStorage rankList;
-        private GameField gameField;
+        private GameFieldFacade facade;
         private Command userCommand;
 
-        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, GameField gameField = null, Command userCommand = null)// Added GameField and Command. When you create engine you should know it depend on them- SOLID
+        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, GameFieldFacade facade = null, Command userCommand = null)// Added GameField and Command. When you create engine you should know it depend on them- SOLID
         {
             this.rankList = reccordStorage;
             this.frontEnd = frontEnd;
-            this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
+            this.facade = new GameFieldFacade(GameConstants.FieldRows, GameConstants.FieldCols);
             this.UserCommand = new Command(CommandType.Restart);
         }
 
@@ -29,19 +29,19 @@
             }
         }
 
-        private GameField GameField // * here we have a private field being passed by reference via Property with public get/set
+        private GameFieldFacade Facade // * here we have a private field being passed by reference via Property with public get/set
         // * we should to talk about how much to encapsulate the gameField field
         // since eventually we're going to be passing it to the PopEngine static class
         // * also, should validation be done here (in Engine.GameField) or in the GameField class's indexer?
         {
             get
             {
-                return this.gameField;
+                return this.facade;
             }
 
             set
             {
-                this.gameField = value;
+                this.facade = value;
             }
         }
 
@@ -81,13 +81,13 @@
 
         public void Start()
         {
-            this.UserCommand = new Command(CommandType.Restart);
+            //this.UserCommand = new Command(CommandType.Restart);
             int movesCount = 0;
             while (this.UserCommand.Type != CommandType.Exit)
             {
-                this.frontEnd.RenderGameFieldState(this.GameField.Clone());
+                this.frontEnd.RenderGameFieldState(this.Facade.GameFieldClone());
 
-                if (this.GameField.IsFieldEmpty())
+                if (this.Facade.IsWin())
                 {
                     var newReccord = this.frontEnd.Win(movesCount);
                     var topFive = this.TopFive;
@@ -95,7 +95,7 @@
                     this.rankList.AddReccord(newReccord, true);
                     this.frontEnd.PrintCongratulations(isInTopFive);
                     this.frontEnd.PrintTopFive(this.TopFive);
-                    this.RestartGame(ref movesCount);
+                    this.Facade.CreateNewField(GameConstants.FieldRows, GameConstants.FieldCols);
                     continue;
                 }
 
@@ -104,7 +104,8 @@
                 switch (this.UserCommand.Type)
                 {
                     case CommandType.Restart:
-                        this.RestartGame(ref movesCount);
+                        this.Facade.CreateNewField(GameConstants.FieldRows, GameConstants.FieldCols);
+                        movesCount = 0;
                         break;
 
                     case CommandType.TopFive:
@@ -119,8 +120,7 @@
                     case CommandType.PopBalloonAt:
                         try
                         {
-                            this.GameField.PopAt(this.UserCommand.Data);
-                            this.GameField.RemovePoppedBaloons();
+                            this.Facade.PopAt(this.UserCommand.Data);
                             movesCount++;
                         }
                         catch (InvalidOperationException)
@@ -134,12 +134,6 @@
                         throw new InvalidOperationException("User command is of invalid type.");
                 }
             }
-        }
-
-        private void RestartGame(ref int count)
-        {
-            this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
-            count = 0;
         }
 
     }
