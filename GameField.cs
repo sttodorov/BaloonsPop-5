@@ -34,7 +34,7 @@ namespace BaloonsPopGame
             this.GameFieldProp = initialField;
         }
 
-        public byte[,] GameFieldProp
+        private byte[,] GameFieldProp
         {
             get
             {
@@ -76,8 +76,8 @@ namespace BaloonsPopGame
         public bool IsFieldEmpty()
         {
             bool isWinner = true;
-            int rowsCount = this.GameFieldProp.GetLength(0);
-            int columnsCount = this.GameFieldProp.GetLength(1);
+            int rowsCount = this.NumberOfRows;
+            int columnsCount = this.NumberOfColumns;
             for (int row = 0; row < rowsCount; row++)
             {
                 for (int col = 0; col < columnsCount; col++)
@@ -96,8 +96,8 @@ namespace BaloonsPopGame
         public void RemovePoppedBaloons()
         {
             Stack<byte> remainingBaloons = new Stack<byte>();
-            int rowsCount = this.GameFieldProp.GetLength(0);
-            int columnsCount = this.GameFieldProp.GetLength(1);
+            int rowsCount = this.NumberOfRows;
+            int columnsCount = this.NumberOfColumns;
             for (int col = 0; col < columnsCount; col++)
             {
                 for (int row = 0; row < rowsCount; row++)
@@ -124,6 +124,7 @@ namespace BaloonsPopGame
 
         public byte[,] Clone()
         {
+            //shallow copy
             var clone = (byte[,])GameFieldProp.Clone();
             return clone;
         }

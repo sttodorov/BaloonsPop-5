@@ -1,23 +1,26 @@
 ﻿namespace BaloonsPopGame
 {
-using System;
-using System.Collections.Generic;
-using System.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class Engine
     {
         private static Engine engineInstance;
+
         private IFrontEnd frontEnd;
         private IStorage rankList;
         private GameField gameField;
+        private Command userCommand;
 
-        private Engine(IFrontEnd frontEnd, IStorage reccordStorage)
+        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, GameField gameField = null, Command userCommand = null)// Added GameField and Command. When you create engine you should know it depend on them- SOLID
         {
             this.rankList = reccordStorage;
             this.frontEnd = frontEnd;
             this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
+            this.UserCommand = new Command(CommandType.Restart);
         }
-        
+
         private List<RankListRecord> TopFive
         {
             get
@@ -27,9 +30,9 @@ using System.Linq;
         }
 
         private GameField GameField // * here we have a private field being passed by reference via Property with public get/set
-                                   // * we should to talk about how much to encapsulate the gameField field
-                                   // since eventually we're going to be passing it to the PopEngine static class
-                                   // * also, should validation be done here (in Engine.GameField) or in the GameField class's indexer?
+        // * we should to talk about how much to encapsulate the gameField field
+        // since eventually we're going to be passing it to the PopEngine static class
+        // * also, should validation be done here (in Engine.GameField) or in the GameField class's indexer?
         {
             get
             {
@@ -39,6 +42,19 @@ using System.Linq;
             set
             {
                 this.gameField = value;
+            }
+        }
+
+        private Command UserCommand
+        {
+            get
+            {
+                return this.userCommand;
+            }
+            set
+            {
+                //validation
+                this.userCommand = value;
             }
         }
 
@@ -65,9 +81,9 @@ using System.Linq;
 
         public void Start()
         {
-            Command userCommand = new Command(CommandType.Restart);
+            this.UserCommand = new Command(CommandType.Restart);
             int movesCount = 0;
-            while (userCommand.Type != CommandType.Exit)
+            while (this.UserCommand.Type != CommandType.Exit)
             {
                 this.frontEnd.RenderGameFieldState(this.GameField.Clone());
 
@@ -83,9 +99,9 @@ using System.Linq;
                     continue;
                 }
 
-                userCommand = this.frontEnd.UserCommand();
+                this.UserCommand = this.frontEnd.UserCommand();
 
-                switch (userCommand.Type)
+                switch (this.UserCommand.Type)
                 {
                     case CommandType.Restart:
                         this.RestartGame(ref movesCount);
@@ -95,7 +111,7 @@ using System.Linq;
                         var topFive = this.TopFive;
                         this.frontEnd.PrintTopFive(topFive);
                         break;
-                    
+
                     case CommandType.Exit:
                         // frontEnd.Exit()?? or just close, and instead have Exit events attached to the frontEnd?
                         break;
@@ -103,7 +119,7 @@ using System.Linq;
                     case CommandType.PopBalloonAt:
                         try
                         {
-                            this.GameField.PopAt(userCommand.Data);
+                            this.GameField.PopAt(this.UserCommand.Data);
                             this.GameField.RemovePoppedBaloons();
                             movesCount++;
                         }
@@ -111,7 +127,7 @@ using System.Linq;
                         {
                             frontEnd.PublishPrompt();
                         }
-                        
+
                         break;
 
                     default:
@@ -125,6 +141,6 @@ using System.Linq;
             this.GameField = new GameField(GameConstants.FieldRows, GameConstants.FieldCols);
             count = 0;
         }
-        
+
     }
 }
