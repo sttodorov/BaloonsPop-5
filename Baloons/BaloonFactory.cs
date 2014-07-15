@@ -19,15 +19,17 @@
             {
                 switch (key)
                 {
-                //    case 1: baloon = new CharacterA(); break;
-                //    case 2: baloon = new CharacterB(); break;
-                //    //...
-                //    case 5: baloon = new CharacterZ(); break;
+                    case 1: baloon = new BlackBaloon(); break;
+                    case 2: baloon = new RedBaloon(); break;
+                    case 3: baloon = new GreenBaloon(); break;
+                    case 4: baloon = new BlueBaloon(); break;
+                    case 5: baloon = new DarkYellowBaloon(); break;
                 }
+
                 baloons.Add(key, baloon);
             }
-            return baloon;
 
+            return baloon;
         }
     }
 }
