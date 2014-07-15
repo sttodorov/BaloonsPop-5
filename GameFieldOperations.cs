@@ -22,7 +22,6 @@ namespace BaloonsPopGame
 
         }
 
-
         public bool IsFieldEmpty()
         {
             bool isWinner = true;
@@ -79,6 +78,5 @@ namespace BaloonsPopGame
             return clone;
         }
 
-       
     }
 }

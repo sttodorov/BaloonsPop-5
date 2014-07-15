@@ -5,10 +5,10 @@ using System.Text;
 
 namespace BaloonsPopGame
 {
-    public class GameFieldFacade
+    public class GameFieldFacade : IFacade
     {
         private GameFieldOperations gameField;
-        private PoppingLogic popEngine;
+        private IPoppingEngine popEngine;
 
         public GameFieldFacade(byte numberOfRows, byte numbreofCols)
         {
@@ -33,7 +33,7 @@ namespace BaloonsPopGame
             }
         }
 
-        public PoppingLogic PopEngine
+        public IPoppingEngine PopEngine
         {
             get
             {

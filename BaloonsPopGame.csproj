@@ -77,7 +77,9 @@
     <Compile Include="GameFieldFacade.cs" />
     <Compile Include="FieldToString.cs" />
     <Compile Include="GameFieldOperations.cs" />
+    <Compile Include="IFacade.cs" />
     <Compile Include="IFrontEnd.cs" />
+    <Compile Include="IPoppingEngine.cs" />
     <Compile Include="IStorage.cs" />
     <Compile Include="PoppingLogic.cs" />
     <Compile Include="_deprecated\PopEngine.cs" />

@@ -10,10 +10,10 @@
 
         private IFrontEnd frontEnd;
         private IStorage rankList;
-        private GameFieldFacade facade;
+        private IFacade facade;
         private Command userCommand;
 
-        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, GameFieldFacade facade = null, Command userCommand = null)// Added GameField and Command. When you create engine you should know it depend on them- SOLID
+        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, IFacade facade = null, Command userCommand = null)// Added GameField and Command. When you create engine you should know it depend on them- SOLID
         {
             this.rankList = reccordStorage;
             this.frontEnd = frontEnd;
@@ -29,7 +29,7 @@
             }
         }
 
-        private GameFieldFacade Facade // * here we have a private field being passed by reference via Property with public get/set
+        private IFacade Facade // * here we have a private field being passed by reference via Property with public get/set
         // * we should to talk about how much to encapsulate the gameField field
         // since eventually we're going to be passing it to the PopEngine static class
         // * also, should validation be done here (in Engine.GameField) or in the GameField class's indexer?

@@ -5,12 +5,25 @@ using System.Text;
 
 namespace BaloonsPopGame
 {
-    public class PoppingLogic
+    public class PoppingLogic : IPoppingEngine
     {
         private GameField field;
+
+        public GameField Field
+        {
+            get
+            {
+                return this.field;
+            }
+            private set
+            {
+                this.field = value;
+            }
+        }
+
         public PoppingLogic(GameField gameField)
         {
-            this.field = gameField;
+            this.Field = gameField;
         }
 
         /// <summary>
@@ -31,21 +44,21 @@ namespace BaloonsPopGame
                 throw new ArgumentNullException("Field cannot be null when popping a baloon!");
             }
 
-            if (commandRow < 0 || commandRow >= this.field.NumberOfRows)
+            if (commandRow < 0 || commandRow >= this.Field.NumberOfRows)
             {
                 throw new IndexOutOfRangeException("Command Row is outside field.");
             }
 
-            if (commandCol < 0 || commandCol >= this.field.NumberOfColumns)
+            if (commandCol < 0 || commandCol >= this.Field.NumberOfColumns)
             {
                 throw new IndexOutOfRangeException("Command Col is outside field.");
             }
 
-            byte selectedBaloon = this.field[commandRow, commandCol];
+            byte selectedBaloon = this.Field[commandRow, commandCol];
             if (selectedBaloon != 0)
             {
                 //Pop Baloon
-                this.field[commandRow, commandCol] = 0;
+                this.Field[commandRow, commandCol] = 0;
 
                 PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Left);
                 PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Right);
@@ -84,11 +97,11 @@ namespace BaloonsPopGame
             int currentRow = chosenRow + rowDirection;
             int currentCol = chosenColumn + colDirection;
 
-            while (0 <= currentRow && currentRow < this.field.NumberOfRows &&
-                0 <= currentCol && currentCol < this.field.NumberOfColumns &&
-                this.field[currentRow, currentCol] == searchedItem)
+            while (0 <= currentRow && currentRow < this.Field.NumberOfRows &&
+                0 <= currentCol && currentCol < this.Field.NumberOfColumns &&
+                this.Field[currentRow, currentCol] == searchedItem)
             {
-                this.field[currentRow, currentCol] = 0;
+                this.Field[currentRow, currentCol] = 0;
                 currentRow += rowDirection;
                 currentCol += colDirection;
             }
