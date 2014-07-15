@@ -8,8 +8,8 @@
     <ProjectGuid>{3B262708-74F1-4794-8F0C-C96EB718A8A2}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleApplication1</RootNamespace>
-    <AssemblyName>ConsoleApplication1</AssemblyName>
+    <RootNamespace>BaloonsPopGame</RootNamespace>
+    <AssemblyName>BaloonsPopGame</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -61,6 +61,10 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -71,6 +75,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Baloons\Baloon.cs" />
+    <Compile Include="Baloons\BaloonColor.cs" />
+    <Compile Include="Baloons\BaloonFactory.cs" />
+    <Compile Include="Baloons\BlueBaloon.cs" />
+    <Compile Include="Baloons\DarkYellowBaloon.cs" />
+    <Compile Include="Baloons\GreenBaloon.cs" />
+    <Compile Include="Baloons\RedBaloon.cs" />
+    <Compile Include="Baloons\BlackBaloon.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandType.cs" />
     <Compile Include="ConsoleUI.cs" />
