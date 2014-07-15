@@ -80,10 +80,12 @@
         public void PopAtOneBaloonTest()
         {
             actualFacade.PopAt(new int[2] { 2, 2 });
-            expectedFacade.GameFieldOperationsProp[2, 2] = 0;
 
             actualField = actualFacade.GameFieldOperationsProp;
             expectedField = expectedFacade.GameFieldOperationsProp;
+
+            expectedField[2, 2] = 0;
+            expectedField.RemovePoppedBaloons();
 
             bool areEqual = CompareFields();
 
@@ -102,6 +104,8 @@
             {
                 expectedField[4, col] = 0;
             }
+
+            expectedField.RemovePoppedBaloons();
             bool areEqual = CompareFields();
 
             Assert.IsTrue(areEqual);
@@ -119,6 +123,8 @@
             {
                 expectedField[row, 5] = 0;
             }
+
+            expectedField.RemovePoppedBaloons();
             bool areEqual = CompareFields();
 
             Assert.IsTrue(areEqual);
@@ -141,6 +147,8 @@
             {
                 expectedField[row, 5] = 0;
             }
+
+            expectedField.RemovePoppedBaloons();
             bool areEqual = CompareFields();
 
             Assert.IsTrue(areEqual);
@@ -159,6 +167,7 @@
             expectedField[8, 10] = 0;
             expectedField[7, 10] = 0;
 
+            expectedField.RemovePoppedBaloons();
             bool areEqual = CompareFields();
 
             Assert.IsTrue(areEqual);
