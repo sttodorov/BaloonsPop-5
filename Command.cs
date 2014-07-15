@@ -28,6 +28,10 @@ namespace BaloonsPopGame
         { 
             get 
             {
+                if ((this.Type != CommandType.PopBalloonAt) && (this.data == null))
+                {
+                    throw new InvalidOperationException("Command has not Data");
+                }
                 return this.data;
             } 
             private set 

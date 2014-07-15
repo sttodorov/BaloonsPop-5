@@ -45,6 +45,7 @@ namespace BaloonsPopGame.Tests
         {
             var testCommand = new Command(CommandType.Restart);
             var data = testCommand.Data;
+         
         }
 
     }

@@ -25,7 +25,7 @@ namespace BaloonsPopGame.Tests
 
             var actual = reccord.ToFormattedString();
 
-            var expected = ".    A happy name with 15 moves.";
+            var expected = ".    A happy name                   -  15 moves.";
 
             Assert.AreEqual(expected, actual);
         }
