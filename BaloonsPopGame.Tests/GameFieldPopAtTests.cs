@@ -6,8 +6,11 @@
     [TestClass]
     public class GameFieldPopAtTests
     {
-        private GameField actualField;
-        private GameField expectedField;
+        private GameFieldOperations actualField;
+        private GameFieldOperations expectedField;
+
+        private GameFieldFacade actualFacade;
+        private GameFieldFacade expectedFacade;
 
         [TestInitialize]
         public void InitializeField()
@@ -25,8 +28,8 @@
                 { 8, 1, 2, 2, 3, 4, 2, 3, 4, 2, 2 }
             };
 
-            actualField = new GameField(matrix);
-            expectedField = new GameField((byte[,])matrix.Clone());
+            actualFacade = new GameFieldFacade(matrix);
+            expectedFacade = new GameFieldFacade((byte[,])matrix.Clone());
         }
 
         private bool CompareFields()
@@ -54,30 +57,34 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void PopAtNullFieldTest()
         {
-            actualField = new GameField(null);
-            actualField.PopAt(new int[2]{3,4});
+            actualFacade = new GameFieldFacade(null);
+            actualFacade.PopAt(new int[2]{3,4});
         }
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
         public void PopAtInvalidPositionTest()
         {
-            actualField.PopAt(new int[2]{10, 10});
+            actualFacade.PopAt(new int[2]{10, 10});
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void PopAtEmptyCell()
         {
-            actualField[4, 6] = 0;
-            actualField.PopAt(new int[2]{4, 6});
+            actualFacade.GameFieldOperationsProp[4,6] = 0;
+            actualFacade.PopAt(new int[2] { 4, 6 });
         }
 
         [TestMethod]
         public void PopAtOneBaloonTest()
         {
-            actualField.PopAt(new int[2]{2, 2});
-            expectedField[2, 2] = 0;
+            actualFacade.PopAt(new int[2] { 2, 2 });
+            expectedFacade.GameFieldOperationsProp[2, 2] = 0;
+
+            actualField = actualFacade.GameFieldOperationsProp;
+            expectedField = expectedFacade.GameFieldOperationsProp;
+
             bool areEqual = CompareFields();
 
             Assert.IsTrue(areEqual);
@@ -86,7 +93,11 @@
         [TestMethod]
         public void PopAtWholeRowTest()
         {
-            actualField.PopAt(new int[2]{4, 0});
+            actualFacade.PopAt(new int[2]{4, 0});
+
+            actualField = actualFacade.GameFieldOperationsProp;
+            expectedField = expectedFacade.GameFieldOperationsProp;
+
             for (int col = 0; col < actualField.NumberOfColumns; col++)
             {
                 expectedField[4, col] = 0;
@@ -99,7 +110,11 @@
         [TestMethod]
         public void PopAtWholeColTest()
         {
-            actualField.PopAt(new int[2]{9, 5});
+            actualFacade.PopAt(new int[2]{9, 5});
+
+            actualField = actualFacade.GameFieldOperationsProp;
+            expectedField = expectedFacade.GameFieldOperationsProp;
+
             for (int row = 0; row < actualField.NumberOfRows; row++)
             {
                 expectedField[row, 5] = 0;
@@ -112,7 +127,11 @@
         [TestMethod]
         public void PopAtWholeRowAndColTest()
         {
-            actualField.PopAt(new int[2]{4,5});
+            actualFacade.PopAt(new int[2]{4,5});
+
+            actualField = actualFacade.GameFieldOperationsProp;
+            expectedField = expectedFacade.GameFieldOperationsProp;
+
             for (int col = 0; col < actualField.NumberOfColumns; col++)
             {
                 expectedField[4, col] = 0;
@@ -130,7 +149,11 @@
         [TestMethod]
         public void PopAtCornerTest()
         {
-            actualField.PopAt(new int[2]{9, 10});
+            actualFacade.PopAt(new int[2]{9, 10});
+
+            actualField = actualFacade.GameFieldOperationsProp;
+            expectedField = expectedFacade.GameFieldOperationsProp;
+
             expectedField[9, 9] = 0;
             expectedField[9, 10] = 0;
             expectedField[8, 10] = 0;

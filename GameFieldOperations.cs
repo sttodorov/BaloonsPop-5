@@ -11,6 +11,18 @@ namespace BaloonsPopGame
         {
 
         }
+
+        /// <summary>
+        /// testing constructor
+        /// </summary>
+        /// <returns></returns>
+        public GameFieldOperations(byte[,] initialField)
+            :base(initialField)
+        {
+
+        }
+
+
         public bool IsFieldEmpty()
         {
             bool isWinner = true;

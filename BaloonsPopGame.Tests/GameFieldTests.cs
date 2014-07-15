@@ -6,8 +6,8 @@ namespace BaloonsPopGame.Tests
     [TestClass]
     public class GameFieldTests
     {
-        private GameField actualField;
-        private GameField expectedField;
+        private GameFieldOperations actualField;
+        private GameFieldOperations expectedField;
 
         private bool CompareFields()
         {
@@ -28,9 +28,13 @@ namespace BaloonsPopGame.Tests
         [TestInitialize]
         public void InitializeField()
         {
-            actualField = new GameField(6, 6);
-            expectedField = new GameField(actualField.Clone());
 
+            GameFieldFacade facade1 = new GameFieldFacade(6, 6);
+
+            actualField = facade1.GameFieldOperationsProp;
+            expectedField = new GameFieldOperations(facade1.GameFieldClone());
+            bool areEqual = CompareFields();
+            Assert.IsTrue(areEqual);
         }
 
         [TestMethod]
@@ -51,6 +55,7 @@ namespace BaloonsPopGame.Tests
         [TestMethod]
         public void IsFieldEmptyEmptyFieldTest()
         {
+
             byte[,] matrix = { 
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -59,7 +64,7 @@ namespace BaloonsPopGame.Tests
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
             };
 
-            actualField = new GameField(matrix);
+            actualField = new GameFieldOperations(matrix);
             bool isEmpty = actualField.IsFieldEmpty();
 
             Assert.IsTrue(isEmpty);
@@ -75,7 +80,7 @@ namespace BaloonsPopGame.Tests
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
             };
 
-            actualField = new GameField(matrix);
+            actualField = new GameFieldOperations(matrix);
             bool isEmpty = actualField.IsFieldEmpty();
 
             Assert.IsFalse(isEmpty);

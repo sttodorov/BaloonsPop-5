@@ -15,6 +15,11 @@ namespace BaloonsPopGame
             this.gameField = new GameFieldOperations(numberOfRows, numbreofCols);
             this.popEngine = new PoppingLogic(this.GameFieldOperationsProp);
         }
+        public GameFieldFacade(byte[,] initialField)
+        {
+            this.gameField = new GameFieldOperations(initialField);
+            this.popEngine = new PoppingLogic(this.GameFieldOperationsProp);
+        }
 
         public GameFieldOperations GameFieldOperationsProp
         {
@@ -22,7 +27,7 @@ namespace BaloonsPopGame
             {
                 return this.gameField;
             }
-            private set
+            set
             {
                 this.gameField = value;
             }
