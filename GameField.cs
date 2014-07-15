@@ -8,6 +8,11 @@ namespace BaloonsPopGame
     {
         private byte[,] gameField;
 
+        /// <summary>
+        /// GameField constructor. This constructor depends on Random.
+        /// </summary>
+        /// <param name="numberOfRows"></param>
+        /// <param name="numbreofCols"></param>
         public GameField(byte numberOfRows, byte numbreofCols)
         {
             Random randomGeneretor = new Random();
@@ -30,7 +35,7 @@ namespace BaloonsPopGame
         /// </summary>
         public GameField(byte[,] initialField)
         {
-            // No validation!
+            // Validation in Prop.
             this.GameFieldProp = initialField;
         }
 
@@ -42,6 +47,7 @@ namespace BaloonsPopGame
             }
             set
             {
+                // No validation!
                 this.gameField = value;
             }
         }
@@ -82,7 +88,7 @@ namespace BaloonsPopGame
             {
                 for (int col = 0; col < columnsCount; col++)
                 {
-                    if (this.GameFieldProp[row, col] != 0)
+                    if (this[row, col] != 0)
                     {
                         isWinner = false;
                         break;
@@ -102,9 +108,9 @@ namespace BaloonsPopGame
             {
                 for (int row = 0; row < rowsCount; row++)
                 {
-                    if (this.GameFieldProp[row, col] != 0)
+                    if (this[row, col] != 0)
                     {
-                        remainingBaloons.Push(this.GameFieldProp[row, col]);
+                        remainingBaloons.Push(this[row, col]);
                     }
                 }
 
@@ -129,6 +135,12 @@ namespace BaloonsPopGame
             return clone;
         }
 
+        /// <summary>
+        /// This method pop selected baloon and call poping method for equal baloons on the same row and col
+        /// </summary>
+        /// <param name="data">
+        /// Selected row and col as object. Integer array
+        /// </param>
         public void PopAt(object data)
         {
             int[] coordinates = data as int[];
@@ -168,6 +180,15 @@ namespace BaloonsPopGame
             }
         }
 
+        /// <summary>
+        /// Pop equal to selected baloon in single direction.
+        /// </summary>
+        /// <param name="chosenRow"></param>
+        /// <param name="chosenColumn"></param>
+        /// <param name="searchedItem">
+        /// Selected baloon
+        /// </param>
+        /// <param name="direction"></param>
         private void PopBaloons(int chosenRow, int chosenColumn, byte searchedItem, PoppingDirection direction)
         {
             int rowDirection = 0;
