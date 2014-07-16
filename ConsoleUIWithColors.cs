@@ -14,8 +14,7 @@
             // the console is cleared only once - at first print of the field
             if (!this.isBackgroundChanged)
             {
-                // this makes the background WHITE, and ConsoleColor.White makes the background CYAN? WTF!?!?!
-                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.BackgroundColor = ConsoleColor.White;
                 Console.Clear();
                 this.isBackgroundChanged = true;
             }
