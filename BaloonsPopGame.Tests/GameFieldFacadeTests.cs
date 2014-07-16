@@ -4,8 +4,10 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class GameFieldTests
+    class GameFieldFacadeTests
     {
+        private GameFieldFacade facade;
+
         private GameFieldOperations actualField;
         private GameFieldOperations expectedField;
 
@@ -26,23 +28,28 @@
         }
 
         [TestInitialize]
-        public void InitializeField()
+        public void InitializeFacade()
         {
-            actualField = new GameFieldOperations(6,6);
-            expectedField = new GameFieldOperations(actualField.Clone());
+            facade = new GameFieldFacade(6, 6);
+            actualField = facade.GameFieldOperationsProp;
+            expectedField = new GameFieldOperations(facade.GameFieldClone());
+
             bool areEqual = CompareFields();
             Assert.IsTrue(areEqual);
         }
 
         [TestMethod]
-        public void CloneEqualTest()
+        public void FacadeCloneEqualTest()
         {
-            bool areEqual = CompareFields();
+            this.actualField = this.facade.GameFieldOperationsProp;
+            this.expectedField = new GameFieldOperations(this.facade.GameFieldClone());
+
+            bool areEqual = this.CompareFields();
             Assert.IsTrue(areEqual);
         }
 
         [TestMethod]
-        public void CloneDifferentTest()
+        public void FacadeCloneDifferentTest()
         {
             expectedField[4, 4] = 0;
             bool areEqual = CompareFields();
@@ -50,7 +57,7 @@
         }
 
         [TestMethod]
-        public void IsFieldEmptyEmptyFieldTest()
+        public void IsWinTest()
         {
 
             byte[,] matrix = { 
@@ -61,14 +68,14 @@
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
             };
 
-            actualField = new GameFieldOperations(matrix);
-            bool isEmpty = actualField.IsFieldEmpty();
+            facade = new GameFieldFacade(matrix);
+            bool isEmpty = facade.IsWin();
 
             Assert.IsTrue(isEmpty);
         }
 
         [TestMethod]
-        public void IsFieldEmptyNonEmptyFieldTest()
+        public void IsNotWinTestTest()
         {
             byte[,] matrix = { 
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -77,10 +84,12 @@
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
             };
 
-            actualField = new GameFieldOperations(matrix);
-            bool isEmpty = actualField.IsFieldEmpty();
+            facade = new GameFieldFacade(matrix);
+            bool isEmpty = facade.IsWin();
 
             Assert.IsFalse(isEmpty);
         }
+
+
     }
 }

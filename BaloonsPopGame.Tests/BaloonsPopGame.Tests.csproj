@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ConsoleUserCommandTests.cs" />
     <Compile Include="FieldToStringTests.cs" />
+    <Compile Include="GameFieldFacadeTests.cs" />
     <Compile Include="GameFieldTests.cs" />
     <Compile Include="GameFieldPopAtTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
