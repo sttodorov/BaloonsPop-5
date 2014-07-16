@@ -86,6 +86,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="CommandType.cs" />
     <Compile Include="ConsoleUI.cs" />
+    <Compile Include="ConsoleUIWithColors.cs" />
     <Compile Include="GameFieldFacade.cs" />
     <Compile Include="FieldToString.cs" />
     <Compile Include="GameFieldOperations.cs" />

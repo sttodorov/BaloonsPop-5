@@ -42,10 +42,9 @@ namespace BaloonsPopGame
                         return this.UserCommand();
                     }
             }
-
         }
 
-        public void RenderGameFieldState(byte[,] fieldClone)
+        public virtual void RenderGameFieldState(byte[,] fieldClone)
         {
             var fieldAsString = FieldToString.Draw(fieldClone);
             Console.WriteLine(fieldAsString);

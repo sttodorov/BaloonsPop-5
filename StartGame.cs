@@ -7,7 +7,7 @@
     {
         public static void Main(string[] args)
         {
-            IFrontEnd frontEnd = new ConsoleUI();
+            IFrontEnd frontEnd = new ConsoleUIWithColors();
             var storageFilePath = @"..\..\ranklist.txt";
             var rankListStorage = new RankListStorage(storageFilePath);
             Engine.GetInstance(frontEnd, rankListStorage);
