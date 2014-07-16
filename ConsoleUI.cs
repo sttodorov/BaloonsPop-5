@@ -15,7 +15,7 @@ namespace BaloonsPopGame
         {
             string userCommand = String.Empty;
 
-            Console.WriteLine("Enter a row and column: ");
+            Console.WriteLine("Enter a command: (row and column)");
             userCommand = Console.ReadLine();
             userCommand = userCommand.ToUpper().Trim();
 
@@ -116,6 +116,11 @@ namespace BaloonsPopGame
                 Console.WriteLine("\n----------------------------------\n");
             }
 
+        }
+
+        public void Clear()
+        {
+            Console.Clear();
         }
 
         public Command RenderUserCommand(string userCommand)

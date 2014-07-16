@@ -17,6 +17,8 @@ namespace BaloonsPopGame
 
         void PrintCongratulations(bool isInTopFive);
 
+        void Clear();
+
         RankListRecord Win(int moves);
     }
 }

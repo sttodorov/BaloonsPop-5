@@ -107,6 +107,9 @@
 
                 this.UserCommand = this.frontEnd.UserCommand();
 
+                //Probably This method should not be here! 
+                this.frontEnd.Clear();
+
                 switch (this.UserCommand.Type)
                 {
                     case CommandType.Restart:
@@ -133,7 +136,6 @@
                         {
                             frontEnd.PublishPrompt();
                         }
-
                         break;
 
                     default:
