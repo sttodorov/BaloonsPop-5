@@ -4,7 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    class GameFieldFacadeTests
+    public class GameFieldFacadeTests
     {
         private GameFieldFacade facade;
 
