@@ -1,4 +1,4 @@
-﻿namespace BaloonsPopGame.Baloons
+﻿namespace BaloonsPopGame
 {
     public enum BaloonColor
     {

@@ -1,7 +1,6 @@
 ﻿namespace BaloonsPopGame
 {
     using System;
-    using Baloons;
 
     public class ConsoleUIWithColors : ConsoleUI
     {
@@ -26,7 +25,6 @@
             var fieldAsString = FieldToString.DrawEmptyFrame(fieldClone);
             var topCursorPosition = Console.CursorTop;
             Console.WriteLine(fieldAsString);
-            var factory = new BaloonFactory();
             var defaultConsoleForegroundColor = Console.ForegroundColor;
 
             for (int row = 0; row < fieldClone.GetLength(0); row++)
@@ -41,10 +39,9 @@
                         continue;
                     }
 
-                    Baloon baloon = factory.GetBaloon(fieldClone[row, col]);
-                    BaloonColor color = baloon.Color;
+                    BaloonColor color = (BaloonColor)fieldClone[row, col];
                     Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), color.ToString());
-                    Console.Write(baloon + " ");
+                    Console.Write("♥ ");
                 }
             }
 

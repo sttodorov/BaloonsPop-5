@@ -75,14 +75,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Baloons\Baloon.cs" />
-    <Compile Include="Baloons\BaloonColor.cs" />
-    <Compile Include="Baloons\BaloonFactory.cs" />
-    <Compile Include="Baloons\BlueBaloon.cs" />
-    <Compile Include="Baloons\DarkYellowBaloon.cs" />
-    <Compile Include="Baloons\GreenBaloon.cs" />
-    <Compile Include="Baloons\RedBaloon.cs" />
-    <Compile Include="Baloons\BlackBaloon.cs" />
+    <Content Include="_deprecated\Baloons\Baloon.txt" />
+    <Compile Include="BaloonColor.cs" />
+    <Content Include="_deprecated\Baloons\BaloonFactory.txt" />
+    <Content Include="_deprecated\Baloons\BlueBaloon.txt" />
+    <Content Include="_deprecated\Baloons\DarkYellowBaloon.txt" />
+    <Content Include="_deprecated\Baloons\GreenBaloon.txt" />
+    <Content Include="_deprecated\Baloons\RedBaloon.txt" />
+    <Content Include="_deprecated\Baloons\BlackBaloon.txt" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandType.cs" />
     <Compile Include="ConsoleUI.cs" />
@@ -95,17 +95,17 @@
     <Compile Include="IPoppingEngine.cs" />
     <Compile Include="IStorage.cs" />
     <Compile Include="PoppingLogic.cs" />
-    <Compile Include="_deprecated\PopEngine.cs" />
+    <Content Include="_deprecated\PopEngine.txt" />
     <Compile Include="PoppingDirection.cs" />
     <Compile Include="RankListStorage.cs" />
-    <Compile Include="_deprecated\BaloonsPop.cs" />
+    <Content Include="_deprecated\BaloonsPop.txt" />
     <Compile Include="Engine.cs" />
     <Compile Include="GameConstants.cs" />
     <Compile Include="GameField.cs" />
     <Compile Include="RankListRecord.cs" />
     <Compile Include="StartGame.cs" />
-    <Compile Include="_deprecated\StringExtensions.cs" />
-    <Compile Include="_deprecated\OldStartGame.cs" />
+    <Content Include="_deprecated\StringExtensions.txt" />
+    <Content Include="_deprecated\OldStartGame.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
