@@ -13,12 +13,18 @@
         private IFacade facade;
         private Command userCommand;
 
-        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, IFacade facade = null, Command userCommand = null)// Added GameField and Command. When you create engine you should know it depend on them- SOLID
+        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, IFacade facade, Command userCommand)// Added GameField and Command. When you create engine you should know it depend on them- SOLID
         {
             this.rankList = reccordStorage;
             this.frontEnd = frontEnd;
-            this.facade = new GameFieldFacade(GameConstants.FieldRows, GameConstants.FieldCols);
-            this.UserCommand = new Command(CommandType.Restart);
+            this.facade = facade;
+            this.UserCommand = userCommand;
+        }
+
+        private Engine(IFrontEnd frontEnd, IStorage reccordStorage)
+            :this(frontEnd, reccordStorage, new GameFieldFacade(GameConstants.FieldRows, GameConstants.FieldCols),new Command(CommandType.Restart))
+        {
+
         }
 
         private List<RankListRecord> TopFive
