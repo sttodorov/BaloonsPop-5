@@ -1,7 +1,9 @@
 ﻿namespace BaloonsPopGame
 {
     using System;
-    using System.Linq;
+    using BaloonsPopGame.Contracts;
+    using BaloonsPopGame.RankList;
+    using BaloonsPopGame.UI;
 
     public class StartGame
     {
@@ -10,8 +12,8 @@
             IFrontEnd frontEnd = new ConsoleUIWithColors();
             var storageFilePath = @"..\..\ranklist.txt";
             var rankListStorage = new RankListStorage(storageFilePath);
-            Engine.GetInstance(frontEnd, rankListStorage);
-            Engine.GetInstance().Start();   
+            Engine.Engine.GetInstance(frontEnd, rankListStorage);
+            Engine.Engine.GetInstance().Start();   
         }
     }
 }

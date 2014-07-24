@@ -50,16 +50,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ConsoleUserCommandTests.cs" />
-    <Compile Include="FieldToStringTests.cs" />
-    <Compile Include="GameFieldFacadeTests.cs" />
-    <Compile Include="GameFieldTests.cs" />
-    <Compile Include="GameFieldPopAtTests.cs" />
+    <Compile Include="UI\ConsoleUserCommandTests.cs" />
+    <Compile Include="GameField\FieldToStringTests.cs" />
+    <Compile Include="GameField\GameFieldFacadeTests.cs" />
+    <Compile Include="GameField\GameFieldTests.cs" />
+    <Compile Include="GameField\GameFieldPopAtTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CommandConstructorTests.cs" />
-    <Compile Include="RankListStorageTests.cs" />
-    <Compile Include="ConsoleWinTests.cs" />
-    <Compile Include="RankListReccordTests.cs" />
+    <Compile Include="Command\CommandConstructorTests.cs" />
+    <Compile Include="RankList\RankListStorageTests.cs" />
+    <Compile Include="UI\ConsoleWinTests.cs" />
+    <Compile Include="RankList\RankListReccordTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaloonsPopGame.csproj">
@@ -67,6 +67,7 @@
       <Name>BaloonsPopGame</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
