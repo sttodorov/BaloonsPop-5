@@ -167,5 +167,36 @@
 
             Assert.AreEqual(expectedString, actualString);
         }
+
+        [TestMethod]
+        public void DrawEmptyFrameMatrixTest()
+        {
+            byte[,] actualMatrix = 
+            { 
+                { 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0 }
+            };
+
+            string actualString = FieldToString.DrawEmptyFrame(actualMatrix);
+
+            StringBuilder expected = new StringBuilder();
+            expected.AppendLine("    0 1 2 3 4 5 6 ");
+            expected.AppendLine("   ---------------");
+            expected.AppendLine("0 |               |");
+            expected.AppendLine("1 |               |");
+            expected.AppendLine("2 |               |");
+            expected.AppendLine("3 |               |");
+            expected.AppendLine("4 |               |");
+            expected.AppendLine("5 |               |");
+            expected.AppendLine("   ---------------");
+
+            string expectedString = expected.ToString();
+
+            Assert.AreEqual(expectedString, actualString);
+        }
     }
 }

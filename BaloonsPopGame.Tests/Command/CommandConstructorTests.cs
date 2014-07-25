@@ -27,7 +27,6 @@
         [TestMethod]
         public void CommandPassesCoordinateDataCorrectly()
         {
-
             var expectedCoord = new int[2] { 2, 7 };
             var testCommand = new Command(CommandType.PopBalloonAt, expectedCoord);
             var actualCoord = (int[])testCommand.Data;
@@ -36,17 +35,21 @@
                 expectedCoord[0] == actualCoord[0];
 
             Assert.IsTrue(sameCoord);
-            
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void CommandCallingDataPropertyIfNotTypePopBalloonAt_throwsException()
+        public void CommandCallingDataPropertyIfNotTypePopBalloonAtThrowsException()
         {
             var testCommand = new Command(CommandType.Restart);
             var data = testCommand.Data;
-         
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void CommandPopBaloonAtWithNullCoordinates()
+        {
+            var testCommand = new Command(CommandType.PopBalloonAt, null);
+        }
     }
 }
