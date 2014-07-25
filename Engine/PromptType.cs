@@ -3,8 +3,8 @@
     using System;
     using System.Linq;
 
-    public enum CommandType
+    public enum PromptType
     {
-       Exit, Restart, TopFive, PopBalloonAt, Undo
+        MissingBalloon, UnableToUndo
     }
 }

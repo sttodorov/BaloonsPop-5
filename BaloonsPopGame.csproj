@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="_deprecated\Baloons\Baloon.txt" />
+    <Compile Include="Engine\PromptType.cs" />
     <Compile Include="UI\BaloonColor.cs" />
     <Content Include="_deprecated\Baloons\BaloonFactory.txt" />
     <Content Include="_deprecated\Baloons\BlueBaloon.txt" />

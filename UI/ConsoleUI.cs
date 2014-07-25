@@ -29,9 +29,10 @@
                 case "TOP":
                     return new Command(CommandType.TopFive);
                 case "EXIT":
-                    //Console.WriteLine("Your moves are: {0}", movesCount); //how do we request this from the Engine
                     Console.WriteLine("Good Bye! ");
                     return new Command(CommandType.Exit);
+                case "UNDO":
+                    return new Command(CommandType.Undo);
                 default:
                     try
                     {
@@ -52,11 +53,20 @@
             Console.WriteLine(fieldAsString);
         }
 
-        public void PublishPrompt()
+        public void PublishPrompt(PromptType prompt)
         {
-            //currently we only have one prompt, if more are needed we will create a PromptType enum
-            //set it as a parameter and have a switch-statement in here
-            Console.WriteLine("Cannot pop missing baloon!");
+            switch (prompt)
+            {
+                case PromptType.MissingBalloon:
+                    Console.WriteLine("Cannot pop missing baloon!");
+                    break;
+                case PromptType.UnableToUndo:
+                    Console.WriteLine("You can't undo from this point!");
+                    break;
+                default:
+                    break;
+            }
+            
             Console.WriteLine();
         }
 

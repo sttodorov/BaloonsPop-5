@@ -12,5 +12,7 @@
         void CreateNewField(byte numberOfRows, byte numbreofCols);
 
         void PopAt(object data);
+
+        void Undo();
     }
 }

@@ -9,6 +9,7 @@
     {
         private GameFieldOperations gameField;
         private IPoppingEngine popEngine;
+        private byte[,] previousState;
 
         public GameFieldFacade(byte numberOfRows, byte numbreofCols)
         {
@@ -58,8 +59,24 @@
 
         public void PopAt(object data)
         {
+            var tempState = this.GameFieldClone();
+
             this.PopEngine.PopAt(data);
             this.GameFieldOperationsProp.RemovePoppedBaloons();
+
+            //only assigned if Popping goes through
+            this.previousState = tempState;
+        }
+
+        public void Undo() 
+        {
+            if (this.previousState == null)
+            {
+                throw new InvalidOperationException("Cannot undo from this point. No previous state available.");
+            }
+
+            this.GameFieldOperationsProp = new GameFieldOperations(previousState);
+            this.previousState = null;
         }
     }
 }

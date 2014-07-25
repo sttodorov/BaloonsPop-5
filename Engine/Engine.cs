@@ -129,6 +129,18 @@
                         // frontEnd.Exit()?? or just close, and instead have Exit events attached to the frontEnd?
                         break;
 
+                    case CommandType.Undo:
+                        try
+                        {
+                            this.facade.Undo();
+                            movesCount--;
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            frontEnd.PublishPrompt(PromptType.UnableToUndo);
+                        }
+                        break;
+
                     case CommandType.PopBalloonAt:
                         try
                         {
@@ -137,7 +149,7 @@
                         }
                         catch (InvalidOperationException)
                         {
-                            frontEnd.PublishPrompt();
+                            frontEnd.PublishPrompt(PromptType.MissingBalloon);
                         }
                         break;
 

@@ -13,7 +13,7 @@
 
         void RenderGameFieldState(byte[,] fieldClone);
 
-        void PublishPrompt();
+        void PublishPrompt(PromptType prompt);
 
         void PrintTopFive(List<RankListRecord> topFive);
 
