@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Communicatin b/w Engine &lt;-&gt; IFrontEnd">
+    <Position X="8.25" Y="1" Height="0.464" Width="1.471" />
+  </Comment>
+  <Class Name="BaloonsPopGame.Engine.Command" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAQAQAAAAAAA=</HashCode>
+      <FileName>Engine\Command.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaloonsPopGame.Engine.Engine" Collapsed="true">
+    <Position X="5.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAQAACAAAAAAAAAAAEAABIAAAAAABCAAAAQgAAA=</HashCode>
+      <FileName>Engine\Engine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaloonsPopGame.Engine.PoppingLogic" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAABAAAAAAAACAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Engine\PoppingLogic.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BaloonsPopGame.GameField.FieldToString" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameField\FieldToString.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaloonsPopGame.GameField.GameConstants" Collapsed="true">
+    <Position X="5.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>GameField\GameConstants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaloonsPopGame.GameField.GameField" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAACAAAAIAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>GameField\GameField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaloonsPopGame.GameField.GameFieldFacade" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAIAAABAAAAABEAAAAAAAIAAABQAAgAAAAAAA=</HashCode>
+      <FileName>GameField\GameFieldFacade.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BaloonsPopGame.GameField.GameFieldOperations" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAEAABA=</HashCode>
+      <FileName>GameField\GameFieldOperations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaloonsPopGame.RankList.RankListRecord" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAYEAAAAAAQAAAAEACAAAAAgAAAAAAA=</HashCode>
+      <FileName>RankList\RankListRecord.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BaloonsPopGame.RankList.RankListStorage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAQYAAIAAAAAAgABAAAAAAAA=</HashCode>
+      <FileName>RankList\RankListStorage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BaloonsPopGame.StartGame" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>StartGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaloonsPopGame.UI.ConsoleUI" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAEAAAAAAQAAAAAAAACAEIARAAAA=</HashCode>
+      <FileName>UI\ConsoleUI.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BaloonsPopGame.UI.ConsoleUIWithColors" Collapsed="true">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAEAA=</HashCode>
+      <FileName>UI\ConsoleUIWithColors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="BaloonsPopGame.Contracts.IFacade" Collapsed="true">
+    <Position X="2.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAABAAAAABEAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\IFacade.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BaloonsPopGame.Contracts.IFrontEnd" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAEAAAAAAQAAAAAAAACAEAARAAAA=</HashCode>
+      <FileName>Contracts\IFrontEnd.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BaloonsPopGame.Contracts.IPoppingEngine" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\IPoppingEngine.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BaloonsPopGame.Contracts.IStorage" Collapsed="true">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\IStorage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="BaloonsPopGame.Engine.CommandType" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAABAAAAAAAAAAAAIAAAAAAIAAEAAAAAAA=</HashCode>
+      <FileName>Engine\CommandType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BaloonsPopGame.Engine.PoppingDirection" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>Engine\PoppingDirection.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BaloonsPopGame.Engine.PromptType" Collapsed="true">
+    <Position X="8.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\PromptType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BaloonsPopGame.UI.BaloonColor" Collapsed="true">
+    <Position X="11" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>UI\BaloonColor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
