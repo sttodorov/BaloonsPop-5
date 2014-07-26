@@ -16,10 +16,9 @@
         {
             this.Type = type;
             this.Data = data;
-            
         }
         
-        public CommandType Type {get; private set;}
+        public CommandType Type { get; private set; }
 
         public object Data 
         { 
@@ -29,8 +28,10 @@
                 {
                     throw new InvalidOperationException("Command has not Data");
                 }
+
                 return this.data;
             } 
+
             private set 
             {
                 if (this.Type == CommandType.PopBalloonAt)
@@ -48,7 +49,5 @@
                 }
             } 
         }
-
-
     }
 }

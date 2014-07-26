@@ -24,6 +24,7 @@
                     buildedField[i, j] = currentRandomByteNumber;
                 }
             }
+
             this.GameFieldProp = buildedField;
         }
 
@@ -37,19 +38,6 @@
             this.GameFieldProp = initialField;
         }
 
-        protected byte[,] GameFieldProp
-        {
-            get
-            {
-                return this.gameField;
-            }
-            set
-            {
-                // No validation!
-                this.gameField = value;
-            }
-        }
-
         public int NumberOfRows
         {
             get
@@ -57,11 +45,26 @@
                 return this.GameFieldProp.GetLength(0);
             }
         }
+
         public int NumberOfColumns
         {
             get
             {
                 return this.GameFieldProp.GetLength(1);
+            }
+        }
+
+        protected byte[,] GameFieldProp
+        {
+            get
+            {
+                return this.gameField;
+            }
+
+            set
+            {
+                // No validation!
+                this.gameField = value;
             }
         }
 
@@ -71,6 +74,7 @@
             {
                 return this.gameField[row, col];
             }
+
             set
             {
                 this.gameField[row, col] = value;

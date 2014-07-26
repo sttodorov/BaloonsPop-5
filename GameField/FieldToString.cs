@@ -36,7 +36,7 @@
             builder.Append("   ");
 
             // Print dashes between baloons and indexes
-            builder.Append(new string('-', fieldColumns * 2 + 1));
+            builder.Append(new string('-', (fieldColumns * 2) + 1));
             builder.AppendLine();
 
             for (byte row = 0; row < fieldClone.GetLength(0); row++)
@@ -60,7 +60,7 @@
             }
 
             builder.Append("   ");
-            builder.Append(new string('-', fieldColumns * 2 + 1));
+            builder.Append(new string('-', (fieldColumns * 2) + 1));
             builder.AppendLine();
 
             var fieldString = builder.ToString();

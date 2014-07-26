@@ -16,7 +16,7 @@
         /// <returns>Command object with optional data, depending on the command's Type</returns>
         public Command UserCommand()
         {
-            string userCommand = String.Empty;
+            string userCommand = string.Empty;
 
             Console.WriteLine("Enter a command: (row and column)");
             userCommand = Console.ReadLine();
@@ -80,20 +80,18 @@
         /// <returns>A RankListReccord with the user's name and movesCount</returns>
         public RankListRecord Win(int movesCount)
         {
-            //current implementation creates a reccord for each finished game
-            //originally only 5 reccords were kept and a reccord was created only when the new score would be in the top 5
-
             Console.WriteLine("Congratulations! You completed the game in {0} moves.", movesCount);
-            string playerName = String.Empty;
+            string playerName = string.Empty;
 
             do
             {
                 Console.Write("Enter your name(between 3 and 30 characters): ");
                 playerName = Console.ReadLine();
-            } while (playerName.Length < 3 || playerName.Length > 30);
+            } 
+            while (playerName.Length < 3 || playerName.Length > 30);
 
             // TO PUT THIS IN A BETTER POSITION!
-            // Console.WriteLine("\nNEW GAME!\n"); 
+            //// Console.WriteLine("\nNEW GAME!\n"); 
             
             var newReccord = new RankListRecord(movesCount, playerName);
             return newReccord;
@@ -129,7 +127,6 @@
 
                 Console.WriteLine("\n----------------------------------\n");
             }
-
         }
 
         public void Clear()
@@ -139,7 +136,7 @@
 
         public Command RenderUserCommand(string userCommand)
         {
-            if (String.IsNullOrWhiteSpace(userCommand))
+            if (string.IsNullOrWhiteSpace(userCommand))
             {
                 throw new ArgumentNullException("Invalid command. Command cannot be empty.");
             }

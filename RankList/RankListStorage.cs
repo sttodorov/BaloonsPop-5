@@ -25,23 +25,25 @@
                 return this.currentRankList;
             }
         }
+
         public string FilePath { get; private set; }
 
         public List<RankListRecord> TopFive()
         {
             var topFive = new List<RankListRecord>(5);
-            if (currentRankList != null)
+            if (this.currentRankList != null)
             {
-                currentRankList.Sort((x, y) => x.Value.CompareTo(y.Value));
+                this.currentRankList.Sort((x, y) => x.Value.CompareTo(y.Value));
             }
 
             for (int topFiveCount = 0; topFiveCount < 5; topFiveCount++)
             {
-                if (topFiveCount + 1 > currentRankList.Count)
+                if (topFiveCount + 1 > this.currentRankList.Count)
                 {
                     break;
                 }
-                topFive.Add(new RankListRecord(currentRankList[topFiveCount].Value, currentRankList[topFiveCount].Name));
+
+                topFive.Add(new RankListRecord(this.currentRankList[topFiveCount].Value, this.currentRankList[topFiveCount].Name));
             }
 
             return topFive;
@@ -57,7 +59,7 @@
                 {
                     this.currentRankList.Insert(0, reccord);
                 }
-                else if (this.currentRankList[currentRankList.Count - 1].Value < reccord.Value)
+                else if (this.currentRankList[this.currentRankList.Count - 1].Value < reccord.Value)
                 {
                     this.currentRankList.Add(reccord);
                 }
@@ -80,13 +82,13 @@
 
             if (backUpCurrentList)
             {
-                SaveReccordsToFile();
+                this.SaveReccordsToFile();
             }
         }
 
         private void LoadReccordsFromFile()
         {
-            StreamReader reader = new StreamReader(FilePath);
+            StreamReader reader = new StreamReader(this.FilePath);
             string currentLine;
             string[] currLineArgs;
 
@@ -98,8 +100,9 @@
                     currLineArgs = currentLine.Split(',');
                     if (int.Parse(currLineArgs[1].Trim()) > 1 && int.Parse(currLineArgs[1].Trim()) < (GameConstants.FieldCols * GameConstants.FieldRows))
                     {
-                        AddReccord(new RankListRecord(int.Parse(currLineArgs[1].Trim()), currLineArgs[0].Trim()), false);
+                        this.AddReccord(new RankListRecord(int.Parse(currLineArgs[1].Trim()), currLineArgs[0].Trim()), false);
                     }
+
                     currentLine = reader.ReadLine();
                 }
             }
@@ -107,13 +110,13 @@
 
         private void SaveReccordsToFile()
         {
-            StreamWriter writer = new StreamWriter(FilePath, false);
+            StreamWriter writer = new StreamWriter(this.FilePath, false);
 
             using (writer)
             {
-                for (int i = 0; i < currentRankList.Count; i++)
+                for (int i = 0; i < this.currentRankList.Count; i++)
                 {
-                    writer.WriteLine(currentRankList[i].ToString());
+                    writer.WriteLine(this.currentRankList[i].ToString());
                 }
             }
         }

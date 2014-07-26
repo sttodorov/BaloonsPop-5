@@ -6,7 +6,7 @@ namespace BaloonsPopGame.RankList
 
     public class RankListRecord : IComparable<RankListRecord>
     {
-        //private readonly DateTime
+        ////private readonly DateTime
         private int value;
         private string name;
 
@@ -43,7 +43,7 @@ namespace BaloonsPopGame.RankList
 
             private set
             {
-                if (String.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("User must enter a name that is at least one printable non-whitespace character.");
                 }

@@ -4,8 +4,8 @@
     using System.Collections.Generic;
 
     using BaloonsPopGame.Contracts;
-    using BaloonsPopGame.RankList;
     using BaloonsPopGame.GameField;
+    using BaloonsPopGame.RankList;
 
     public class Engine
     {
@@ -16,7 +16,7 @@
         private IFacade facade;
         private Command userCommand;
 
-        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, IFacade facade, Command userCommand)// Added GameField and Command. When you create engine you should know it depend on them- SOLID
+        private Engine(IFrontEnd frontEnd, IStorage reccordStorage, IFacade facade, Command userCommand)
         {
             this.rankList = reccordStorage;
             this.frontEnd = frontEnd;
@@ -25,9 +25,8 @@
         }
 
         private Engine(IFrontEnd frontEnd, IStorage reccordStorage)
-            :this(frontEnd, reccordStorage, new GameFieldFacade(GameConstants.FieldRows, GameConstants.FieldCols),new Command(CommandType.Restart))
+            : this(frontEnd, reccordStorage, new GameFieldFacade(GameConstants.FieldRows, GameConstants.FieldCols), new Command(CommandType.Restart))
         {
-
         }
 
         private List<RankListRecord> TopFive
@@ -60,9 +59,9 @@
             {
                 return this.userCommand;
             }
+
             set
             {
-                //validation
                 this.userCommand = value;
             }
         }
@@ -90,7 +89,7 @@
 
         public void Start()
         {
-            //this.UserCommand = new Command(CommandType.Restart);
+            ////this.UserCommand = new Command(CommandType.Restart);
             int movesCount = 0;
             while (this.UserCommand.Type != CommandType.Exit)
             {
@@ -110,7 +109,6 @@
 
                 this.UserCommand = this.frontEnd.UserCommand();
 
-                //Probably This method should not be here! 
                 this.frontEnd.Clear();
 
                 switch (this.UserCommand.Type)
@@ -139,6 +137,7 @@
                         {
                             frontEnd.PublishPrompt(PromptType.UnableToUndo);
                         }
+
                         break;
 
                     case CommandType.PopBalloonAt:
@@ -151,6 +150,7 @@
                         {
                             frontEnd.PublishPrompt(PromptType.MissingBalloon);
                         }
+
                         break;
 
                     default:
@@ -158,6 +158,5 @@
                 }
             }
         }
-
     }
 }

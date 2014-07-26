@@ -6,9 +6,8 @@
     public class GameFieldOperations : GameField
     {
         public GameFieldOperations(byte numberOfRows, byte numbreofCols)
-            :base(numberOfRows, numbreofCols)
+            : base(numberOfRows, numbreofCols)
         {
-
         }
 
         /// <summary>
@@ -16,9 +15,8 @@
         /// </summary>
         /// <returns></returns>
         public GameFieldOperations(byte[,] initialField)
-            :base(initialField)
+            : base(initialField)
         {
-
         }
 
         public bool IsFieldEmpty()
@@ -72,10 +70,9 @@
 
         public byte[,] Clone()
         {
-            //shallow copy
+            // shallow copy
             var clone = (byte[,])GameFieldProp.Clone();
             return clone;
         }
-
     }
 }

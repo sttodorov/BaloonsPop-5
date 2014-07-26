@@ -9,21 +9,22 @@
     {
         private GameField field;
 
+        public PoppingLogic(GameField gameField)
+        {
+            this.Field = gameField;
+        }
+
         public GameField Field
         {
             get
             {
                 return this.field;
             }
+
             private set
             {
                 this.field = value;
             }
-        }
-
-        public PoppingLogic(GameField gameField)
-        {
-            this.Field = gameField;
         }
 
         /// <summary>
@@ -57,13 +58,13 @@
             byte selectedBaloon = this.Field[commandRow, commandCol];
             if (selectedBaloon != 0)
             {
-                //Pop Baloon
+                // Pop Baloon
                 this.Field[commandRow, commandCol] = 0;
 
-                PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Left);
-                PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Right);
-                PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Up);
-                PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Down);
+                this.PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Right);
+                this.PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Up);
+                this.PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Down);
+                this.PopBaloons(commandRow, commandCol, selectedBaloon, PoppingDirection.Left);
             }
             else
             {
@@ -87,11 +88,20 @@
 
             switch (direction)
             {
-                case PoppingDirection.Left: colDirection = -1; break;
-                case PoppingDirection.Right: colDirection = 1; break;
-                case PoppingDirection.Up: rowDirection = -1; break;
-                case PoppingDirection.Down: rowDirection = 1; break;
-                default: throw new ArgumentException("Invalid direction!");
+                case PoppingDirection.Left: 
+                    colDirection = -1; 
+                    break;
+                case PoppingDirection.Right: 
+                    colDirection = 1; 
+                    break;
+                case PoppingDirection.Up: 
+                    rowDirection = -1; 
+                    break;
+                case PoppingDirection.Down: 
+                    rowDirection = 1; 
+                    break;
+                default: 
+                    throw new ArgumentException("Invalid direction!");
             }
 
             int currentRow = chosenRow + rowDirection;

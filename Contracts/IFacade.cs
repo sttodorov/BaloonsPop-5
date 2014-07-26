@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
 
-    interface IFacade
+    public interface IFacade
     {
         bool IsWin();
 
