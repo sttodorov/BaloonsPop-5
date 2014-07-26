@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using BaloonsPopGame.Contracts;
     using BaloonsPopGame.Engine;
     using BaloonsPopGame.GameField;
@@ -30,6 +31,7 @@
                     return new Command(CommandType.TopFive);
                 case "EXIT":
                     Console.WriteLine("Good Bye! ");
+                    Thread.Sleep(2000);
                     return new Command(CommandType.Exit);
                 case "UNDO":
                     return new Command(CommandType.Undo);
